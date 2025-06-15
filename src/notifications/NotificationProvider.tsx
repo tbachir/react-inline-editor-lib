@@ -1,7 +1,7 @@
 import React from "react";
 
 import toast, { Toaster, ToastOptions } from 'react-hot-toast';
-import { CheckCircle, AlertCircle, XCircle, Info } from 'lucide-react';
+import { CheckCircle, AlertCircle, XCircle, Info, LucideProps } from 'lucide-react';
 
 interface NotificationContextValue {
   success: (message: string, options?: ToastOptions) => void;
@@ -41,7 +41,7 @@ const CustomToast = ({
 }: { 
   type: 'success' | 'error' | 'warning' | 'info';
   message: string;
-  icon: React.ComponentType<{ size?: number; className?: string }>;
+  icon: React.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>>;
 }) => (
   <div className={`
     flex items-center gap-3 p-4 rounded-xl shadow-lg backdrop-blur-md border
