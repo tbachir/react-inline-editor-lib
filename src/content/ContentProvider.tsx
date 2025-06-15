@@ -1,7 +1,7 @@
 import React from "react";
-
 import { useAuth } from '../auth';
 import { useNotifications } from '../notifications';
+import { useDebounce } from '../hooks/useDebounce';
 import type { EditableContent, ContentContextValue } from '../types';
 import { ApiService } from '../services/ApiService';
 
@@ -27,7 +27,7 @@ interface ContentProviderProps {
 }
 
 /**
- * Enhanced content provider with consolidated notification system
+ * Enhanced content provider with performance optimizations
  */
 export const ContentProvider: React.FC<ContentProviderProps> = ({
     children,
@@ -39,31 +39,216 @@ export const ContentProvider: React.FC<ContentProviderProps> = ({
     const [isLoading, setIsLoading] = React.useState(true);
     const [contents, setContents] = React.useState<Record<string, EditableContent>>({});
     
-    // Use environment variable for API base URL if not provided
+    // Cache for frequently accessed content
+    const contentCache = React.useRef(new Map<string, { content: EditableContent; timestamp: number }>());
+    const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+    
     const effectiveApiBaseUrl = apiBaseUrl || import.meta.env.VITE_API_BASE_URL;
     const [apiService] = React.useState(() => new ApiService(effectiveApiBaseUrl));
 
-    // Log configuration on initialization
-    React.useEffect(() => {
-        const config = apiService.getConfig();
-        console.log('[ContentProvider] Initialized with config:', config);
-        console.log('[ContentProvider] Debug enabled:', import.meta.env.VITE_DEBUG_ENABLED);
-    }, [apiService]);
+    // Debounced save to prevent excessive API calls
+    const debouncedSave = useDebounce(async (content: EditableContent, defaultContent?: string) => {
+        return await performSave(content, defaultContent);
+    }, 500);
 
     /**
-     * Generate unique key for content
+     * Generate unique key for content with validation
      */
-    const generateKey =  React.useCallback((context: string, contextId: string): string => {
-        if (!context || !contextId) {
+    const generateKey = React.useCallback((context: string, contextId: string): string => {
+        if (!context?.trim() || !contextId?.trim()) {
             throw new Error('Context and contextId are required and cannot be empty');
         }
         return `${context}#${contextId}`;
     }, []);
 
     /**
+     * Get content from cache first, then fallback to state
+     */
+    const getContentFromCache = React.useCallback((key: string): EditableContent | null => {
+        const cached = contentCache.current.get(key);
+        if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+            return cached.content;
+        }
+        contentCache.current.delete(key);
+        return null;
+    }, []);
+
+    /**
+     * Update cache when content changes
+     */
+    const updateCache = React.useCallback((key: string, content: EditableContent) => {
+        contentCache.current.set(key, {
+            content,
+            timestamp: Date.now()
+        });
+    }, []);
+
+    /**
+     * Optimized content getter with caching
+     */
+    const getContent = React.useCallback((context: string, contextId: string, defaultContent: string): string => {
+        if (!context?.trim() || !contextId?.trim()) {
+            console.warn('[ContentProvider] getContent called with empty context or contextId');
+            return defaultContent;
+        }
+
+        try {
+            const key = generateKey(context, contextId);
+            
+            // Check cache first
+            const cached = getContentFromCache(key);
+            if (cached) {
+                return cached.content;
+            }
+            
+            // Fallback to state
+            const stateContent = contents[key];
+            if (stateContent) {
+                updateCache(key, stateContent);
+                return stateContent.content;
+            }
+            
+            return defaultContent;
+        } catch (getError) {
+            console.error('[ContentProvider] Error in getContent:', getError);
+            return defaultContent;
+        }
+    }, [contents, generateKey, getContentFromCache, updateCache]);
+
+    /**
+     * Actual save implementation
+     */
+    const performSave = React.useCallback(async (
+        editableContent: EditableContent, 
+        defaultContent?: string
+    ): Promise<boolean> => {
+        if (!editableContent.context?.trim() || !editableContent.context_id?.trim()) {
+            console.error('[ContentProvider] Cannot save: context and context_id are required');
+            error('Invalid content configuration');
+            return false;
+        }
+
+        if (!isAuthenticated) {
+            console.error('[ContentProvider] Cannot save: authentication required');
+            warning('Please log in to save changes');
+            return false;
+        }
+
+        const key = generateKey(editableContent.context, editableContent.context_id);
+        const existingContent = contents[key];
+
+        try {
+            // Optimistic update
+            const optimisticContent = { ...editableContent, lastModified: Date.now() };
+            setContents(prev => ({ ...prev, [key]: optimisticContent }));
+            updateCache(key, optimisticContent);
+
+            const contentToSave: EditableContent = {
+                ...editableContent,
+                ...(existingContent && {
+                    editable_id: existingContent.editable_id,
+                    version: existingContent.version
+                })
+            };
+
+            const result = await apiService.saveContent(
+                contentToSave, 
+                !existingContent && defaultContent !== undefined ? defaultContent : undefined
+            );
+
+            switch (result.status) {
+                case 'success':
+                case 'no_action':
+                    const updatedContent = result.content;
+                    setContents(prev => ({ ...prev, [key]: updatedContent }));
+                    updateCache(key, updatedContent);
+                    return true;
+
+                case 'no_change':
+                    warning('No changes detected');
+                    return true;
+
+                default:
+                    throw new Error(`Unexpected status: ${result.status}`);
+            }
+
+        } catch (saveError) {
+            console.error('[ContentProvider] Save failed:', saveError);
+
+            // Revert optimistic update
+            setContents(prev => {
+                const reverted = { ...prev };
+                if (existingContent) {
+                    reverted[key] = existingContent;
+                    updateCache(key, existingContent);
+                } else {
+                    delete reverted[key];
+                    contentCache.current.delete(key);
+                }
+                return reverted;
+            });
+
+            // Handle version conflicts
+            if (ApiService.isVersionConflictError(saveError)) {
+                const conflict = ApiService.getConflictInfo(saveError);
+                if (conflict && onVersionConflict) {
+                    const resolution = await onVersionConflict({
+                        clientVersion: conflict.client_version,
+                        serverVersion: conflict.server_version,
+                        serverContent: conflict.server_content,
+                        clientContent: editableContent.content
+                    });
+
+                    switch (resolution) {
+                        case 'overwrite':
+                            const updatedContent = {
+                                ...editableContent,
+                                version: conflict.server_version,
+                                editable_id: conflict.editable_id
+                            };
+                            return performSave(updatedContent);
+
+                        case 'keep_server':
+                            const serverContent = {
+                                ...editableContent,
+                                content: conflict.server_content,
+                                version: conflict.server_version,
+                                editable_id: conflict.editable_id,
+                                lastModified: Date.now()
+                            };
+                            setContents(prev => ({ ...prev, [key]: serverContent }));
+                            updateCache(key, serverContent);
+                            warning('Using server version of content');
+                            return false;
+
+                        case 'cancel':
+                        default:
+                            warning('Save cancelled');
+                            return false;
+                    }
+                } else {
+                    error('Content was modified by another user. Please refresh to get the latest version.');
+                }
+            }
+
+            return false;
+        }
+    }, [isAuthenticated, generateKey, apiService, contents, onVersionConflict, error, warning, updateCache]);
+
+    /**
+     * Public save method that uses debouncing
+     */
+    const saveContent = React.useCallback(async (
+        editableContent: EditableContent, 
+        defaultContent?: string
+    ): Promise<boolean> => {
+        return debouncedSave(editableContent, defaultContent);
+    }, [debouncedSave]);
+
+    /**
      * Convert content array to Record with unique keys
      */
-    const arrayToContentRecord =  React.useCallback((contentArray: EditableContent[]): Record<string, EditableContent> => {
+    const arrayToContentRecord = React.useCallback((contentArray: EditableContent[]): Record<string, EditableContent> => {
         const record: Record<string, EditableContent> = {};
         
         for (const content of contentArray) {
@@ -79,17 +264,18 @@ export const ContentProvider: React.FC<ContentProviderProps> = ({
     /**
      * Load contents from API with consolidated notifications
      */
-    const loadContents =  React.useCallback(async (): Promise<void> => {
+    const loadContents = React.useCallback(async (): Promise<void> => {
         try {
             const contentArray = await apiService.loadAllContents();
             const newContents = arrayToContentRecord(contentArray);
             setContents(newContents);
             
-            console.log('[ContentProvider] Loaded', Object.keys(newContents).length, 'contents');
+            // Update cache with new contents
+            Object.entries(newContents).forEach(([key, content]) => {
+                updateCache(key, content);
+            });
             
-            // Only show success notification if there are contents and user is authenticated
             if (Object.keys(newContents).length > 0 && isAuthenticated) {
-                // Use a more subtle notification for content loading
                 console.log(`[ContentProvider] Successfully loaded ${Object.keys(newContents).length} editable contents`);
             }
         } catch (loadError) {
@@ -97,7 +283,7 @@ export const ContentProvider: React.FC<ContentProviderProps> = ({
             error('Failed to load content. Please refresh the page.');
             throw loadError;
         }
-    }, [apiService, arrayToContentRecord, error, isAuthenticated]);
+    }, [apiService, arrayToContentRecord, error, isAuthenticated, updateCache]);
 
     /**
      * Initialize on mount and auth change
@@ -118,177 +304,9 @@ export const ContentProvider: React.FC<ContentProviderProps> = ({
     }, [isAuthenticated, loadContents]);
 
     /**
-     * Get content by context and contextId
-     */
-    const getContent =  React.useCallback((context: string, contextId: string, defaultContent: string): string => {
-        if (!context || !contextId) {
-            console.warn('[ContentProvider] getContent called with empty context or contextId');
-            return defaultContent;
-        }
-
-        try {
-            const key = generateKey(context, contextId);
-            return contents[key]?.content || defaultContent;
-        } catch (getError) {
-            console.error('[ContentProvider] Error in getContent:', getError);
-            return defaultContent;
-        }
-    }, [contents, generateKey]);
-
-    /**
-     * Save content with consolidated notifications and conflict handling
-     */
-    const saveContent =  React.useCallback(async (
-        editableContent: EditableContent, 
-        defaultContent?: string
-    ): Promise<boolean> => {
-        // Validation
-        if (!editableContent.context || !editableContent.context_id) {
-            console.error('[ContentProvider] Cannot save: context and context_id are required');
-            error('Invalid content configuration');
-            return false;
-        }
-
-        if (!isAuthenticated) {
-            console.error('[ContentProvider] Cannot save: authentication required');
-            warning('Please log in to save changes');
-            return false;
-        }
-
-        const key = generateKey(editableContent.context, editableContent.context_id);
-        const existingContent = contents[key];
-
-        // Don't send defaultContent if content already exists
-        const shouldSendDefaultContent = !existingContent && defaultContent !== undefined;
-
-        try {
-            // Optimistic update
-            setContents(prev => ({
-                ...prev,
-                [key]: { ...editableContent, lastModified: Date.now() }
-            }));
-
-            // Prepare content to save
-            const contentToSave: EditableContent = {
-                ...editableContent,
-                // Include ID and version if they exist
-                ...(existingContent && {
-                    editable_id: existingContent.editable_id,
-                    version: existingContent.version
-                })
-            };
-
-            // Save via API - notifications are handled by the calling component
-            const result = await apiService.saveContent(
-                contentToSave, 
-                shouldSendDefaultContent ? defaultContent : undefined
-            );
-
-            // Handle different statuses
-            switch (result.status) {
-                case 'success':
-                    // Update with API response
-                    setContents(prev => ({
-                        ...prev,
-                        [key]: result.content
-                    }));
-                    console.log('[ContentProvider] Content saved successfully:', editableContent.context_id);
-                    return true;
-
-                case 'no_action':
-                    // Content already exists
-                    setContents(prev => ({
-                        ...prev,
-                        [key]: result.content
-                    }));
-                    console.log('[ContentProvider] Content already exists, using server version');
-                    return true;
-
-                case 'no_change':
-                    // No changes detected
-                    console.log('[ContentProvider] No changes detected');
-                    warning('No changes detected');
-                    return true;
-
-                default:
-                    throw new Error(`Unexpected status: ${result.status}`);
-            }
-
-        } catch (saveError) {
-            console.error('[ContentProvider] Save failed:', saveError);
-
-            // Revert optimistic update
-            setContents(prev => {
-                const reverted = { ...prev };
-                const originalContent = contents[key];
-                
-                if (originalContent) {
-                    reverted[key] = originalContent;
-                } else {
-                    delete reverted[key];
-                }
-                
-                return reverted;
-            });
-
-            // Handle version conflicts
-            if (ApiService.isVersionConflictError(saveError)) {
-                const conflict = ApiService.getConflictInfo(saveError);
-                if (conflict && onVersionConflict) {
-                    const resolution = await onVersionConflict({
-                        clientVersion: conflict.client_version,
-                        serverVersion: conflict.server_version,
-                        serverContent: conflict.server_content,
-                        clientContent: editableContent.content
-                    });
-
-                    switch (resolution) {
-                        case 'overwrite':
-                            // Force save with new version
-                            const updatedContent = {
-                                ...editableContent,
-                                version: conflict.server_version,
-                                editable_id: conflict.editable_id
-                            };
-                            return saveContent(updatedContent);
-
-                        case 'keep_server':
-                            // Update with server version
-                            setContents(prev => ({
-                                ...prev,
-                                [key]: {
-                                    ...editableContent,
-                                    content: conflict.server_content,
-                                    version: conflict.server_version,
-                                    editable_id: conflict.editable_id,
-                                    lastModified: Date.now()
-                                }
-                            }));
-                            warning('Using server version of content');
-                            return false;
-
-                        case 'cancel':
-                        default:
-                            warning('Save cancelled');
-                            return false;
-                    }
-                } else {
-                    // No conflict callback, show error
-                    const conflict = ApiService.getConflictInfo(saveError);
-                    if (conflict) {
-                        error(`Content was modified by another user. Please refresh to get the latest version.`);
-                    }
-                }
-            }
-
-            return false;
-        }
-    }, [isAuthenticated, generateKey, apiService, contents, onVersionConflict, error, warning]);
-
-    /**
      * Force resynchronization with consolidated notifications
      */
-    const refreshContents =  React.useCallback(async (): Promise<void> => {
+    const refreshContents = React.useCallback(async (): Promise<void> => {
         setIsLoading(true);
         try {
             await promise(

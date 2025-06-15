@@ -1,324 +1,386 @@
-/* Seamless Inline Editor Styles - Optimized for WYSIWYG */
+/* Modern Editor Styles with Enhanced Design System */
 
-/* ==================== DESIGN TOKENS ==================== */
+/* ==================== CSS CUSTOM PROPERTIES ==================== */
 :root {
-  /* Colors */
-  --editor-primary: #3b82f6;
-  --editor-success: #10b981;
-  --editor-danger: #ef4444;
-  --editor-warning: #f59e0b;
+  /* Design System Colors */
+  --editor-primary-50: #eff6ff;
+  --editor-primary-100: #dbeafe;
+  --editor-primary-500: #3b82f6;
+  --editor-primary-600: #2563eb;
+  --editor-primary-700: #1d4ed8;
   
-  /* Surfaces */
-  --editor-surface: rgba(255, 255, 255, 0.95);
-  --editor-surface-dark: rgba(0, 0, 0, 0.95);
-  --editor-overlay: rgba(0, 0, 0, 0.4);
-  --editor-border: rgba(0, 0, 0, 0.1);
-  --editor-border-focus: rgba(59, 130, 246, 0.3);
+  --editor-success-500: #10b981;
+  --editor-success-600: #059669;
   
-  /* Shadows */
-  --editor-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --editor-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --editor-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --editor-error-500: #ef4444;
+  --editor-error-600: #dc2626;
+  
+  --editor-neutral-50: #f9fafb;
+  --editor-neutral-100: #f3f4f6;
+  --editor-neutral-200: #e5e7eb;
+  --editor-neutral-300: #d1d5db;
+  --editor-neutral-400: #9ca3af;
+  --editor-neutral-500: #6b7280;
+  --editor-neutral-600: #4b5563;
+  --editor-neutral-700: #374151;
+  --editor-neutral-800: #1f2937;
+  --editor-neutral-900: #111827;
   
   /* Spacing */
   --editor-space-xs: 0.25rem;
   --editor-space-sm: 0.5rem;
   --editor-space-md: 1rem;
+  --editor-space-lg: 1.5rem;
+  --editor-space-xl: 2rem;
   
-  /* Border radius */
+  /* Border Radius */
   --editor-radius-sm: 0.375rem;
   --editor-radius-md: 0.5rem;
+  --editor-radius-lg: 0.75rem;
+  --editor-radius-xl: 1rem;
+  
+  /* Shadows */
+  --editor-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --editor-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --editor-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --editor-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   
   /* Typography */
-  --editor-font-size-xs: 0.75rem;
-  --editor-font-size-sm: 0.875rem;
-  --editor-font-size-base: 1rem;
+  --editor-font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --editor-font-mono: 'JetBrains Mono', 'Consolas', monospace;
   
-  /* Transitions - Minimal for seamless experience */
-  --editor-transition-fast: 100ms ease;
-  --editor-transition-base: 150ms ease;
+  /* Animation */
+  --editor-duration-fast: 150ms;
+  --editor-duration-normal: 300ms;
+  --editor-duration-slow: 500ms;
+  --editor-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --editor-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --editor-ease-in: cubic-bezier(0.4, 0, 1, 1);
 }
 
-/* ==================== SEAMLESS EDITABLE WRAPPER ==================== */
+/* ==================== MODERN EDITABLE WRAPPER ==================== */
 
-.editable-wrapper-modern {
+.modern-editable-wrapper {
   position: relative;
-  cursor: default;
-  min-height: inherit;
+  display: inline-block;
   min-width: inherit;
-  transition: outline-color var(--editor-transition-fast);
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+  text-align: inherit;
+  transition: all var(--editor-duration-fast) var(--editor-ease);
+  border-radius: var(--editor-radius-sm);
   outline: 2px solid transparent;
   outline-offset: 1px;
 }
 
-.editable-wrapper-modern.is-authenticated {
+.modern-editable-wrapper.is-authenticated {
   cursor: pointer;
 }
 
-.editable-wrapper-modern.is-authenticated:hover {
-  outline-color: var(--editor-border-focus);
+.modern-editable-wrapper.is-authenticated:hover {
+  outline-color: var(--editor-primary-300);
+  background-color: var(--editor-primary-50);
 }
 
-.editable-wrapper-modern.is-authenticated:focus-within {
-  outline-color: var(--editor-primary);
+.modern-editable-wrapper.is-authenticated:focus-visible {
+  outline-color: var(--editor-primary-500);
+  outline-width: 3px;
 }
 
-/* Global highlight when toggle is active - minimal visual impact */
-.editable-highlight-active .editable-wrapper-modern.is-authenticated {
-  outline-color: var(--editor-border-focus);
+.modern-editable-wrapper.show-highlights {
+  outline-color: var(--editor-primary-300);
   outline-style: dashed;
+  background-color: rgba(59, 130, 246, 0.05);
 }
 
-/* ==================== SEAMLESS INLINE TEXT EDITOR ==================== */
+/* ==================== SKELETON LOADING ==================== */
 
-.inline-editor-container-seamless {
+.modern-editable-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--editor-neutral-200) 25%,
+    var(--editor-neutral-100) 50%,
+    var(--editor-neutral-200) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--editor-radius-sm);
+  min-height: 1.25rem;
+  min-width: 4rem;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ==================== MODERN INLINE TEXT EDITOR ==================== */
+
+.modern-inline-editor-container {
   position: relative;
   display: inline-block;
   min-width: inherit;
   width: 100%;
 }
 
-.inline-editor-content-seamless {
+.modern-inline-editor-content {
   position: relative;
   display: inline-block;
   min-width: inherit;
   width: 100%;
   outline: none !important;
-  border: none !important;
-  background: transparent !important;
-  /* Preserve all inherited styles */
+  border: 2px solid var(--editor-primary-500) !important;
+  background: var(--editor-neutral-50) !important;
+  border-radius: var(--editor-radius-md) !important;
+  padding: var(--editor-space-sm) var(--editor-space-md) !important;
   font-family: inherit !important;
   font-size: inherit !important;
   font-weight: inherit !important;
   line-height: inherit !important;
   color: inherit !important;
   text-align: inherit !important;
-  text-decoration: inherit !important;
-  text-transform: inherit !important;
-  letter-spacing: inherit !important;
-  word-spacing: inherit !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  box-shadow: none !important;
-  border-radius: inherit !important;
+  box-shadow: var(--editor-shadow-lg) !important;
+  transition: all var(--editor-duration-fast) var(--editor-ease) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
-.inline-editor-content-seamless:focus {
-  outline: none !important;
-  box-shadow: none !important;
+.modern-inline-editor-content:focus {
+  border-color: var(--editor-primary-600) !important;
+  box-shadow: var(--editor-shadow-xl), 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+  background: white !important;
 }
 
-.inline-editor-content-seamless[contenteditable="true"]:empty::before {
+.modern-inline-editor-content[contenteditable="true"]:empty::before {
   content: attr(data-placeholder);
-  color: #9ca3af;
+  color: var(--editor-neutral-400);
   font-style: italic;
   opacity: 0.7;
+  pointer-events: none;
 }
 
-/* Seamless floating actions - minimal and unobtrusive */
-.inline-editor-actions-seamless {
+/* ==================== MODERN EDITOR ACTIONS ==================== */
+
+.modern-editor-actions {
   position: absolute;
-  top: -2.5rem;
+  top: -3rem;
   right: 0;
   display: flex;
   gap: var(--editor-space-xs);
   z-index: 1000;
-  transition: opacity var(--editor-transition-fast);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: all var(--editor-duration-normal) var(--editor-ease-out);
 }
 
-.inline-editor-btn-seamless {
-  width: 1.75rem;
-  height: 1.75rem;
+.modern-inline-editor-container:hover .modern-editor-actions,
+.modern-inline-editor-content:focus + .modern-editor-actions,
+.modern-editor-actions:hover {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.modern-editor-btn {
+  width: 2rem;
+  height: 2rem;
   border: none;
-  border-radius: var(--editor-radius-sm);
+  border-radius: var(--editor-radius-md);
   cursor: pointer;
-  font-size: var(--editor-font-size-xs);
+  font-size: 0.875rem;
   font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all var(--editor-transition-fast);
-  box-shadow: var(--editor-shadow-sm);
-}
-
-.inline-editor-btn-seamless.save {
-  background: var(--editor-success);
-  color: white;
-}
-
-.inline-editor-btn-seamless.save:hover:not(:disabled) {
-  background: #059669;
-}
-
-.inline-editor-btn-seamless.save:disabled {
-  background: #6b7280;
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-.inline-editor-btn-seamless.cancel {
-  background: var(--editor-danger);
-  color: white;
-}
-
-.inline-editor-btn-seamless.cancel:hover {
-  background: #dc2626;
-}
-
-/* ==================== GLOBAL EDITOR TOOLBAR ==================== */
-
-.global-editor-toolbar-modern {
-  position: fixed;
-  top: 1.25rem;
-  right: 1.25rem;
-  z-index: 10000;
-  display: flex;
-  gap: var(--editor-space-sm);
-  background: var(--editor-surface);
-  backdrop-filter: blur(16px);
-  padding: var(--editor-space-sm);
-  border-radius: 1rem;
-  box-shadow: var(--editor-shadow-lg);
-  border: 1px solid var(--editor-border);
-}
-
-.global-editor-toolbar-btn-modern {
-  width: 2.75rem;
-  height: 2.75rem;
-  background: transparent;
-  color: #6b7280;
-  border: 1px solid transparent;
-  border-radius: var(--editor-radius-md);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all var(--editor-transition-base);
-  font-size: 1.125rem;
-}
-
-.global-editor-toolbar-btn-modern:hover {
-  background: rgba(59, 130, 246, 0.1);
-  border-color: rgba(59, 130, 246, 0.2);
-  color: var(--editor-primary);
-}
-
-.global-editor-toolbar-btn-modern.active {
-  background: var(--editor-primary);
-  border-color: var(--editor-primary);
-  color: white;
-}
-
-.global-editor-toolbar-btn-modern.logout {
-  border-color: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
-}
-
-.global-editor-toolbar-btn-modern.logout:hover {
-  background: rgba(239, 68, 68, 0.1);
-  border-color: rgba(239, 68, 68, 0.3);
-  color: var(--editor-danger);
-}
-
-/* ==================== SEAMLESS EDITABLE IMAGE ==================== */
-
-.editable-image-seamless {
-  transition: outline-color var(--editor-transition-fast);
-  position: relative;
-  outline: 2px solid transparent;
-  outline-offset: 1px;
-}
-
-.editable-image-seamless.is-authenticated {
-  cursor: pointer;
-}
-
-.editable-image-seamless.is-authenticated:hover {
-  outline-color: var(--editor-border-focus);
-}
-
-.editable-highlight-active .editable-image-seamless.is-authenticated {
-  outline-color: var(--editor-border-focus);
-  outline-style: dashed;
-}
-
-.editable-image-container-seamless {
-  position: relative;
-  display: inline-block;
-}
-
-.editable-image-form-seamless {
-  position: absolute;
-  bottom: -3rem;
-  left: 0;
-  right: 0;
-  background: var(--editor-surface);
-  backdrop-filter: blur(8px);
-  padding: var(--editor-space-sm);
-  border-radius: var(--editor-radius-sm);
-  display: flex;
-  gap: var(--editor-space-xs);
-  z-index: 1000;
+  transition: all var(--editor-duration-fast) var(--editor-ease);
   box-shadow: var(--editor-shadow-md);
-  border: 1px solid var(--editor-border);
-}
-
-/* ==================== EDITABLE BACKGROUND ==================== */
-
-.editable-background {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   position: relative;
-  transition: all var(--editor-transition-fast);
+  overflow: hidden;
 }
 
-.editable-background.is-authenticated::before {
+.modern-editor-btn::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  pointer-events: none;
-  transition: all var(--editor-transition-fast);
+  background: linear-gradient(45deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
+  opacity: 0;
+  transition: opacity var(--editor-duration-fast) var(--editor-ease);
 }
 
-.editable-background.is-authenticated:hover::before {
-  background: rgba(59, 130, 246, 0.05);
-  outline: 2px solid rgba(59, 130, 246, 0.3);
-  outline-offset: -2px;
+.modern-editor-btn:hover::before {
+  opacity: 1;
 }
 
-.editable-highlight-active .editable-background.is-authenticated::before {
-  background: rgba(59, 130, 246, 0.03);
-  outline: 2px dashed rgba(59, 130, 246, 0.3);
-  outline-offset: -2px;
+.modern-editor-btn.save {
+  background: linear-gradient(135deg, var(--editor-success-500), var(--editor-success-600));
+  color: white;
+}
+
+.modern-editor-btn.save:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: var(--editor-shadow-lg), 0 0 20px rgba(16, 185, 129, 0.3);
+}
+
+.modern-editor-btn.save:disabled {
+  background: linear-gradient(135deg, var(--editor-neutral-400), var(--editor-neutral-500));
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: var(--editor-shadow-sm);
+}
+
+.modern-editor-btn.cancel {
+  background: linear-gradient(135deg, var(--editor-error-500), var(--editor-error-600));
+  color: white;
+}
+
+.modern-editor-btn.cancel:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: var(--editor-shadow-lg), 0 0 20px rgba(239, 68, 68, 0.3);
+}
+
+/* ==================== MODERN TOOLBAR ==================== */
+
+.modern-editor-toolbar {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  gap: var(--editor-space-sm);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: var(--editor-space-sm);
+  border-radius: var(--editor-radius-xl);
+  box-shadow: var(--editor-shadow-xl);
+  border: 1px solid var(--editor-neutral-200);
+}
+
+.modern-toolbar-user-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--editor-space-xs);
+  padding: var(--editor-space-xs) var(--editor-space-sm);
+  background: var(--editor-primary-50);
+  border-radius: var(--editor-radius-lg);
+  border: 1px solid var(--editor-primary-200);
+}
+
+.modern-toolbar-user-status {
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--editor-success-500);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.modern-toolbar-user-name {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--editor-primary-800);
+}
+
+.modern-toolbar-btn {
+  width: 2.75rem;
+  height: 2.75rem;
+  background: transparent;
+  color: var(--editor-neutral-500);
+  border: 1px solid transparent;
+  border-radius: var(--editor-radius-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--editor-duration-normal) var(--editor-ease);
+  font-size: 1.125rem;
+}
+
+.modern-toolbar-btn:hover {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.2);
+  color: var(--editor-primary-500);
+  transform: scale(1.05);
+}
+
+.modern-toolbar-btn.active {
+  background: var(--editor-primary-500);
+  border-color: var(--editor-primary-500);
+  color: white;
+  box-shadow: var(--editor-shadow-md);
+}
+
+.modern-toolbar-btn.logout {
+  border-color: rgba(239, 68, 68, 0.2);
+  color: var(--editor-error-500);
+}
+
+.modern-toolbar-btn.logout:hover {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: var(--editor-error-600);
 }
 
 /* ==================== RESPONSIVE DESIGN ==================== */
 
 @media (max-width: 768px) {
-  .global-editor-toolbar-modern {
+  .modern-editor-toolbar {
     top: 0.75rem;
     right: 0.75rem;
     padding: var(--editor-space-xs);
     gap: var(--editor-space-xs);
   }
   
-  .global-editor-toolbar-btn-modern {
+  .modern-toolbar-btn {
     width: 2.5rem;
     height: 2.5rem;
     font-size: 1rem;
   }
   
-  .editable-image-form-seamless {
-    bottom: -3.5rem;
-    flex-direction: column;
+  .modern-editor-actions {
+    top: -3.5rem;
+    flex-direction: row;
     gap: var(--editor-space-xs);
   }
   
-  .inline-editor-actions-seamless {
-    top: -3rem;
-    flex-direction: row;
-    gap: var(--editor-space-xs);
+  .modern-inline-editor-content {
+    padding: var(--editor-space-md) !important;
+    font-size: 16px !important; /* Prevent zoom on iOS */
+  }
+}
+
+@media (max-width: 480px) {
+  .modern-toolbar-user-indicator {
+    display: none; /* Hide on very small screens */
+  }
+  
+  .modern-editor-actions {
+    position: static;
+    margin-top: var(--editor-space-sm);
+    justify-content: center;
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -326,13 +388,25 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --editor-surface: rgba(17, 24, 39, 0.95);
-    --editor-border: rgba(255, 255, 255, 0.1);
-    --editor-border-focus: rgba(59, 130, 246, 0.4);
+    --editor-neutral-50: #1f2937;
+    --editor-neutral-100: #374151;
+    --editor-neutral-200: #4b5563;
+    --editor-neutral-800: #f9fafb;
+    --editor-neutral-900: #ffffff;
   }
   
-  .inline-editor-content-seamless[contenteditable="true"]:empty::before {
-    color: #9ca3af;
+  .modern-editor-toolbar {
+    background: rgba(31, 41, 55, 0.95);
+    border-color: var(--editor-neutral-600);
+  }
+  
+  .modern-inline-editor-content {
+    background: var(--editor-neutral-800) !important;
+    color: var(--editor-neutral-100) !important;
+  }
+  
+  .modern-inline-editor-content[contenteditable="true"]:empty::before {
+    color: var(--editor-neutral-400);
   }
 }
 
@@ -340,80 +414,84 @@
 
 @media (prefers-reduced-motion: reduce) {
   * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 }
 
 /* Focus indicators for keyboard navigation */
-.editable-wrapper-modern:focus-visible,
-.inline-editor-btn-seamless:focus-visible,
-.global-editor-toolbar-btn-modern:focus-visible {
-  outline: 2px solid var(--editor-primary);
+.modern-editable-wrapper:focus-visible,
+.modern-editor-btn:focus-visible,
+.modern-toolbar-btn:focus-visible {
+  outline: 3px solid var(--editor-primary-500);
   outline-offset: 2px;
 }
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
-  :root {
-    --editor-border: rgba(0, 0, 0, 0.3);
-    --editor-border-focus: rgba(59, 130, 246, 0.8);
+  .modern-editable-wrapper.is-authenticated:hover {
+    outline-width: 3px;
+    outline-color: var(--editor-primary-700);
   }
   
-  .editable-wrapper-modern.is-authenticated:hover {
-    outline-width: 3px;
+  .modern-inline-editor-content {
+    border-width: 3px !important;
   }
 }
 
 /* ==================== PRINT SUPPORT ==================== */
 
 @media print {
-  .global-editor-toolbar-modern,
-  .inline-editor-actions-seamless,
-  .editable-image-form-seamless,
-  .editable-background-edit-btn,
-  .editable-background-editor {
+  .modern-editor-toolbar,
+  .modern-editor-actions,
+  .modern-editable-skeleton {
     display: none !important;
   }
   
-  .editable-wrapper-modern,
-  .editable-image-seamless,
-  .editable-background {
+  .modern-editable-wrapper,
+  .modern-inline-editor-content {
     outline: none !important;
+    border: none !important;
     box-shadow: none !important;
+    background: transparent !important;
   }
 }
 
-/* ==================== SEAMLESS INTEGRATION OVERRIDES ==================== */
+/* ==================== SELECTION STYLING ==================== */
 
-/* Ensure no visual interference with site design */
-.editable-wrapper-modern,
-.editable-image-seamless,
-.inline-editor-content-seamless {
-  /* Remove any potential layout disruption */
+.modern-inline-editor-content::selection {
+  background: rgba(59, 130, 246, 0.2);
+  color: inherit;
+}
+
+.modern-inline-editor-content::-moz-selection {
+  background: rgba(59, 130, 246, 0.2);
+  color: inherit;
+}
+
+/* ==================== UTILITIES ==================== */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Ensure no layout shift during editing */
+.modern-editable-wrapper,
+.modern-inline-editor-content {
   box-sizing: border-box;
 }
 
-/* Ensure contenteditable doesn't break layout */
-.inline-editor-content-seamless[contenteditable="true"] {
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-
 /* Prevent contenteditable from adding unwanted margins/padding */
-.inline-editor-content-seamless[contenteditable="true"] * {
+.modern-inline-editor-content[contenteditable="true"] * {
   margin: 0 !important;
   padding: 0 !important;
-}
-
-/* Ensure proper text selection in edit mode */
-.inline-editor-content-seamless[contenteditable="true"]::selection {
-  background: rgba(59, 130, 246, 0.2);
-}
-
-/* Hide browser's contenteditable outline */
-.inline-editor-content-seamless[contenteditable="true"]:focus {
-  outline: none !important;
-  border: none !important;
-  box-shadow: none !important;
 }

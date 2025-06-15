@@ -1,0 +1,269 @@
+/* Mobile-Specific Editor Styles */
+
+/* ==================== MOBILE VIEWPORT OPTIMIZATIONS ==================== */
+
+@media (max-width: 767px) {
+  /* Prevent zoom on input focus */
+  .modern-inline-editor-content {
+    font-size: 16px !important;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Touch-friendly tap targets */
+  .modern-editable-wrapper.is-authenticated {
+    min-height: 44px; /* iOS recommended minimum */
+    min-width: 44px;
+    padding: var(--editor-space-xs);
+    margin: var(--editor-space-xs) 0;
+  }
+
+  /* Enhanced touch feedback */
+  .modern-editable-wrapper.is-authenticated:active {
+    background-color: var(--editor-primary-100);
+    transform: scale(0.98);
+    transition: all 100ms ease;
+  }
+
+  /* Mobile toolbar positioning */
+  .modern-editor-toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-radius: 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding: var(--editor-space-sm) var(--editor-space-md);
+    padding-top: calc(var(--editor-space-sm) + env(safe-area-inset-top));
+  }
+
+  /* Mobile editing interface */
+  .mobile-editing-interface {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid var(--editor-neutral-200);
+    padding: var(--editor-space-md);
+    padding-bottom: calc(var(--editor-space-md) + env(safe-area-inset-bottom));
+    z-index: 10000;
+    box-shadow: var(--editor-shadow-xl);
+  }
+
+  /* Floating action buttons for mobile */
+  .mobile-fab-container {
+    position: fixed;
+    bottom: calc(var(--editor-space-xl) + env(safe-area-inset-bottom));
+    right: var(--editor-space-md);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: var(--editor-space-sm);
+  }
+
+  .mobile-fab {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--editor-primary-500);
+    color: white;
+    border: none;
+    box-shadow: var(--editor-shadow-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--editor-duration-normal) var(--editor-ease);
+  }
+
+  .mobile-fab:hover {
+    transform: scale(1.1);
+    box-shadow: var(--editor-shadow-xl);
+  }
+
+  .mobile-fab:active {
+    transform: scale(0.95);
+  }
+
+  /* Mobile-specific editor content */
+  .modern-inline-editor-content {
+    min-height: 120px !important;
+    padding: var(--editor-space-md) !important;
+    border-radius: var(--editor-radius-lg) !important;
+    box-shadow: var(--editor-shadow-xl) !important;
+  }
+
+  /* Mobile keyboard optimization */
+  .mobile-keyboard-spacer {
+    height: 300px; /* Space for virtual keyboard */
+    transition: height var(--editor-duration-normal) var(--editor-ease);
+  }
+
+  /* Swipe gestures */
+  .mobile-swipe-indicator {
+    position: absolute;
+    top: var(--editor-space-xs);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 4px;
+    background: var(--editor-neutral-300);
+    border-radius: 2px;
+  }
+}
+
+/* ==================== TABLET OPTIMIZATIONS ==================== */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .modern-editor-toolbar {
+    top: var(--editor-space-md);
+    right: var(--editor-space-md);
+    padding: var(--editor-space-sm) var(--editor-space-md);
+  }
+
+  .modern-toolbar-btn {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.25rem;
+  }
+
+  /* Tablet-specific touch targets */
+  .modern-editable-wrapper.is-authenticated {
+    min-height: 40px;
+    min-width: 40px;
+  }
+}
+
+/* ==================== LANDSCAPE MOBILE ==================== */
+
+@media (max-width: 767px) and (orientation: landscape) {
+  .modern-editor-toolbar {
+    padding: var(--editor-space-xs) var(--editor-space-md);
+  }
+
+  .mobile-editing-interface {
+    padding: var(--editor-space-sm) var(--editor-space-md);
+  }
+
+  .modern-inline-editor-content {
+    min-height: 80px !important;
+  }
+}
+
+/* ==================== TOUCH DEVICE OPTIMIZATIONS ==================== */
+
+@media (pointer: coarse) {
+  /* Larger touch targets */
+  .modern-editor-btn,
+  .modern-toolbar-btn {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Enhanced hover states for touch */
+  .modern-editable-wrapper.is-authenticated:hover {
+    background-color: var(--editor-primary-50);
+    outline-color: var(--editor-primary-400);
+    outline-width: 3px;
+  }
+
+  /* Touch-specific animations */
+  .modern-editable-wrapper.is-authenticated {
+    transition: all var(--editor-duration-fast) var(--editor-ease);
+  }
+
+  .modern-editable-wrapper.is-authenticated:active {
+    transform: scale(0.98);
+    background-color: var(--editor-primary-100);
+  }
+}
+
+/* ==================== HIGH DPI DISPLAYS ==================== */
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .modern-editor-toolbar {
+    border-width: 0.5px;
+  }
+
+  .modern-inline-editor-content {
+    border-width: 1.5px !important;
+  }
+}
+
+/* ==================== ACCESSIBILITY FOR MOBILE ==================== */
+
+@media (max-width: 767px) {
+  /* Larger focus indicators on mobile */
+  .modern-editable-wrapper:focus-visible {
+    outline-width: 4px;
+    outline-offset: 4px;
+  }
+
+  /* Better contrast for mobile */
+  .modern-editable-wrapper.is-authenticated:hover {
+    outline-color: var(--editor-primary-600);
+  }
+
+  /* Voice control optimization */
+  .modern-editable-wrapper[aria-label] {
+    position: relative;
+  }
+
+  .modern-editable-wrapper[aria-label]::after {
+    content: attr(aria-label);
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+}
+
+/* ==================== MOBILE DARK MODE ==================== */
+
+@media (max-width: 767px) and (prefers-color-scheme: dark) {
+  .mobile-editing-interface {
+    background: rgba(31, 41, 55, 0.95);
+    border-top-color: var(--editor-neutral-600);
+  }
+
+  .mobile-fab {
+    background: var(--editor-primary-600);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* ==================== REDUCED MOTION FOR MOBILE ==================== */
+
+@media (max-width: 767px) and (prefers-reduced-motion: reduce) {
+  .modern-editable-wrapper.is-authenticated:active {
+    transform: none;
+  }
+
+  .mobile-fab:hover {
+    transform: none;
+  }
+
+  .mobile-editing-interface {
+    transition: none;
+  }
+}
+
+/* ==================== MOBILE PRINT STYLES ==================== */
+
+@media print and (max-width: 767px) {
+  .mobile-editing-interface,
+  .mobile-fab-container,
+  .modern-editor-toolbar {
+    display: none !important;
+  }
+
+  .modern-editable-wrapper {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}

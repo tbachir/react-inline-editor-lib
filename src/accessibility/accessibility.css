@@ -1,0 +1,318 @@
+/* WCAG 2.1 AA Compliance Styles */
+
+/* ==================== SCREEN READER UTILITIES ==================== */
+
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.sr-only-focusable:focus {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  padding: inherit !important;
+  margin: inherit !important;
+  overflow: visible !important;
+  clip: auto !important;
+  white-space: normal !important;
+}
+
+/* ==================== FOCUS MANAGEMENT ==================== */
+
+/* Enhanced focus indicators */
+.modern-editable-wrapper:focus-visible,
+.modern-editor-btn:focus-visible,
+.modern-toolbar-btn:focus-visible {
+  outline: 3px solid var(--editor-primary-500);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px rgba(59, 130, 246, 0.2);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .modern-editable-wrapper:focus-visible {
+    outline: 4px solid currentColor;
+    outline-offset: 4px;
+  }
+  
+  .modern-editable-wrapper.is-authenticated:hover {
+    outline: 3px solid currentColor;
+    outline-offset: 2px;
+  }
+  
+  .modern-inline-editor-content {
+    border-width: 3px !important;
+    border-color: currentColor !important;
+  }
+}
+
+/* ==================== COLOR CONTRAST ==================== */
+
+/* Ensure minimum 4.5:1 contrast ratio for normal text */
+.modern-editable-wrapper {
+  color: var(--editor-neutral-900);
+  background-color: transparent;
+}
+
+.modern-inline-editor-content {
+  color: var(--editor-neutral-900) !important;
+  background-color: var(--editor-neutral-50) !important;
+}
+
+.modern-inline-editor-content[contenteditable="true"]:empty::before {
+  color: var(--editor-neutral-500); /* 4.5:1 contrast ratio */
+}
+
+/* Button contrast compliance */
+.modern-editor-btn.save {
+  background: var(--editor-success-600); /* Enhanced contrast */
+  color: white;
+}
+
+.modern-editor-btn.cancel {
+  background: var(--editor-error-600); /* Enhanced contrast */
+  color: white;
+}
+
+/* ==================== REDUCED MOTION ==================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .modern-editable-wrapper,
+  .modern-editor-btn,
+  .modern-toolbar-btn {
+    transition: none !important;
+  }
+  
+  .modern-editor-btn:hover,
+  .modern-toolbar-btn:hover {
+    transform: none !important;
+  }
+}
+
+/* ==================== KEYBOARD NAVIGATION ==================== */
+
+/* Skip links for keyboard users */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--editor-neutral-900);
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 10001;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Enhanced keyboard navigation indicators */
+.keyboard-navigation-active .modern-editable-wrapper:focus {
+  outline: 3px solid var(--editor-primary-500);
+  outline-offset: 2px;
+  background-color: var(--editor-primary-50);
+}
+
+/* ==================== TOUCH TARGET SIZES ==================== */
+
+/* Minimum 44x44px touch targets (WCAG 2.5.5) */
+@media (pointer: coarse) {
+  .modern-editor-btn,
+  .modern-toolbar-btn,
+  .modern-editable-wrapper.is-authenticated {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  
+  /* Ensure adequate spacing between touch targets */
+  .modern-editor-actions {
+    gap: 8px;
+  }
+  
+  .modern-editor-toolbar {
+    gap: 12px;
+  }
+}
+
+/* ==================== FONT SIZE AND ZOOM ==================== */
+
+/* Support up to 200% zoom without horizontal scrolling */
+@media (min-width: 1280px) {
+  .modern-editable-wrapper,
+  .modern-inline-editor-content {
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+}
+
+/* Respect user font size preferences */
+.modern-inline-editor-content {
+  font-size: max(16px, 1rem); /* Prevent zoom on mobile */
+}
+
+/* ==================== ERROR STATES AND FEEDBACK ==================== */
+
+/* Accessible error styling */
+.editor-error {
+  border-color: var(--editor-error-500) !important;
+  background-color: var(--editor-error-50) !important;
+}
+
+.editor-error-message {
+  color: var(--editor-error-700);
+  background-color: var(--editor-error-50);
+  border: 1px solid var(--editor-error-200);
+  padding: var(--editor-space-sm);
+  border-radius: var(--editor-radius-sm);
+  margin-top: var(--editor-space-xs);
+  font-size: var(--editor-font-size-sm);
+}
+
+/* Success feedback */
+.editor-success {
+  border-color: var(--editor-success-500) !important;
+  background-color: var(--editor-success-50) !important;
+}
+
+/* ==================== LIVE REGIONS ==================== */
+
+.live-region {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* ==================== DARK MODE ACCESSIBILITY ==================== */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --editor-neutral-900: #f9fafb;
+    --editor-neutral-50: #1f2937;
+  }
+  
+  .modern-editable-wrapper {
+    color: var(--editor-neutral-100);
+  }
+  
+  .modern-inline-editor-content {
+    color: var(--editor-neutral-100) !important;
+    background-color: var(--editor-neutral-800) !important;
+    border-color: var(--editor-neutral-600) !important;
+  }
+  
+  .modern-inline-editor-content[contenteditable="true"]:empty::before {
+    color: var(--editor-neutral-400);
+  }
+  
+  /* Maintain contrast ratios in dark mode */
+  .modern-editor-btn.save {
+    background: var(--editor-success-500);
+  }
+  
+  .modern-editor-btn.cancel {
+    background: var(--editor-error-500);
+  }
+}
+
+/* ==================== PRINT ACCESSIBILITY ==================== */
+
+@media print {
+  /* Ensure content is readable when printed */
+  .modern-editable-wrapper,
+  .modern-inline-editor-content {
+    color: black !important;
+    background: white !important;
+    border: 1px solid black !important;
+  }
+  
+  /* Hide interactive elements */
+  .modern-editor-toolbar,
+  .modern-editor-actions,
+  .skip-link {
+    display: none !important;
+  }
+  
+  /* Show edit indicators in print */
+  .modern-editable-wrapper::after {
+    content: " [Editable]";
+    font-size: 0.8em;
+    color: #666;
+  }
+}
+
+/* ==================== FORCED COLORS MODE ==================== */
+
+@media (forced-colors: active) {
+  .modern-editable-wrapper {
+    border: 1px solid ButtonText;
+  }
+  
+  .modern-editable-wrapper:focus {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+  
+  .modern-inline-editor-content {
+    border: 2px solid ButtonText !important;
+    background: Field !important;
+    color: FieldText !important;
+  }
+  
+  .modern-editor-btn {
+    background: ButtonFace !important;
+    color: ButtonText !important;
+    border: 1px solid ButtonText !important;
+  }
+  
+  .modern-editor-btn:hover {
+    background: Highlight !important;
+    color: HighlightText !important;
+  }
+}
+
+/* ==================== LANGUAGE SUPPORT ==================== */
+
+/* RTL language support */
+[dir="rtl"] .modern-editor-toolbar {
+  left: 1.25rem;
+  right: auto;
+}
+
+[dir="rtl"] .modern-editor-actions {
+  left: 0;
+  right: auto;
+}
+
+/* Ensure proper text direction */
+.modern-inline-editor-content[dir="rtl"] {
+  text-align: right;
+  direction: rtl;
+}
+
+.modern-inline-editor-content[dir="ltr"] {
+  text-align: left;
+  direction: ltr;
+}
