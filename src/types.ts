@@ -1,118 +1,78 @@
-// src/inline-editor/types.ts
-
-// ==================== CONTENT TYPES ====================
-
-export interface EditableContent {
-  editable_id?: string;  // Défini uniquement par l'API
-  content: string;       // Toujours requis
-  context: string;       // Toujours requis et non vide
-  context_id: string;    // Toujours requis et non vide
-  version?: number;      // Défini uniquement par l'API
-  contentType?: 'text' | 'html' | 'markdown';
-  lastModified?: number;
-}
-
-export interface ContentContextValue {
-  isLoading: boolean;
-  contents: Record<string, EditableContent>;
-  getContent: (context: string, contextId: string, defaultContent: string) => string;
-  saveContent: (editableContent: EditableContent, defaultContent?: string) => Promise<boolean>;
-  refreshContents: () => Promise<void>;
-  // Nouvelle méthode pour gérer les conflits
-  resolveConflict?: (content: EditableContent, forceOverwrite: boolean) => Promise<boolean>;
-}
-
-// ==================== AUTH TYPES ====================
-
-export interface User {
-  id: number;
-  email: string;
-  name: string;
-}
-
-export interface AuthContextValue {
-  isAuthenticated: boolean;
-  user: User | null;
-  logout: () => void;
-}
-
-// ==================== CONTEXT TYPES ====================
-
-export interface EditableContentContextType {
-  path: string;
-  sectionId: number;
-  sectionSelector: string;
-}
-
-// ==================== API TYPES ====================
-
-export interface ApiResponse<T = any> {
-  success: boolean;
-  data?: T;
-  message?: string;
-}
-
-export interface ContentResponse {
-  editable_id: string;   // Maintenant toujours présent
-  content: string;
-  context: string;
-  context_id: string;
-  version: number;
-  content_type?: string;
-}
-
-export interface SaveContentRequest {
-  content: string;
-  context: string;
-  context_id: string;
-  content_type?: string;
-  version?: number;              // Version actuelle côté client
-  isDefaultContent?: boolean;    // Flag pour contenu par défaut
-}
-
-export interface SaveContentResponse {
-  status: 'success' | 'conflict' | 'no_action' | 'no_change' | 'error';
-  message: string;
-  data?: {
-    editable_id: string;
-    content: string;
-    context: string;
-    context_id: string;
-    version: number;
-    content_type: string;
-  };
-  conflict?: {
-    client_version: number;
-    server_version: number;
-    server_content: string;
-    editable_id: string;
+export interface InlineEditorProps {
+  /** The initial text content */
+  value: string;
+  /** Callback fired when the content changes */
+  onChange: (value: string) => void;
+  /** Callback fired when editing starts */
+  onEditStart?: () => void;
+  /** Callback fired when editing completes */
+  onEditComplete?: (value: string) => void;
+  /** Callback fired when editing is cancelled */
+  onEditCancel?: () => void;
+  /** Whether the editor allows multiple lines */
+  multiline?: boolean;
+  /** Maximum character length */
+  maxLength?: number;
+  /** Placeholder text when empty */
+  placeholder?: string;
+  /** Custom CSS class name */
+  className?: string;
+  /** Custom inline styles */
+  style?: React.CSSProperties;
+  /** HTML element type to render */
+  as?: keyof JSX.IntrinsicElements;
+  /** Whether the editor is disabled */
+  disabled?: boolean;
+  /** Whether the editor is read-only */
+  readOnly?: boolean;
+  /** Validation function */
+  validate?: (value: string) => string | null;
+  /** Auto-save delay in milliseconds */
+  autoSaveDelay?: number;
+  /** Whether to show edit indicators */
+  showEditIndicator?: boolean;
+  /** Custom edit indicator content */
+  editIndicator?: React.ReactNode;
+  /** ARIA label for accessibility */
+  ariaLabel?: string;
+  /** ARIA description for accessibility */
+  ariaDescription?: string;
+  /** Custom keyboard shortcuts */
+  keyboardShortcuts?: {
+    save?: string[];
+    cancel?: string[];
   };
 }
 
-// ==================== EDITOR TYPES ====================
+export interface InlineEditorState {
+  isEditing: boolean;
+  currentValue: string;
+  originalValue: string;
+  validationError: string | null;
+  hasChanges: boolean;
+}
 
-export interface EditorConfig {
-  id: string;
+export interface UseInlineEditorOptions {
+  value: string;
+  onChange: (value: string) => void;
+  onEditStart?: () => void;
+  onEditComplete?: (value: string) => void;
+  onEditCancel?: () => void;
+  validate?: (value: string) => string | null;
+  autoSaveDelay?: number;
   multiline?: boolean;
   maxLength?: number;
-  placeholder?: string;
 }
 
-// Nouveau type pour les callbacks de résolution de conflit
-export interface ConflictResolutionCallback {
-  (conflict: {
-    clientVersion: number;
-    serverVersion: number;
-    serverContent: string;
-    clientContent: string;
-  }): Promise<'overwrite' | 'keep_server' | 'cancel'>;
-}
-
-// ==================== DEBUG TYPES ====================
-
-export interface DebugSection {
-  id: string;
-  title: string;
-  component: React.ComponentType;
-  order?: number;
+export interface UseInlineEditorReturn {
+  isEditing: boolean;
+  currentValue: string;
+  validationError: string | null;
+  hasChanges: boolean;
+  startEditing: () => void;
+  stopEditing: (save?: boolean) => void;
+  updateValue: (value: string) => void;
+  handleKeyDown: (event: React.KeyboardEvent) => void;
+  handleBlur: () => void;
+  editorRef: React.RefObject<HTMLElement>;
 }

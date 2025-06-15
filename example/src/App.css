@@ -1,0 +1,125 @@
+.App {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.App-header {
+  background-color: #f8fafc;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.App-header h1 {
+  color: #1e293b;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+}
+
+.examples {
+  display: grid;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.example {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.example h2 {
+  color: #374151;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+.description-container,
+.bio-container {
+  margin-top: 0.5rem;
+}
+
+.description-editor,
+.bio-editor {
+  min-height: 4rem;
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+  line-height: 1.5;
+}
+
+.fancy-editor {
+  padding: 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white !important;
+  border-radius: 0.5rem;
+  border: none !important;
+}
+
+.fancy-editor:hover {
+  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%) !important;
+}
+
+.instructions {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #eff6ff;
+  border-radius: 0.5rem;
+  text-align: left;
+}
+
+.instructions h3 {
+  color: #1e40af;
+  margin-bottom: 1rem;
+}
+
+.instructions ul {
+  color: #374151;
+  line-height: 1.6;
+}
+
+.instructions li {
+  margin-bottom: 0.5rem;
+}
+
+kbd {
+  background: #374151;
+  color: white;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-family: monospace;
+}
+
+button {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+button:hover {
+  background: #2563eb;
+}
+
+/* Custom inline editor overrides */
+.inline-editor {
+  transition: all 0.2s ease;
+}
+
+.inline-editor--editing {
+  background: #fef3c7 !important;
+  border-color: #f59e0b !important;
+}
+
+.inline-editor-indicator {
+  background: #10b981 !important;
+}

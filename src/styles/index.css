@@ -1,0 +1,278 @@
+/* Base styles for the inline editor */
+.inline-editor-container {
+  position: relative;
+  display: inline-block;
+}
+
+.inline-editor {
+  position: relative;
+  display: inline-block;
+  min-width: 2rem;
+  min-height: 1.25rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  background-color: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  transition: all 0.2s ease-in-out;
+  outline: none;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Display mode styles */
+.inline-editor--display {
+  cursor: pointer;
+}
+
+.inline-editor--display:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.inline-editor--display:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* Editing mode styles */
+.inline-editor--editing {
+  background-color: #fff;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  cursor: text;
+}
+
+.inline-editor--editing:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+}
+
+/* State styles */
+.inline-editor--disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #f8f9fa;
+}
+
+.inline-editor--readonly {
+  cursor: default;
+}
+
+.inline-editor--error {
+  border-color: #dc3545;
+  background-color: #fff5f5;
+}
+
+.inline-editor--error.inline-editor--editing {
+  box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.25);
+}
+
+.inline-editor--changed {
+  border-color: #ffc107;
+}
+
+/* Placeholder styles */
+.inline-editor[data-placeholder]:empty::before {
+  content: attr(data-placeholder);
+  color: #6c757d;
+  font-style: italic;
+  pointer-events: none;
+}
+
+/* Edit indicator */
+.inline-editor-indicator {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.5rem;
+  width: 1rem;
+  height: 1rem;
+  background-color: #007bff;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  pointer-events: none;
+}
+
+.inline-editor-container:hover .inline-editor-indicator {
+  opacity: 1;
+}
+
+/* Validation error */
+.inline-editor-error {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  background-color: #dc3545;
+  color: white;
+  font-size: 0.875rem;
+  border-radius: 0.25rem;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+.inline-editor-error::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 0.5rem;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid #dc3545;
+}
+
+/* Character counter */
+.inline-editor-counter {
+  position: absolute;
+  bottom: -1.5rem;
+  right: 0;
+  font-size: 0.75rem;
+  color: #6c757d;
+  background-color: white;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.125rem;
+  border: 1px solid #dee2e6;
+}
+
+/* Action buttons */
+.inline-editor-actions {
+  position: absolute;
+  top: -2.5rem;
+  right: 0;
+  display: flex;
+  gap: 0.25rem;
+  z-index: 10;
+}
+
+.inline-editor-save,
+.inline-editor-cancel {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: none;
+  border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.inline-editor-save {
+  background-color: #28a745;
+  color: white;
+}
+
+.inline-editor-save:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+.inline-editor-save:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.inline-editor-cancel {
+  background-color: #dc3545;
+  color: white;
+}
+
+.inline-editor-cancel:hover {
+  background-color: #c82333;
+}
+
+/* Focus styles for accessibility */
+.inline-editor-save:focus,
+.inline-editor-cancel:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .inline-editor {
+    min-width: 3rem;
+    padding: 0.5rem;
+  }
+  
+  .inline-editor-actions {
+    top: -3rem;
+  }
+  
+  .inline-editor-save,
+  .inline-editor-cancel {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .inline-editor--display:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .inline-editor--editing {
+    background-color: #2d3748;
+    border-color: #4299e1;
+    color: white;
+  }
+  
+  .inline-editor--disabled {
+    background-color: #4a5568;
+  }
+  
+  .inline-editor--error {
+    background-color: #742a2a;
+  }
+  
+  .inline-editor[data-placeholder]:empty::before {
+    color: #a0aec0;
+  }
+  
+  .inline-editor-counter {
+    background-color: #2d3748;
+    border-color: #4a5568;
+    color: #e2e8f0;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .inline-editor {
+    border-width: 2px;
+  }
+  
+  .inline-editor--editing {
+    border-width: 3px;
+  }
+  
+  .inline-editor-save,
+  .inline-editor-cancel {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .inline-editor,
+  .inline-editor-indicator,
+  .inline-editor-save,
+  .inline-editor-cancel {
+    transition: none;
+  }
+}

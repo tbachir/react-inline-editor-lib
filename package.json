@@ -1,69 +1,90 @@
 {
-    "name": "editor-online",
-    "version": "2.0.0",
-    "description": "Smart console logger with React UI and dynamic level control",
-    "main": "dist/index.js",
-    "module": "dist/index.mjs",
-    "types": "dist/index.d.ts",
-    "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "import": "./dist/index.mjs",
-            "require": "./dist/index.js"
-        }
+  "name": "@tbachir/react-inline-editor",
+  "version": "1.0.0",
+  "description": "A modern, accessible React inline editor component with TypeScript support",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     },
-    "files": [
-        "dist",
-        "README.md",
-        "LICENSE"
-    ],
-    "scripts": {
-        "build": "tsup",
-        "dev": "tsup --watch",
-        "test": "vitest",
-        "test:watch": "vitest watch",
-        "lint": "eslint src --ext .ts,.tsx",
-        "type-check": "tsc --noEmit",
-        "example": "cd example && vite"
+    "./styles": "./dist/styles.css"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup && npm run build:css",
+    "build:css": "postcss src/styles/index.css -o dist/styles.css",
+    "dev": "tsup --watch",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage",
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "type-check": "tsc --noEmit",
+    "prepublishOnly": "npm run build",
+    "example": "cd example && npm start"
+  },
+  "keywords": [
+    "react",
+    "inline-editor",
+    "contenteditable",
+    "typescript",
+    "accessibility",
+    "wysiwyg",
+    "text-editor"
+  ],
+  "author": "tbachir",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tbachir/react-inline-editor-lib.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tbachir/react-inline-editor-lib/issues"
+  },
+  "homepage": "https://github.com/tbachir/react-inline-editor-lib#readme",
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": false
     },
-    "keywords": [
-        "logger",
-        "console",
-        "debug",
-        "react",
-        "typescript",
-        "development-tools"
-    ],
-    "author": "Your Name",
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/yourusername/smart-logger"
-    },
-    "peerDependencies": {
-        "react": ">=16.8.0",
-        "react-dom": ">=16.8.0"
-    },
-    "peerDependenciesMeta": {
-        "react": {
-            "optional": true
-        },
-        "react-dom": {
-            "optional": true
-        }
-    },
-    "devDependencies": {
-        "@types/react": "^18.0.0",
-        "@types/react-dom": "^18.0.0",
-        "@typescript-eslint/eslint-plugin": "^6.0.0",
-        "@typescript-eslint/parser": "^6.0.0",
-        "eslint": "^8.0.0",
-        "eslint-plugin-react": "^7.0.0",
-        "eslint-plugin-react-hooks": "^4.0.0",
-        "tsup": "^8.0.0",
-        "typescript": "^5.0.0",
-        "vitest": "^1.0.0",
-        "@testing-library/react": "^14.0.0",
-        "@vitest/ui": "^1.0.0"
+    "react-dom": {
+      "optional": false
     }
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.1.4",
+    "@testing-library/react": "^14.1.2",
+    "@testing-library/user-event": "^14.5.1",
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "@typescript-eslint/parser": "^6.10.0",
+    "@vitest/coverage-v8": "^0.34.6",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.53.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "jsdom": "^22.1.0",
+    "postcss": "^8.4.31",
+    "postcss-cli": "^10.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tsup": "^8.0.1",
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.6"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
 }

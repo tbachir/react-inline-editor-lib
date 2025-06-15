@@ -1,672 +1,285 @@
-# @burner/inline-editor
+# @tbachir/react-inline-editor
 
-A modern, transparent inline content editor for React, designed to seamlessly integrate into any existing website with zero layout disruption.
+A modern, accessible React inline editor component with TypeScript support. Perfect for creating seamless in-place editing experiences in your React applications.
 
-## 🚀 Features
+## Features
 
-- **Zero Layout Shift**: Seamless WYSIWYG editing that preserves your original design
-- **Modern Design System**: Built with accessibility and performance in mind
-- **TypeScript Support**: Full type safety and IntelliSense support
-- **Mobile Optimized**: Touch-friendly interface with responsive design
-- **Accessibility First**: WCAG 2.1 AA compliant with screen reader support
-- **Real-time Collaboration**: Version conflict detection and resolution
-- **WordPress Integration**: Built-in support for WordPress REST API
-- **Customizable**: Extensive theming and configuration options
+- 🎯 **Zero Dependencies** - Only requires React as a peer dependency
+- 🔧 **TypeScript Support** - Full type safety and IntelliSense
+- ♿ **Accessibility First** - WCAG 2.1 AA compliant with screen reader support
+- 🎨 **Customizable** - Flexible styling and theming options
+- 📱 **Mobile Friendly** - Touch-optimized interface
+- ⌨️ **Keyboard Navigation** - Full keyboard support with customizable shortcuts
+- 🔍 **Validation** - Built-in validation with custom error messages
+- 💾 **Auto-save** - Optional auto-save functionality
+- 🎭 **Multiple Modes** - Single-line and multi-line editing support
 
-## 📦 Installation
-
-```bash
-npm install @burner/inline-editor
-```
-
-### Required Peer Dependencies
+## Installation
 
 ```bash
-npm install react react-dom framer-motion react-hot-toast lucide-react
+npm install @tbachir/react-inline-editor
 ```
 
-## ⚙️ Quick Setup
-
-### 1. Basic Configuration
-
-Wrap your application with the `InlineEditor` provider:
+## Quick Start
 
 ```tsx
-import React from 'react';
-import { InlineEditor } from '@burner/inline-editor';
-import '@burner/inline-editor/dist/style.css';
+import React, { useState } from 'react';
+import { InlineEditor } from '@tbachir/react-inline-editor';
+import '@tbachir/react-inline-editor/styles';
 
 function App() {
-  return (
-    <InlineEditor useModernDesign={true}>
-      <div className="your-app">
-        {/* Your existing content */}
-        <YourExistingComponents />
-      </div>
-    </InlineEditor>
-  );
-}
+  const [text, setText] = useState('Click to edit this text');
 
-export default App;
-```
-
-### 2. Environment Variables
-
-Create a `.env` file in your project root:
-
-```env
-# Your WordPress/API base URL
-VITE_API_BASE_URL=https://your-site.com
-
-# Enable debug mode (development only)
-VITE_DEBUG_ENABLED=true
-
-# Minimum loader duration (optional)
-VITE_MIN_LOADER_DURATION=500
-```
-
-## 🎯 Usage Examples
-
-### Inline Text Editing
-
-```tsx
-import { ModernEditableWrapper } from '@burner/inline-editor';
-
-function MyComponent() {
   return (
     <div>
-      <ModernEditableWrapper 
-        id="welcome-title"
-        as="h1"
-        className="text-4xl font-bold"
-        placeholder="Enter your title..."
-      >
-        Default Title
-      </ModernEditableWrapper>
-      
-      <ModernEditableWrapper 
-        id="description"
-        as="p"
-        multiline={true}
-        maxLength={500}
-        className="text-gray-600 mt-4"
-      >
-        Default description that can be edited inline...
-      </ModernEditableWrapper>
+      <h1>
+        <InlineEditor
+          value={text}
+          onChange={setText}
+          placeholder="Enter your title..."
+        />
+      </h1>
     </div>
   );
 }
 ```
 
-### Image Editing
+## API Reference
 
-```tsx
-import { ModernEditableImage } from '@burner/inline-editor';
-
-function Hero() {
-  return (
-    <div className="hero">
-      <ModernEditableImage
-        id="hero-image"
-        src="/images/default-hero.jpg"
-        alt="Hero image"
-        className="w-full h-96 object-cover rounded-lg"
-        width={800}
-        height={400}
-      />
-    </div>
-  );
-}
-```
-
-### Background Image Editing
-
-```tsx
-import { EditableBackground } from '@burner/inline-editor';
-
-function Section() {
-  return (
-    <EditableBackground
-      id="section-bg"
-      backgroundImage="url('/images/default-bg.jpg')"
-      className="min-h-screen flex items-center justify-center"
-      style={{
-        backgroundSize: 'cover',
-        backgroundPosition: 'center'
-      }}
-    >
-      <div className="text-white text-center">
-        <h2>Content with editable background</h2>
-      </div>
-    </EditableBackground>
-  );
-}
-```
-
-### Attribute Editing
-
-```tsx
-import { EditableAttribute } from '@burner/inline-editor';
-
-function Navigation() {
-  return (
-    <nav>
-      <EditableAttribute
-        id="nav-link-1"
-        attribute="href"
-        defaultValue="/home"
-        validator={(url) => url.startsWith('/') || url.startsWith('http')}
-        editLabel="Link URL"
-      >
-        <a className="nav-link">
-          Home
-        </a>
-      </EditableAttribute>
-    </nav>
-  );
-}
-```
-
-### Accessibility-Enhanced Editing
-
-```tsx
-import { AccessibleEditableWrapper } from '@burner/inline-editor';
-
-function AccessibleContent() {
-  return (
-    <AccessibleEditableWrapper
-      id="accessible-content"
-      ariaLabel="Main heading"
-      ariaDescription="Press Enter or F2 to edit this heading"
-      role="heading"
-      as="h1"
-    >
-      Accessible Content
-    </AccessibleEditableWrapper>
-  );
-}
-```
-
-## 🔧 Component API Reference
-
-### ModernEditableWrapper
+### InlineEditor Props
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `id` | `string` | **required** | Unique identifier for the content |
-| `children` | `ReactNode` | **required** | Default content to display |
-| `as` | `keyof JSX.IntrinsicElements` | `'span'` | HTML element to render |
-| `multiline` | `boolean` | `true` | Allow line breaks in content |
+| `value` | `string` | **required** | The current text value |
+| `onChange` | `(value: string) => void` | **required** | Callback when value changes |
+| `onEditStart` | `() => void` | - | Callback when editing starts |
+| `onEditComplete` | `(value: string) => void` | - | Callback when editing completes |
+| `onEditCancel` | `() => void` | - | Callback when editing is cancelled |
+| `multiline` | `boolean` | `false` | Allow multiple lines |
 | `maxLength` | `number` | - | Maximum character length |
-| `placeholder` | `string` | - | Placeholder text in edit mode |
-| `className` | `string` | `''` | Additional CSS classes |
-| `showEditableHighlights` | `boolean` | `false` | Show editable outlines |
+| `placeholder` | `string` | `'Click to edit...'` | Placeholder text |
+| `className` | `string` | `''` | Custom CSS class |
+| `style` | `React.CSSProperties` | `{}` | Inline styles |
+| `as` | `keyof JSX.IntrinsicElements` | `'span'` | HTML element type |
+| `disabled` | `boolean` | `false` | Disable editing |
+| `readOnly` | `boolean` | `false` | Read-only mode |
+| `validate` | `(value: string) => string \| null` | - | Validation function |
+| `autoSaveDelay` | `number` | `0` | Auto-save delay in ms |
+| `showEditIndicator` | `boolean` | `true` | Show edit indicator |
+| `editIndicator` | `React.ReactNode` | `'✏️'` | Custom edit indicator |
+| `ariaLabel` | `string` | - | ARIA label |
+| `ariaDescription` | `string` | - | ARIA description |
 
-### ModernEditableImage
+### useInlineEditor Hook
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `id` | `string` | **required** | Unique identifier for the image |
-| `src` | `string` | **required** | Default image URL |
-| `alt` | `string` | `''` | Alternative text |
-| `className` | `string` | `''` | CSS classes |
-| `style` | `CSSProperties` | `{}` | Inline styles |
-| `width` | `number\|string` | - | Image width |
-| `height` | `number\|string` | - | Image height |
-| `loading` | `'lazy'\|'eager'` | `'lazy'` | Loading strategy |
-
-### EditableBackground
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `id` | `string` | **required** | Unique identifier |
-| `backgroundImage` | `string` | **required** | CSS background-image value |
-| `children` | `ReactNode` | **required** | Content to display |
-| `className` | `string` | `''` | CSS classes |
-| `style` | `CSSProperties` | `{}` | Inline styles |
-| `as` | `keyof JSX.IntrinsicElements` | `'div'` | HTML element to render |
-
-### EditableAttribute
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `id` | `string` | **required** | Unique identifier |
-| `attribute` | `string` | **required** | HTML attribute to edit |
-| `defaultValue` | `string` | **required** | Default attribute value |
-| `children` | `ReactElement` | **required** | Element to enhance |
-| `validator` | `(value: string) => boolean\|string` | - | Value validation function |
-| `transformer` | `(value: string) => string` | - | Value transformation function |
-| `editLabel` | `string` | - | Custom edit button label |
-
-## 🎨 Hooks and Utilities
-
-### useAuth
+For advanced use cases, you can use the `useInlineEditor` hook directly:
 
 ```tsx
-import { useAuth } from '@burner/inline-editor';
+import { useInlineEditor } from '@tbachir/react-inline-editor';
 
-function MyComponent() {
-  const { isAuthenticated, user, logout } = useAuth();
-  
-  return (
-    <div>
-      {isAuthenticated ? (
-        <p>Logged in as {user?.name}</p>
-      ) : (
-        <p>Not authenticated</p>
-      )}
-    </div>
-  );
-}
-```
-
-### useContent
-
-```tsx
-import { useContent } from '@burner/inline-editor';
-
-function MyComponent() {
-  const { isLoading, contents, refreshContents } = useContent();
-  
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-  
-  return (
-    <div>
-      <button onClick={refreshContents}>
-        Refresh Content
-      </button>
-      <p>{Object.keys(contents).length} contents loaded</p>
-    </div>
-  );
-}
-```
-
-### useNotifications
-
-```tsx
-import { useNotifications } from '@burner/inline-editor';
-
-function MyComponent() {
-  const { success, error, promise } = useNotifications();
-  
-  const handleSave = async () => {
-    try {
-      await promise(
-        saveMyData(),
-        {
-          loading: 'Saving...',
-          success: 'Saved successfully!',
-          error: 'Failed to save'
-        }
-      );
-    } catch (err) {
-      error('An error occurred');
-    }
-  };
-  
-  return (
-    <button onClick={handleSave}>
-      Save Data
-    </button>
-  );
-}
-```
-
-### useAccessibility
-
-```tsx
-import { useAccessibility } from '@burner/inline-editor';
-
-function AccessibleComponent() {
-  const { announce, manageFocus, createKeyboardHandler } = useAccessibility();
-  
-  const handleEdit = () => {
-    announce('Now editing content', 'assertive');
-  };
-  
-  const keyboardHandler = createKeyboardHandler({
-    'Enter': handleEdit,
-    'Escape': () => announce('Edit cancelled'),
+function CustomEditor() {
+  const {
+    isEditing,
+    currentValue,
+    validationError,
+    hasChanges,
+    startEditing,
+    stopEditing,
+    updateValue,
+    handleKeyDown,
+    handleBlur,
+    editorRef
+  } = useInlineEditor({
+    value: 'Initial value',
+    onChange: (value) => console.log(value),
+    validate: (value) => value.length < 3 ? 'Too short' : null
   });
-  
-  return (
-    <div onKeyDown={keyboardHandler}>
-      Accessible content
-    </div>
-  );
+
+  // Your custom implementation
 }
 ```
 
-## 🔒 Authentication
+## Examples
 
-The editor uses a "magic token" system for authentication:
-
-1. **Server-side**: Generate a JWT with appropriate claims
-2. **Client-side**: Add the token to the URL: `?magic_token=YOUR_JWT_TOKEN`
-
-The token is automatically detected and stored in localStorage.
-
-### Example JWT Payload
-
-```json
-{
-  "sub": "user123",
-  "name": "John Doe",
-  "email": "john@example.com",
-  "role": "editor",
-  "exp": 1640995200
-}
-```
-
-## 🔧 Backend API Requirements
-
-### Required Endpoints
-
-Your WordPress/API backend must expose these endpoints:
-
-```
-GET    /wp-json/api/editable-content          # Load all content
-POST   /wp-json/api/editable-content/save     # Save content
-GET    /wp-json/api/editable-content/get      # Get specific content
-POST   /wp-json/wp/v2/media                   # Upload media
-POST   /wp-json/api/media/import-url          # Import from URL
-```
-
-### Content Data Structure
-
-```typescript
-interface EditableContent {
-  editable_id?: string;
-  content: string;
-  context: string;
-  context_id: string;
-  version?: number;
-  contentType?: 'text' | 'html' | 'markdown';
-  lastModified?: number;
-}
-```
-
-### Save Request Format
-
-```typescript
-interface SaveContentRequest {
-  content: string;
-  context: string;
-  context_id: string;
-  content_type?: string;
-  version?: number;
-  isDefaultContent?: boolean;
-}
-```
-
-## 🎨 Theming and Customization
-
-### CSS Custom Properties
-
-The editor uses CSS custom properties for easy theming:
-
-```css
-:root {
-  /* Primary colors */
-  --editor-primary-500: #3b82f6;
-  --editor-primary-600: #2563eb;
-  
-  /* Success/error colors */
-  --editor-success-500: #10b981;
-  --editor-error-500: #ef4444;
-  
-  /* Neutral colors */
-  --editor-neutral-50: #f9fafb;
-  --editor-neutral-900: #111827;
-  
-  /* Spacing */
-  --editor-space-sm: 0.5rem;
-  --editor-space-md: 1rem;
-  
-  /* Shadows */
-  --editor-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  
-  /* Animations */
-  --editor-duration-fast: 150ms;
-}
-```
-
-### Dark Mode Support
-
-The editor automatically adapts to system dark mode preferences:
-
-```css
-@media (prefers-color-scheme: dark) {
-  :root {
-    --editor-neutral-50: #1f2937;
-    --editor-neutral-900: #ffffff;
-  }
-}
-```
-
-### Custom Design Tokens
+### Basic Usage
 
 ```tsx
-import { designTokens } from '@burner/inline-editor';
+import { InlineEditor } from '@tbachir/react-inline-editor';
 
-// Access design tokens in your components
-const customStyle = {
-  color: designTokens.colors.primary[500],
-  padding: designTokens.spacing.md,
-  borderRadius: designTokens.borderRadius.lg,
-};
-```
-
-## 📱 Mobile Optimization
-
-### Touch-Friendly Interface
-
-```tsx
-import { MobileEditingInterface } from '@burner/inline-editor';
-
-function MobileEditor() {
+function BasicExample() {
+  const [title, setTitle] = useState('My Title');
+  
   return (
-    <MobileEditingInterface
-      isVisible={isEditing}
-      onSave={handleSave}
-      onCancel={handleCancel}
-      hasChanges={hasUnsavedChanges}
-      isSaving={isSaving}
+    <InlineEditor
+      value={title}
+      onChange={setTitle}
+      placeholder="Enter title..."
     />
   );
 }
 ```
 
-### Responsive Breakpoints
+### With Validation
 
-- **Mobile**: < 768px
-- **Tablet**: 768px - 1023px  
-- **Desktop**: ≥ 1024px
+```tsx
+function ValidatedEditor() {
+  const [email, setEmail] = useState('');
+  
+  const validateEmail = (value: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(value) ? null : 'Please enter a valid email';
+  };
+  
+  return (
+    <InlineEditor
+      value={email}
+      onChange={setEmail}
+      validate={validateEmail}
+      placeholder="Enter your email..."
+    />
+  );
+}
+```
 
-## ♿ Accessibility Features
+### Multiline with Auto-save
 
-### WCAG 2.1 AA Compliance
+```tsx
+function MultilineEditor() {
+  const [description, setDescription] = useState('');
+  
+  return (
+    <InlineEditor
+      value={description}
+      onChange={setDescription}
+      multiline
+      autoSaveDelay={2000}
+      maxLength={500}
+      placeholder="Enter description..."
+      as="div"
+    />
+  );
+}
+```
 
-- **Keyboard Navigation**: Full keyboard support with logical tab order
-- **Screen Reader Support**: ARIA labels and live regions
-- **Color Contrast**: Minimum 4.5:1 contrast ratio
-- **Touch Targets**: Minimum 44x44px touch targets
-- **Focus Management**: Clear focus indicators and management
+### Custom Styling
+
+```tsx
+function StyledEditor() {
+  const [text, setText] = useState('Styled text');
+  
+  return (
+    <InlineEditor
+      value={text}
+      onChange={setText}
+      className="my-custom-editor"
+      style={{
+        fontSize: '1.5rem',
+        fontWeight: 'bold',
+        color: '#333'
+      }}
+    />
+  );
+}
+```
+
+### With Ref Access
+
+```tsx
+import { useRef } from 'react';
+import { InlineEditor, InlineEditorRef } from '@tbachir/react-inline-editor';
+
+function RefExample() {
+  const editorRef = useRef<InlineEditorRef>(null);
+  const [text, setText] = useState('Text with ref');
+  
+  const handleStartEdit = () => {
+    editorRef.current?.startEditing();
+  };
+  
+  return (
+    <div>
+      <InlineEditor
+        ref={editorRef}
+        value={text}
+        onChange={setText}
+      />
+      <button onClick={handleStartEdit}>
+        Start Editing
+      </button>
+    </div>
+  );
+}
+```
+
+## Styling
+
+The component comes with default styles that you can import:
+
+```tsx
+import '@tbachir/react-inline-editor/styles';
+```
+
+### CSS Classes
+
+The component uses these CSS classes that you can customize:
+
+- `.inline-editor-container` - Container wrapper
+- `.inline-editor` - Main editor element
+- `.inline-editor--editing` - Applied when in edit mode
+- `.inline-editor--display` - Applied when in display mode
+- `.inline-editor--disabled` - Applied when disabled
+- `.inline-editor--error` - Applied when validation fails
+- `.inline-editor-indicator` - Edit indicator element
+- `.inline-editor-error` - Validation error message
+- `.inline-editor-counter` - Character counter
+- `.inline-editor-actions` - Action buttons container
+
+### Custom Theme Example
+
+```css
+.my-theme .inline-editor {
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.my-theme .inline-editor--editing {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.my-theme .inline-editor-indicator {
+  background-color: #10b981;
+}
+```
+
+## Accessibility
+
+The component is built with accessibility in mind:
+
+- **Keyboard Navigation**: Full keyboard support with Enter/Escape shortcuts
+- **Screen Readers**: Proper ARIA labels and live regions
+- **Focus Management**: Logical focus flow and visible focus indicators
+- **High Contrast**: Supports high contrast mode
+- **Reduced Motion**: Respects user's motion preferences
 
 ### Keyboard Shortcuts
 
-- **Enter/Space**: Start editing
+- **Enter**: Save changes (Ctrl+Enter in multiline mode)
 - **Escape**: Cancel editing
-- **F2**: Toggle edit mode
-- **Ctrl+Enter**: Save changes
-- **Ctrl+S**: Save changes
+- **Ctrl+S / Cmd+S**: Save changes
+- **Tab**: Navigate between elements
 
-## 🐛 Debug Mode
+## Browser Support
 
-Enable debug mode for development:
+- Chrome 60+
+- Firefox 60+
+- Safari 12+
+- Edge 79+
 
-```env
-VITE_DEBUG_ENABLED=true
-```
+## Contributing
 
-The debug panel shows:
-- Authentication status
-- Content state
-- Context information
-- Environment variables
-- Performance metrics
+Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details.
 
-## 📊 Performance Features
+## License
 
-### Optimizations
-
-- **Debounced Saving**: Prevents excessive API calls
-- **Content Caching**: 5-minute TTL cache for frequently accessed content
-- **Virtual Scrolling**: For large content lists
-- **Lazy Loading**: Images and components load on demand
-- **Bundle Splitting**: Optimized chunk sizes
-
-### Bundle Size
-
-- **ES Module**: ~99KB (gzipped: ~25KB)
-- **UMD**: ~62KB (gzipped: ~20KB)
-- **CSS**: ~13KB (gzipped: ~3KB)
-
-## 🔄 Version Conflict Resolution
-
-Handle concurrent editing scenarios:
-
-```tsx
-<InlineEditor
-  onVersionConflict={async (conflict) => {
-    const choice = await showConflictDialog(conflict);
-    return choice; // 'overwrite' | 'keep_server' | 'cancel'
-  }}
->
-  {/* Your app */}
-</InlineEditor>
-```
-
-## 📦 Build and Distribution
-
-### Building the Library
-
-```bash
-npm run build
-```
-
-### Using in Your Project
-
-```tsx
-// ES Modules
-import { InlineEditor, ModernEditableWrapper } from '@burner/inline-editor';
-import '@burner/inline-editor/dist/style.css';
-
-// UMD (browser)
-<script src="https://unpkg.com/@burner/inline-editor/dist/inline-editor.umd.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/@burner/inline-editor/dist/style.css">
-```
-
-## 🔧 Advanced Configuration
-
-### Custom API Service
-
-```tsx
-import { ApiService } from '@burner/inline-editor';
-
-const customApiService = new ApiService('https://custom-api.com');
-
-// Use with ContentProvider
-<ContentProvider apiBaseUrl="https://custom-api.com">
-  {/* Your app */}
-</ContentProvider>
-```
-
-### Custom Notification Provider
-
-```tsx
-import { NotificationProvider } from '@burner/inline-editor';
-
-<NotificationProvider>
-  <InlineEditor>
-    {/* Your app */}
-  </InlineEditor>
-</NotificationProvider>
-```
-
-## 🚀 Migration Guide
-
-### From v0.x to v1.x
-
-1. **Update imports**:
-   ```tsx
-   // Old
-   import { EditableWrapper } from '@burner/inline-editor';
-   
-   // New
-   import { ModernEditableWrapper } from '@burner/inline-editor';
-   ```
-
-2. **Update CSS imports**:
-   ```tsx
-   // Old
-   import '@burner/inline-editor/styles.css';
-   
-   // New
-   import '@burner/inline-editor/dist/style.css';
-   ```
-
-3. **Update prop names**:
-   ```tsx
-   // Old
-   <EditableWrapper showHighlights={true} />
-   
-   // New
-   <ModernEditableWrapper showEditableHighlights={true} />
-   ```
-
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
-
-### Development Setup
-
-```bash
-git clone https://github.com/your-org/inline-editor.git
-cd inline-editor
-npm install
-npm run dev
-```
-
-### Running Tests
-
-```bash
-npm test
-npm run test:coverage
-```
-
-## 📄 License
-
-MIT License - see [LICENSE](LICENSE) file for details.
-
-## 🆘 Support
-
-- **Documentation**: [https://docs.inline-editor.dev](https://docs.inline-editor.dev)
-- **Issues**: [GitHub Issues](https://github.com/your-org/inline-editor/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/your-org/inline-editor/discussions)
-- **Email**: support@inline-editor.dev
-
-## 🙏 Acknowledgments
-
-- Built with [React](https://reactjs.org/)
-- Animations by [Framer Motion](https://www.framer.com/motion/)
-- Icons by [Lucide](https://lucide.dev/)
-- Notifications by [React Hot Toast](https://react-hot-toast.com/)
-
----
-
-**Version**: 1.0.0  
-**Last Updated**: December 2024  
-**Compatibility**: React 18+, TypeScript 4.5+, Node.js 16+
+MIT © [tbachir](https://github.com/tbachir)
