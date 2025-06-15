@@ -4,7 +4,7 @@ import { useAuth } from '../auth';
 import { useContent } from '../content';
 import { useNotifications } from '../notifications';
 import { ModernInlineTextEditor } from './ModernInlineTextEditor';
-import { detectContext, generateContextId } from '../context/EditableContentContext';
+import { generateContextId } from '../context/EditableContentContext';
 import { designTokens } from '../design/DesignTokens';
 import type { EditableContent } from '../types';
 
@@ -210,12 +210,12 @@ const ModernEditableWrapperComponent: React.FC<ModernEditableWrapperProps> = ({
               outlineOffset: '1px',
             }),
             ...(isAuthenticated && isHovered && {
-              outline: `2px solid ${designTokens.colors.primary[300]}`,
+              outline: `2px solid ${designTokens.colors.primary[100]}`,
               backgroundColor: `${designTokens.colors.primary[50]}`,
             }),
             ...(showEditableHighlights && isAuthenticated && {
-              outline: `2px dashed ${designTokens.colors.primary[300]}`,
-              backgroundColor: `${designTokens.colors.primary[25]}`,
+              outline: `2px dashed ${designTokens.colors.primary[100]}`,
+              backgroundColor: `${designTokens.colors.primary[50]}`,
             })
           },
           title: isAuthenticated ? 'Click to edit' : undefined,

@@ -64,38 +64,6 @@ export const AccessibleEditableWrapper: React.FC<AccessibleEditableWrapperProps>
     }
   }, [isEditing, ariaLabel, id, announce]);
 
-  // Enhanced save handler with announcements
-  const handleSave = React.useCallback(async (content: string): Promise<boolean> => {
-    announce('Saving changes...', 'assertive');
-    
-    try {
-      // Call original save logic here
-      const success = true; // Placeholder
-      
-      if (success) {
-        announce('Changes saved successfully', 'assertive');
-        setHasChanges(false);
-        setIsEditing(false);
-        manageFocus(wrapperRef.current);
-      } else {
-        announce('Failed to save changes. Please try again.', 'assertive');
-      }
-      
-      return success;
-    } catch (error) {
-      announce('An error occurred while saving. Please try again.', 'assertive');
-      return false;
-    }
-  }, [announce, manageFocus]);
-
-  // Enhanced cancel handler
-  const handleCancel = React.useCallback(() => {
-    setIsEditing(false);
-    setHasChanges(false);
-    announce('Editing cancelled', 'polite');
-    manageFocus(wrapperRef.current);
-  }, [announce, manageFocus]);
-
   return (
     <div
       ref={wrapperRef}
@@ -103,7 +71,7 @@ export const AccessibleEditableWrapper: React.FC<AccessibleEditableWrapperProps>
       aria-label={ariaLabel || `Editable content: ${id}`}
       aria-description={ariaDescription || 'Press Enter or F2 to edit this content'}
       aria-expanded={isEditing}
-      aria-busy={false} // Update based on saving state
+      aria-busy={false}
       tabIndex={0}
       onKeyDown={handleKeyDown}
       style={{

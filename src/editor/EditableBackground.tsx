@@ -1,9 +1,8 @@
-// src/inline-editor/editor/EditableBackground.tsx
 import React from "react";
 
 import { useAuth } from '../auth';
 import { useContent } from '../content';
-import { detectContext, generateContextId } from '../context/EditableContentContext';
+import { generateContextId } from '../context/EditableContentContext';
 import { ImageUploadModal } from '../components/ImageUploadModal';
 import type { EditableContent } from '../types';
 
@@ -38,22 +37,21 @@ const EditableBackgroundComponent: React.FC<EditableBackgroundProps> = ({
   const [context, setContext] = React.useState<string>('');
   const [currentBgImage, setCurrentBgImage] = React.useState<string>('');
   const [tempBgImage, setTempBgImage] = React.useState<string>('');
-  const [isPreviewError, setIsPreviewError] = React.useState(false);
   const [isSaving, setIsSaving] = React.useState(false);
   const [isInitialized, setIsInitialized] = React.useState(false);
   const [showUploadModal, setShowUploadModal] = React.useState(false);
   
-  const elementRef =  React.useRef<HTMLElement>(null);
-  const inputRef =  React.useRef<HTMLInputElement>(null);
+  const elementRef = React.useRef<HTMLElement>(null);
+  const inputRef = React.useRef<HTMLInputElement>(null);
   
   // Helper pour extraire l'URL d'un background-image CSS
-  const extractUrlFromCss =  React.useCallback((cssValue: string): string => {
+  const extractUrlFromCss = React.useCallback((cssValue: string): string => {
     const match = cssValue.match(/url\(['"]?([^'"]+)['"]?\)/);
     return match ? match[1] : cssValue;
   }, []);
   
   // Helper pour formater une URL en background-image CSS
-  const formatAsCssUrl =  React.useCallback((url: string): string => {
+  const formatAsCssUrl = React.useCallback((url: string): string => {
     if (!url) return 'none';
     if (url === 'none') return 'none';
     return `url('${url}')`;
@@ -122,11 +120,10 @@ const EditableBackgroundComponent: React.FC<EditableBackgroundProps> = ({
   /**
    * Entrer en mode édition
    */
-  const handleEdit =  React.useCallback(() => {
+  const handleEdit = React.useCallback(() => {
     if (isAuthenticated && !isEditing && context) {
       setIsEditing(true);
       setTempBgImage(currentBgImage);
-      setIsPreviewError(false);
       setShowUploadModal(false);
       
       setTimeout(() => {
@@ -139,7 +136,7 @@ const EditableBackgroundComponent: React.FC<EditableBackgroundProps> = ({
   /**
    * Gestionnaire pour l'upload d'image
    */
-  const handleImageUploaded =  React.useCallback((newUrl: string) => {
+  const handleImageUploaded = React.useCallback((newUrl: string) => {
     setTempBgImage(newUrl);
     setShowUploadModal(false);
   }, []);
@@ -147,7 +144,7 @@ const EditableBackgroundComponent: React.FC<EditableBackgroundProps> = ({
   /**
    * Valider l'URL de l'image
    */
-  const validateImageUrl =  React.useCallback(async (url: string): Promise<boolean> => {
+  const validateImageUrl = React.useCallback(async (url: string): Promise<boolean> => {
     if (!url || url === 'none') return true;
     
     return new Promise((resolve) => {
@@ -161,7 +158,7 @@ const EditableBackgroundComponent: React.FC<EditableBackgroundProps> = ({
   /**
    * Sauvegarder la nouvelle URL
    */
-  const handleSave =  React.useCallback(async () => {
+  const handleSave = React.useCallback(async () => {
     if (!context || isSaving) return;
     
     const urlToSave = tempBgImage.trim() || 'none';
@@ -216,16 +213,15 @@ const EditableBackgroundComponent: React.FC<EditableBackgroundProps> = ({
   /**
    * Annuler l'édition
    */
-  const handleCancel =  React.useCallback(() => {
+  const handleCancel = React.useCallback(() => {
     setTempBgImage(currentBgImage);
     setIsEditing(false);
-    setIsPreviewError(false);
   }, [currentBgImage]);
   
   /**
    * Gestionnaire de touches
    */
-  const handleKeyDown =  React.useCallback((e: React.KeyboardEvent) => {
+  const handleKeyDown = React.useCallback((e: React.KeyboardEvent) => {
     if (e.key === 'Escape') {
       e.preventDefault();
       handleCancel();
@@ -390,7 +386,6 @@ const EditableBackgroundComponent: React.FC<EditableBackgroundProps> = ({
         isOpen={showUploadModal}
         onClose={() => setShowUploadModal(false)}
         onImageSelected={handleImageUploaded}
-        currentImageUrl={tempBgImage}
       />
     </>
   );

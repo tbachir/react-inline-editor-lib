@@ -27,12 +27,11 @@ const ModernInlineTextEditorComponent: React.FC<ModernInlineTextEditorProps> = (
   className = '',
   style = {},
   as: Component = 'span',
-  preserveStyles = true
 }) => {
   const [isSaving, setIsSaving] = React.useState(false);
   const [hasChanges, setHasChanges] = React.useState(false);
-  const editableRef =  React.useRef<HTMLDivElement>(null);
-  const originalContent =  React.useRef(content);
+  const editableRef = React.useRef<HTMLDivElement>(null);
+  const originalContent = React.useRef(content);
   const { success, error, loading, dismiss } = useNotifications();
   
   // Focus and selection on mount
@@ -53,7 +52,7 @@ const ModernInlineTextEditorComponent: React.FC<ModernInlineTextEditorProps> = (
   /**
    * Get text content from editable div
    */
-  const getTextContent =  React.useCallback(() => {
+  const getTextContent = React.useCallback(() => {
     if (!editableRef.current) return '';
     
     const content = editableRef.current.innerText || '';
@@ -63,7 +62,7 @@ const ModernInlineTextEditorComponent: React.FC<ModernInlineTextEditorProps> = (
   /**
    * Handle input changes to track modifications
    */
-  const handleInput =  React.useCallback(() => {
+  const handleInput = React.useCallback(() => {
     const currentContent = getTextContent();
     setHasChanges(currentContent !== originalContent.current);
   }, [getTextContent]);
@@ -71,7 +70,7 @@ const ModernInlineTextEditorComponent: React.FC<ModernInlineTextEditorProps> = (
   /**
    * Keyboard shortcuts handler
    */
-  const handleKeyDown =  React.useCallback((e: React.KeyboardEvent) => {
+  const handleKeyDown = React.useCallback((e: React.KeyboardEvent) => {
     if (e.key === 'Escape') {
       e.preventDefault();
       onCancel();
@@ -92,7 +91,7 @@ const ModernInlineTextEditorComponent: React.FC<ModernInlineTextEditorProps> = (
   /**
    * Save handler with notifications
    */
-  const handleSave =  React.useCallback(async () => {
+  const handleSave = React.useCallback(async () => {
     const currentContent = getTextContent();
     
     if (isSaving) return;
@@ -130,7 +129,7 @@ const ModernInlineTextEditorComponent: React.FC<ModernInlineTextEditorProps> = (
   /**
    * Handle paste to maintain plain text
    */
-  const handlePaste =  React.useCallback((e: React.ClipboardEvent) => {
+  const handlePaste = React.useCallback((e: React.ClipboardEvent) => {
     e.preventDefault();
     const text = e.clipboardData.getData('text/plain');
     
@@ -144,7 +143,7 @@ const ModernInlineTextEditorComponent: React.FC<ModernInlineTextEditorProps> = (
   /**
    * Handle blur with auto-save option
    */
-  const handleBlur =  React.useCallback((e: React.FocusEvent) => {
+  const handleBlur = React.useCallback((e: React.FocusEvent) => {
     // Don't auto-save if clicking on action buttons
     const relatedTarget = e.relatedTarget as HTMLElement;
     if (relatedTarget?.closest('.inline-editor-actions-modern')) {

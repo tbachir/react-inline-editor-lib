@@ -1,13 +1,14 @@
 import React from "react";
-interface EditableAttributeProps {
-    children: React.ReactElement;
+interface ModernEditableImageProps {
     id: string;
-    attribute: string;
-    defaultValue: string;
-    validator?: (value: string) => boolean | string;
-    transformer?: (value: string) => string;
+    src: string;
+    alt?: string;
+    className?: string;
+    style?: React.CSSProperties;
+    width?: number | string;
+    height?: number | string;
+    loading?: 'lazy' | 'eager';
     showEditableHighlights?: boolean;
-    editLabel?: string;
 }
-export declare const EditableAttribute: React.NamedExoticComponent<EditableAttributeProps>;
+export declare const ModernEditableImage: React.NamedExoticComponent<ModernEditableImageProps>;
 export {};

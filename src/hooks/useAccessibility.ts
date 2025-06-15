@@ -49,10 +49,10 @@ export function useAccessibility(options: AccessibilityOptions = {}) {
       const hasScreenReader = 
         window.navigator.userAgent.includes('NVDA') ||
         window.navigator.userAgent.includes('JAWS') ||
-        window.speechSynthesis ||
+        !!window.speechSynthesis ||
         document.querySelector('[aria-live]') !== null;
       
-      setIsScreenReaderActive(hasScreenReader);
+      setIsScreenReaderActive(!!hasScreenReader);
     };
 
     detectScreenReader();
@@ -118,12 +118,8 @@ export function useAccessibility(options: AccessibilityOptions = {}) {
    * Check if element meets WCAG contrast requirements
    */
   const checkContrast = (element: HTMLElement): { ratio: number; passes: boolean } => {
-    const styles = window.getComputedStyle(element);
-    const backgroundColor = styles.backgroundColor;
-    const color = styles.color;
-
     // Simplified contrast calculation (in real implementation, use a proper library)
-    const ratio = calculateContrastRatio(color, backgroundColor);
+    const ratio = 4.5; // Placeholder
     const passes = ratio >= 4.5; // WCAG AA standard
 
     return { ratio, passes };
@@ -136,14 +132,4 @@ export function useAccessibility(options: AccessibilityOptions = {}) {
     checkContrast,
     isScreenReaderActive,
   };
-}
-
-/**
- * Simplified contrast ratio calculation
- * In production, use a proper library like 'color-contrast' for accurate calculations
- */
-function calculateContrastRatio(color1: string, color2: string): number {
-  // This is a simplified implementation
-  // Use a proper library like 'color-contrast' for accurate calculations
-  return 4.5; // Placeholder
 }
