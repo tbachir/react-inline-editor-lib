@@ -1,8 +1,11 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { UseInlineEditorOptions, UseInlineEditorReturn } from '../types';
+import { DOMUtils } from '../utils/domUtils';
+import { ValidationUtils } from '../utils/validation';
+import { AccessibilityUtils } from '../utils/accessibility';
 
 /**
- * Custom hook for managing inline editor state and behavior
+ * Custom hook for managing inline editor state and behavior with enhanced security
  * @param options Configuration options for the inline editor
  * @returns Object containing editor state and handlers
  */
@@ -40,9 +43,9 @@ export function useInlineEditor(options: UseInlineEditorOptions): UseInlineEdito
     }
   }, [value, isEditing]);
 
-  // Auto-save functionality
+  // Auto-save functionality with validation
   useEffect(() => {
-    if (autoSaveDelay > 0 && hasChanges && isEditing) {
+    if (autoSaveDelay > 0 && hasChanges && isEditing && !validationError) {
       if (autoSaveTimeoutRef.current) {
         clearTimeout(autoSaveTimeoutRef.current);
       }
@@ -62,24 +65,36 @@ export function useInlineEditor(options: UseInlineEditorOptions): UseInlineEdito
   }, [hasChanges, isEditing, autoSaveDelay, validationError]);
 
   /**
-   * Validates the given value against maxLength and custom validation function.
-   * @param val The string value to validate.
-   * @returns A string error message if validation fails, otherwise null.
+   * Validates the given value with enhanced security
    */
   const validateValue = useCallback((val: string): string | null => {
-    if (maxLength && val.length > maxLength) {
+    if (typeof val !== 'string') {
+      return 'Invalid input type';
+    }
+
+    // Sanitize input first
+    const sanitizedValue = ValidationUtils.sanitizeString(val);
+    
+    // Check length constraints
+    if (maxLength && sanitizedValue.length > maxLength) {
       return `Maximum ${maxLength} characters allowed`;
     }
     
+    // Apply custom validation
     if (validate) {
-      return validate(val);
+      try {
+        return validate(sanitizedValue);
+      } catch (error) {
+        console.warn('Validation function error:', error);
+        return 'Validation error occurred';
+      }
     }
     
     return null;
   }, [validate, maxLength]);
 
   /**
-   * Starts the editing mode and focuses the editor element.
+   * Starts the editing mode with enhanced focus management
    */
   const startEditing = useCallback(() => {
     if (isEditing) return;
@@ -88,27 +103,25 @@ export function useInlineEditor(options: UseInlineEditorOptions): UseInlineEdito
     setHasChanges(false);
     setValidationError(null);
     originalValueRef.current = currentValue;
+    
+    // Announce to screen readers
+    AccessibilityUtils.announce('Editing mode activated', 'assertive');
+    
     onEditStart?.();
 
-    // Focus the editor after state update
+    // Enhanced focus management with error handling
     setTimeout(() => {
-      if (editorRef.current) {
-        editorRef.current.focus();
-        
-        // Place cursor at end of content
-        const range = document.createRange();
-        const selection = window.getSelection();
-        range.selectNodeContents(editorRef.current);
-        range.collapse(false);
-        selection?.removeAllRanges();
-        selection?.addRange(range);
+      if (editorRef.current && DOMUtils.isValidElement(editorRef.current)) {
+        const focused = DOMUtils.focusElement(editorRef.current);
+        if (focused) {
+          DOMUtils.setCaretPosition(editorRef.current, 'end');
+        }
       }
     }, 0);
   }, [isEditing, currentValue, onEditStart]);
 
   /**
-   * Stops the editing mode and optionally saves changes.
-   * @param save Whether to save the changes or revert to original value.
+   * Stops the editing mode with enhanced validation and error handling
    */
   const stopEditing = useCallback((save = false) => {
     if (!isEditing) return;
@@ -117,12 +130,21 @@ export function useInlineEditor(options: UseInlineEditorOptions): UseInlineEdito
       clearTimeout(autoSaveTimeoutRef.current);
     }
 
-    if (save && hasChanges && !validationError) {
-      onChange(currentValue);
-      onEditComplete?.(currentValue);
-    } else if (!save) {
-      setCurrentValue(originalValueRef.current);
-      onEditCancel?.();
+    try {
+      if (save && hasChanges && !validationError) {
+        // Sanitize before saving
+        const sanitizedValue = ValidationUtils.sanitizeString(currentValue);
+        onChange(sanitizedValue);
+        onEditComplete?.(sanitizedValue);
+        AccessibilityUtils.announce('Changes saved', 'polite');
+      } else if (!save) {
+        setCurrentValue(originalValueRef.current);
+        onEditCancel?.();
+        AccessibilityUtils.announce('Editing cancelled', 'polite');
+      }
+    } catch (error) {
+      console.error('Error during save/cancel:', error);
+      AccessibilityUtils.announce('An error occurred', 'assertive');
     }
 
     setIsEditing(false);
@@ -131,75 +153,129 @@ export function useInlineEditor(options: UseInlineEditorOptions): UseInlineEdito
   }, [isEditing, hasChanges, validationError, currentValue, onChange, onEditComplete, onEditCancel]);
 
   /**
-   * Updates the current value and validates it.
-   * @param newValue The new value to set.
+   * Updates the current value with enhanced validation and sanitization
    */
   const updateValue = useCallback((newValue: string) => {
-    setCurrentValue(newValue);
-    setHasChanges(newValue !== originalValueRef.current);
+    if (typeof newValue !== 'string') {
+      console.warn('Invalid value type provided to updateValue');
+      return;
+    }
+
+    // Sanitize input
+    const sanitizedValue = ValidationUtils.sanitizeString(newValue);
     
-    const error = validateValue(newValue);
+    setCurrentValue(sanitizedValue);
+    setHasChanges(sanitizedValue !== originalValueRef.current);
+    
+    const error = validateValue(sanitizedValue);
     setValidationError(error);
   }, [validateValue]);
 
   /**
-   * Handles keyboard events with support for custom shortcuts.
-   * @param event The keyboard event.
+   * Enhanced keyboard event handler with security checks
    */
   const handleKeyDown = useCallback((event: React.KeyboardEvent) => {
-    if (!isEditing) return;
+    if (!isEditing || !event) return;
 
-    const isCtrlOrCmd = event.ctrlKey || event.metaKey;
-    const key = event.key;
+    try {
+      const isCtrlOrCmd = event.ctrlKey || event.metaKey;
+      const key = event.key;
 
-    // Check for save shortcuts
-    if (keyboardShortcuts.save?.includes(key)) {
-      if (!multiline || (isCtrlOrCmd && key === 'Enter')) {
+      // Validate key input
+      if (typeof key !== 'string') return;
+
+      // Check for save shortcuts
+      if (keyboardShortcuts.save?.includes(key)) {
+        if (!multiline || (isCtrlOrCmd && key === 'Enter')) {
+          event.preventDefault();
+          stopEditing(true);
+        } else if (!multiline && key === 'Enter') {
+          event.preventDefault();
+          stopEditing(true);
+        }
+      }
+
+      // Check for cancel shortcuts
+      if (keyboardShortcuts.cancel?.includes(key)) {
         event.preventDefault();
-        stopEditing(true);
-      } else if (!multiline && key === 'Enter') {
+        stopEditing(false);
+      }
+
+      // Universal save shortcut (Ctrl+S / Cmd+S)
+      if (isCtrlOrCmd && key === 's') {
         event.preventDefault();
         stopEditing(true);
       }
-    }
-
-    // Check for cancel shortcuts
-    if (keyboardShortcuts.cancel?.includes(key)) {
-      event.preventDefault();
-      stopEditing(false);
-    }
-
-    // Universal save shortcut (Ctrl+S / Cmd+S)
-    if (isCtrlOrCmd && key === 's') {
-      event.preventDefault();
-      stopEditing(true);
+    } catch (error) {
+      console.warn('Error in keyboard handler:', error);
     }
   }, [isEditing, multiline, stopEditing, keyboardShortcuts]);
 
   /**
-   * Handles blur events with improved logic to avoid conflicts with action buttons.
-   * @param event The focus event containing information about the related target.
+   * Enhanced blur handler with improved action button detection
    */
   const handleBlur = useCallback((event: React.FocusEvent<HTMLElement>) => {
-    if (!isEditing) return;
+    if (!isEditing || !event) return;
 
-    const relatedTarget = event.relatedTarget as HTMLElement | null;
-    
-    // Check if the focus moved to one of our action buttons
-    const isActionButton = relatedTarget?.classList.contains('inline-editor-save') ||
-                          relatedTarget?.classList.contains('inline-editor-cancel') ||
-                          relatedTarget?.closest('.inline-editor-actions');
+    try {
+      const relatedTarget = event.relatedTarget as HTMLElement | null;
+      
+      // Enhanced check for action buttons and related elements
+      const isActionButton = relatedTarget && (
+        relatedTarget.classList.contains('inline-editor-save') ||
+        relatedTarget.classList.contains('inline-editor-cancel') ||
+        relatedTarget.closest('.inline-editor-actions') ||
+        relatedTarget.closest('.inline-editor-container')
+      );
 
-    // Only auto-save if focus didn't move to an action button
-    if (!isActionButton) {
-      // Small delay to ensure any pending click events are processed
-      setTimeout(() => {
-        if (isEditing) {
-          stopEditing(true);
-        }
-      }, 50);
+      // Only auto-save if focus didn't move to an action button
+      if (!isActionButton) {
+        // Small delay to ensure any pending click events are processed
+        setTimeout(() => {
+          if (isEditing) {
+            stopEditing(true);
+          }
+        }, 50);
+      }
+    } catch (error) {
+      console.warn('Error in blur handler:', error);
     }
   }, [isEditing, stopEditing]);
+
+  /**
+   * Enhanced paste handler with security measures
+   */
+  const handlePaste = useCallback((event: React.ClipboardEvent) => {
+    if (!isEditing) return;
+
+    try {
+      event.preventDefault();
+      
+      const clipboardData = event.clipboardData;
+      if (!clipboardData) return;
+
+      let text = clipboardData.getData('text/plain');
+      if (typeof text !== 'string') return;
+
+      // Sanitize pasted content
+      text = ValidationUtils.sanitizeString(text);
+      
+      // Process text based on multiline setting
+      const processedText = multiline ? text : text.replace(/\n/g, ' ');
+      
+      // Insert text safely
+      if (DOMUtils.insertTextAtCaret(processedText)) {
+        // Update value after successful insertion
+        const target = event.target as HTMLElement;
+        if (DOMUtils.isValidElement(target)) {
+          const newValue = target.textContent || '';
+          updateValue(newValue);
+        }
+      }
+    } catch (error) {
+      console.warn('Error handling paste:', error);
+    }
+  }, [isEditing, multiline, updateValue]);
 
   return {
     isEditing,
@@ -211,6 +287,7 @@ export function useInlineEditor(options: UseInlineEditorOptions): UseInlineEdito
     updateValue,
     handleKeyDown,
     handleBlur,
+    handlePaste,
     editorRef
   };
 }

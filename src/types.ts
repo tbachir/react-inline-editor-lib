@@ -85,5 +85,23 @@ export interface UseInlineEditorReturn {
   updateValue: (value: string) => void;
   handleKeyDown: (event: React.KeyboardEvent) => void;
   handleBlur: (event: React.FocusEvent<HTMLElement>) => void;
+  handlePaste: (event: React.ClipboardEvent) => void;
   editorRef: React.RefObject<HTMLElement>;
+}
+
+// Type guards for enhanced type safety
+export function isValidHTMLElement(element: unknown): element is HTMLElement {
+  return element instanceof HTMLElement;
+}
+
+export function isValidKeyboardEvent(event: unknown): event is React.KeyboardEvent {
+  return typeof event === 'object' && event !== null && 'key' in event;
+}
+
+export function isValidFocusEvent(event: unknown): event is React.FocusEvent<HTMLElement> {
+  return typeof event === 'object' && event !== null && 'relatedTarget' in event;
+}
+
+export function isValidClipboardEvent(event: unknown): event is React.ClipboardEvent {
+  return typeof event === 'object' && event !== null && 'clipboardData' in event;
 }
