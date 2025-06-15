@@ -1,11 +1,11 @@
-var Tt = Object.defineProperty;
-var _t = (l, e, r) => e in l ? Tt(l, e, { enumerable: !0, configurable: !0, writable: !0, value: r }) : l[e] = r;
-var le = (l, e, r) => _t(l, typeof e != "symbol" ? e + "" : e, r);
-import n, { useRef as Ut, useCallback as At } from "react";
-import ne, { Toaster as $t } from "react-hot-toast";
-import { Info as Pt, AlertCircle as It, XCircle as Dt, CheckCircle as Ot, Loader2 as zt, Save as Mt, X as Lt, EyeOff as Ft, Eye as Nt, Settings as Wt, LogOut as Vt } from "lucide-react";
-import { motion as ie, AnimatePresence as Bt } from "framer-motion";
-var Ae = { exports: {} }, fe = {};
+var jt = Object.defineProperty;
+var Tt = (u, e, r) => e in u ? jt(u, e, { enumerable: !0, configurable: !0, writable: !0, value: r }) : u[e] = r;
+var le = (u, e, r) => Tt(u, typeof e != "symbol" ? e + "" : e, r);
+import n, { useRef as _t, useCallback as Ut } from "react";
+import ne, { Toaster as At } from "react-hot-toast";
+import { Info as Pt, AlertCircle as It, XCircle as $t, CheckCircle as Dt, Loader2 as Ot, Save as zt, X as Mt, EyeOff as Lt, Eye as Ft, Settings as Wt, LogOut as Nt } from "lucide-react";
+import { motion as ae, AnimatePresence as Vt } from "framer-motion";
+var Ue = { exports: {} }, fe = {};
 /**
  * @license React
  * react-jsx-runtime.production.min.js
@@ -15,17 +15,17 @@ var Ae = { exports: {} }, fe = {};
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-var Ke;
-function qt() {
-  if (Ke) return fe;
-  Ke = 1;
-  var l = n, e = Symbol.for("react.element"), r = Symbol.for("react.fragment"), o = Object.prototype.hasOwnProperty, c = l.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner, u = { key: !0, ref: !0, __self: !0, __source: !0 };
-  function s(m, f, d) {
-    var g, b = {}, $ = null, S = null;
-    d !== void 0 && ($ = "" + d), f.key !== void 0 && ($ = "" + f.key), f.ref !== void 0 && (S = f.ref);
-    for (g in f) o.call(f, g) && !u.hasOwnProperty(g) && (b[g] = f[g]);
-    if (m && m.defaultProps) for (g in f = m.defaultProps, f) b[g] === void 0 && (b[g] = f[g]);
-    return { $$typeof: e, type: m, key: $, ref: S, props: b, _owner: c.current };
+var Ye;
+function Bt() {
+  if (Ye) return fe;
+  Ye = 1;
+  var u = n, e = Symbol.for("react.element"), r = Symbol.for("react.fragment"), o = Object.prototype.hasOwnProperty, l = u.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner, c = { key: !0, ref: !0, __self: !0, __source: !0 };
+  function s(b, f, d) {
+    var g, x = {}, P = null, C = null;
+    d !== void 0 && (P = "" + d), f.key !== void 0 && (P = "" + f.key), f.ref !== void 0 && (C = f.ref);
+    for (g in f) o.call(f, g) && !c.hasOwnProperty(g) && (x[g] = f[g]);
+    if (b && b.defaultProps) for (g in f = b.defaultProps, f) x[g] === void 0 && (x[g] = f[g]);
+    return { $$typeof: e, type: b, key: P, ref: C, props: x, _owner: l.current };
   }
   return fe.Fragment = r, fe.jsx = s, fe.jsxs = s, fe;
 }
@@ -39,48 +39,48 @@ var pe = {};
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-var Je;
-function Ht() {
-  return Je || (Je = 1, process.env.NODE_ENV !== "production" && function() {
-    var l = n, e = Symbol.for("react.element"), r = Symbol.for("react.portal"), o = Symbol.for("react.fragment"), c = Symbol.for("react.strict_mode"), u = Symbol.for("react.profiler"), s = Symbol.for("react.provider"), m = Symbol.for("react.context"), f = Symbol.for("react.forward_ref"), d = Symbol.for("react.suspense"), g = Symbol.for("react.suspense_list"), b = Symbol.for("react.memo"), $ = Symbol.for("react.lazy"), S = Symbol.for("react.offscreen"), P = Symbol.iterator, W = "@@iterator";
-    function I(t) {
+var Ke;
+function qt() {
+  return Ke || (Ke = 1, process.env.NODE_ENV !== "production" && function() {
+    var u = n, e = Symbol.for("react.element"), r = Symbol.for("react.portal"), o = Symbol.for("react.fragment"), l = Symbol.for("react.strict_mode"), c = Symbol.for("react.profiler"), s = Symbol.for("react.provider"), b = Symbol.for("react.context"), f = Symbol.for("react.forward_ref"), d = Symbol.for("react.suspense"), g = Symbol.for("react.suspense_list"), x = Symbol.for("react.memo"), P = Symbol.for("react.lazy"), C = Symbol.for("react.offscreen"), I = Symbol.iterator, N = "@@iterator";
+    function $(t) {
       if (t === null || typeof t != "object")
         return null;
-      var a = P && t[P] || t[W];
-      return typeof a == "function" ? a : null;
+      var i = I && t[I] || t[N];
+      return typeof i == "function" ? i : null;
     }
-    var O = l.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
-    function v(t) {
+    var O = u.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+    function m(t) {
       {
-        for (var a = arguments.length, p = new Array(a > 1 ? a - 1 : 0), R = 1; R < a; R++)
+        for (var i = arguments.length, p = new Array(i > 1 ? i - 1 : 0), R = 1; R < i; R++)
           p[R - 1] = arguments[R];
-        N("error", t, p);
+        W("error", t, p);
       }
     }
-    function N(t, a, p) {
+    function W(t, i, p) {
       {
         var R = O.ReactDebugCurrentFrame, M = R.getStackAddendum();
-        M !== "" && (a += "%s", p = p.concat([M]));
+        M !== "" && (i += "%s", p = p.concat([M]));
         var F = p.map(function(U) {
           return String(U);
         });
-        F.unshift("Warning: " + a), Function.prototype.apply.call(console[t], console, F);
+        F.unshift("Warning: " + i), Function.prototype.apply.call(console[t], console, F);
       }
     }
     var A = !1, J = !1, G = !1, E = !1, y = !1, D;
     D = Symbol.for("react.module.reference");
-    function x(t) {
-      return !!(typeof t == "string" || typeof t == "function" || t === o || t === u || y || t === c || t === d || t === g || E || t === S || A || J || G || typeof t == "object" && t !== null && (t.$$typeof === $ || t.$$typeof === b || t.$$typeof === s || t.$$typeof === m || t.$$typeof === f || // This needs to include all possible module reference object
+    function v(t) {
+      return !!(typeof t == "string" || typeof t == "function" || t === o || t === c || y || t === l || t === d || t === g || E || t === C || A || J || G || typeof t == "object" && t !== null && (t.$$typeof === P || t.$$typeof === x || t.$$typeof === s || t.$$typeof === b || t.$$typeof === f || // This needs to include all possible module reference object
       // types supported by any Flight configuration anywhere since
       // we don't know which Flight build this will end up being used
       // with.
       t.$$typeof === D || t.getModuleId !== void 0));
     }
-    function w(t, a, p) {
+    function w(t, i, p) {
       var R = t.displayName;
       if (R)
         return R;
-      var M = a.displayName || a.name || "";
+      var M = i.displayName || i.name || "";
       return M !== "" ? p + "(" + M + ")" : p;
     }
     function j(t) {
@@ -89,7 +89,7 @@ function Ht() {
     function h(t) {
       if (t == null)
         return null;
-      if (typeof t.tag == "number" && v("Received an unexpected object in getComponentNameFromType(). This is likely a bug in React. Please file an issue."), typeof t == "function")
+      if (typeof t.tag == "number" && m("Received an unexpected object in getComponentNameFromType(). This is likely a bug in React. Please file an issue."), typeof t == "function")
         return t.displayName || t.name || null;
       if (typeof t == "string")
         return t;
@@ -98,9 +98,9 @@ function Ht() {
           return "Fragment";
         case r:
           return "Portal";
-        case u:
-          return "Profiler";
         case c:
+          return "Profiler";
+        case l:
           return "StrictMode";
         case d:
           return "Suspense";
@@ -109,18 +109,18 @@ function Ht() {
       }
       if (typeof t == "object")
         switch (t.$$typeof) {
-          case m:
-            var a = t;
-            return j(a) + ".Consumer";
+          case b:
+            var i = t;
+            return j(i) + ".Consumer";
           case s:
             var p = t;
             return j(p._context) + ".Provider";
           case f:
             return w(t, t.render, "ForwardRef");
-          case b:
+          case x:
             var R = t.displayName || null;
             return R !== null ? R : h(t.type) || "Memo";
-          case $: {
+          case P: {
             var M = t, F = M._payload, U = M._init;
             try {
               return h(U(F));
@@ -131,13 +131,13 @@ function Ht() {
         }
       return null;
     }
-    var L = Object.assign, C = 0, q, z, _, V, X, k, B;
+    var L = Object.assign, S = 0, q, z, _, V, X, k, B;
     function ee() {
     }
     ee.__reactDisabledLog = !0;
-    function $e() {
+    function Ae() {
       {
-        if (C === 0) {
+        if (S === 0) {
           q = console.log, z = console.info, _ = console.warn, V = console.error, X = console.group, k = console.groupCollapsed, B = console.groupEnd;
           var t = {
             configurable: !0,
@@ -155,12 +155,12 @@ function Ht() {
             groupEnd: t
           });
         }
-        C++;
+        S++;
       }
     }
-    function rt() {
+    function tt() {
       {
-        if (C--, C === 0) {
+        if (S--, S === 0) {
           var t = {
             configurable: !0,
             enumerable: !0,
@@ -190,30 +190,30 @@ function Ht() {
             })
           });
         }
-        C < 0 && v("disabledDepth fell below zero. This is a bug in React. Please file an issue.");
+        S < 0 && m("disabledDepth fell below zero. This is a bug in React. Please file an issue.");
       }
     }
-    var Ee = O.ReactCurrentDispatcher, Ce;
-    function ge(t, a, p) {
+    var we = O.ReactCurrentDispatcher, Ee;
+    function ge(t, i, p) {
       {
-        if (Ce === void 0)
+        if (Ee === void 0)
           try {
             throw Error();
           } catch (M) {
             var R = M.stack.trim().match(/\n( *(at )?)/);
-            Ce = R && R[1] || "";
+            Ee = R && R[1] || "";
           }
         return `
-` + Ce + t;
+` + Ee + t;
       }
     }
-    var ke = !1, he;
+    var Se = !1, he;
     {
-      var nt = typeof WeakMap == "function" ? WeakMap : Map;
-      he = new nt();
+      var rt = typeof WeakMap == "function" ? WeakMap : Map;
+      he = new rt();
     }
-    function Pe(t, a) {
-      if (!t || ke)
+    function Pe(t, i) {
+      if (!t || Se)
         return "";
       {
         var p = he.get(t);
@@ -221,13 +221,13 @@ function Ht() {
           return p;
       }
       var R;
-      ke = !0;
+      Se = !0;
       var M = Error.prepareStackTrace;
       Error.prepareStackTrace = void 0;
       var F;
-      F = Ee.current, Ee.current = null, $e();
+      F = we.current, we.current = null, Ae();
       try {
-        if (a) {
+        if (i) {
           var U = function() {
             throw Error();
           };
@@ -278,23 +278,23 @@ function Ht() {
             }
         }
       } finally {
-        ke = !1, Ee.current = F, rt(), Error.prepareStackTrace = M;
+        Se = !1, we.current = F, tt(), Error.prepareStackTrace = M;
       }
       var se = t ? t.displayName || t.name : "", oe = se ? ge(se) : "";
       return typeof t == "function" && he.set(t, oe), oe;
     }
-    function ot(t, a, p) {
+    function nt(t, i, p) {
       return Pe(t, !1);
     }
-    function it(t) {
-      var a = t.prototype;
-      return !!(a && a.isReactComponent);
+    function ot(t) {
+      var i = t.prototype;
+      return !!(i && i.isReactComponent);
     }
-    function me(t, a, p) {
+    function be(t, i, p) {
       if (t == null)
         return "";
       if (typeof t == "function")
-        return Pe(t, it(t));
+        return Pe(t, ot(t));
       if (typeof t == "string")
         return ge(t);
       switch (t) {
@@ -306,28 +306,28 @@ function Ht() {
       if (typeof t == "object")
         switch (t.$$typeof) {
           case f:
-            return ot(t.render);
-          case b:
-            return me(t.type, a, p);
-          case $: {
+            return nt(t.render);
+          case x:
+            return be(t.type, i, p);
+          case P: {
             var R = t, M = R._payload, F = R._init;
             try {
-              return me(F(M), a, p);
+              return be(F(M), i, p);
             } catch {
             }
           }
         }
       return "";
     }
-    var de = Object.prototype.hasOwnProperty, Ie = {}, De = O.ReactDebugCurrentFrame;
-    function be(t) {
+    var de = Object.prototype.hasOwnProperty, Ie = {}, $e = O.ReactDebugCurrentFrame;
+    function xe(t) {
       if (t) {
-        var a = t._owner, p = me(t.type, t._source, a ? a.type : null);
-        De.setExtraStackFrame(p);
+        var i = t._owner, p = be(t.type, t._source, i ? i.type : null);
+        $e.setExtraStackFrame(p);
       } else
-        De.setExtraStackFrame(null);
+        $e.setExtraStackFrame(null);
     }
-    function at(t, a, p, R, M) {
+    function at(t, i, p, R, M) {
       {
         var F = Function.call.bind(de);
         for (var U in t)
@@ -338,67 +338,67 @@ function Ht() {
                 var Z = Error((R || "React class") + ": " + p + " type `" + U + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof t[U] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.");
                 throw Z.name = "Invariant Violation", Z;
               }
-              T = t[U](a, U, R, p, null, "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED");
+              T = t[U](i, U, R, p, null, "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED");
             } catch (H) {
               T = H;
             }
-            T && !(T instanceof Error) && (be(M), v("%s: type specification of %s `%s` is invalid; the type checker function must return `null` or an `Error` but returned a %s. You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument).", R || "React class", p, U, typeof T), be(null)), T instanceof Error && !(T.message in Ie) && (Ie[T.message] = !0, be(M), v("Failed %s type: %s", p, T.message), be(null));
+            T && !(T instanceof Error) && (xe(M), m("%s: type specification of %s `%s` is invalid; the type checker function must return `null` or an `Error` but returned a %s. You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument).", R || "React class", p, U, typeof T), xe(null)), T instanceof Error && !(T.message in Ie) && (Ie[T.message] = !0, xe(M), m("Failed %s type: %s", p, T.message), xe(null));
           }
       }
     }
-    var st = Array.isArray;
-    function Se(t) {
-      return st(t);
+    var it = Array.isArray;
+    function ke(t) {
+      return it(t);
     }
-    function lt(t) {
+    function st(t) {
       {
-        var a = typeof Symbol == "function" && Symbol.toStringTag, p = a && t[Symbol.toStringTag] || t.constructor.name || "Object";
+        var i = typeof Symbol == "function" && Symbol.toStringTag, p = i && t[Symbol.toStringTag] || t.constructor.name || "Object";
         return p;
       }
     }
-    function ct(t) {
+    function lt(t) {
       try {
-        return Oe(t), !1;
+        return De(t), !1;
       } catch {
         return !0;
       }
     }
-    function Oe(t) {
+    function De(t) {
       return "" + t;
     }
-    function ze(t) {
-      if (ct(t))
-        return v("The provided key is an unsupported type %s. This value must be coerced to a string before before using it here.", lt(t)), Oe(t);
+    function Oe(t) {
+      if (lt(t))
+        return m("The provided key is an unsupported type %s. This value must be coerced to a string before before using it here.", st(t)), De(t);
     }
-    var Me = O.ReactCurrentOwner, ut = {
+    var ze = O.ReactCurrentOwner, ct = {
       key: !0,
       ref: !0,
       __self: !0,
       __source: !0
-    }, Le, Fe;
-    function dt(t) {
+    }, Me, Le;
+    function ut(t) {
       if (de.call(t, "ref")) {
-        var a = Object.getOwnPropertyDescriptor(t, "ref").get;
-        if (a && a.isReactWarning)
+        var i = Object.getOwnPropertyDescriptor(t, "ref").get;
+        if (i && i.isReactWarning)
           return !1;
       }
       return t.ref !== void 0;
     }
-    function ft(t) {
+    function dt(t) {
       if (de.call(t, "key")) {
-        var a = Object.getOwnPropertyDescriptor(t, "key").get;
-        if (a && a.isReactWarning)
+        var i = Object.getOwnPropertyDescriptor(t, "key").get;
+        if (i && i.isReactWarning)
           return !1;
       }
       return t.key !== void 0;
     }
-    function pt(t, a) {
-      typeof t.ref == "string" && Me.current;
+    function ft(t, i) {
+      typeof t.ref == "string" && ze.current;
     }
-    function gt(t, a) {
+    function pt(t, i) {
       {
         var p = function() {
-          Le || (Le = !0, v("%s: `key` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://reactjs.org/link/special-props)", a));
+          Me || (Me = !0, m("%s: `key` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://reactjs.org/link/special-props)", i));
         };
         p.isReactWarning = !0, Object.defineProperty(t, "key", {
           get: p,
@@ -406,10 +406,10 @@ function Ht() {
         });
       }
     }
-    function ht(t, a) {
+    function gt(t, i) {
       {
         var p = function() {
-          Fe || (Fe = !0, v("%s: `ref` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://reactjs.org/link/special-props)", a));
+          Le || (Le = !0, m("%s: `ref` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://reactjs.org/link/special-props)", i));
         };
         p.isReactWarning = !0, Object.defineProperty(t, "ref", {
           get: p,
@@ -417,13 +417,13 @@ function Ht() {
         });
       }
     }
-    var mt = function(t, a, p, R, M, F, U) {
+    var ht = function(t, i, p, R, M, F, U) {
       var T = {
         // This tag allows us to uniquely identify this as a React Element
         $$typeof: e,
         // Built-in properties that belong on the element
         type: t,
-        key: a,
+        key: i,
         ref: p,
         props: U,
         // Record the component responsible for creating this element.
@@ -446,12 +446,12 @@ function Ht() {
         value: M
       }), Object.freeze && (Object.freeze(T.props), Object.freeze(T)), T;
     };
-    function bt(t, a, p, R, M) {
+    function bt(t, i, p, R, M) {
       {
         var F, U = {}, T = null, Z = null;
-        p !== void 0 && (ze(p), T = "" + p), ft(a) && (ze(a.key), T = "" + a.key), dt(a) && (Z = a.ref, pt(a, M));
-        for (F in a)
-          de.call(a, F) && !ut.hasOwnProperty(F) && (U[F] = a[F]);
+        p !== void 0 && (Oe(p), T = "" + p), dt(i) && (Oe(i.key), T = "" + i.key), ut(i) && (Z = i.ref, ft(i, M));
+        for (F in i)
+          de.call(i, F) && !ct.hasOwnProperty(F) && (U[F] = i[F]);
         if (t && t.defaultProps) {
           var H = t.defaultProps;
           for (F in H)
@@ -459,28 +459,28 @@ function Ht() {
         }
         if (T || Z) {
           var Y = typeof t == "function" ? t.displayName || t.name || "Unknown" : t;
-          T && gt(U, Y), Z && ht(U, Y);
+          T && pt(U, Y), Z && gt(U, Y);
         }
-        return mt(t, T, Z, M, R, Me.current, U);
+        return ht(t, T, Z, M, R, ze.current, U);
       }
     }
-    var Re = O.ReactCurrentOwner, Ne = O.ReactDebugCurrentFrame;
-    function ae(t) {
+    var Ce = O.ReactCurrentOwner, Fe = O.ReactDebugCurrentFrame;
+    function ie(t) {
       if (t) {
-        var a = t._owner, p = me(t.type, t._source, a ? a.type : null);
-        Ne.setExtraStackFrame(p);
+        var i = t._owner, p = be(t.type, t._source, i ? i.type : null);
+        Fe.setExtraStackFrame(p);
       } else
-        Ne.setExtraStackFrame(null);
+        Fe.setExtraStackFrame(null);
     }
-    var je;
-    je = !1;
-    function Te(t) {
+    var Re;
+    Re = !1;
+    function je(t) {
       return typeof t == "object" && t !== null && t.$$typeof === e;
     }
     function We() {
       {
-        if (Re.current) {
-          var t = h(Re.current.type);
+        if (Ce.current) {
+          var t = h(Ce.current.type);
           if (t)
             return `
 
@@ -489,148 +489,148 @@ Check the render method of \`` + t + "`.";
         return "";
       }
     }
-    function vt(t) {
+    function xt(t) {
       return "";
     }
-    var Ve = {};
-    function xt(t) {
+    var Ne = {};
+    function mt(t) {
       {
-        var a = We();
-        if (!a) {
+        var i = We();
+        if (!i) {
           var p = typeof t == "string" ? t : t.displayName || t.name;
-          p && (a = `
+          p && (i = `
 
 Check the top-level render call using <` + p + ">.");
         }
-        return a;
+        return i;
       }
     }
-    function Be(t, a) {
+    function Ve(t, i) {
       {
         if (!t._store || t._store.validated || t.key != null)
           return;
         t._store.validated = !0;
-        var p = xt(a);
-        if (Ve[p])
+        var p = mt(i);
+        if (Ne[p])
           return;
-        Ve[p] = !0;
+        Ne[p] = !0;
         var R = "";
-        t && t._owner && t._owner !== Re.current && (R = " It was passed a child from " + h(t._owner.type) + "."), ae(t), v('Each child in a list should have a unique "key" prop.%s%s See https://reactjs.org/link/warning-keys for more information.', p, R), ae(null);
+        t && t._owner && t._owner !== Ce.current && (R = " It was passed a child from " + h(t._owner.type) + "."), ie(t), m('Each child in a list should have a unique "key" prop.%s%s See https://reactjs.org/link/warning-keys for more information.', p, R), ie(null);
       }
     }
-    function qe(t, a) {
+    function Be(t, i) {
       {
         if (typeof t != "object")
           return;
-        if (Se(t))
+        if (ke(t))
           for (var p = 0; p < t.length; p++) {
             var R = t[p];
-            Te(R) && Be(R, a);
+            je(R) && Ve(R, i);
           }
-        else if (Te(t))
+        else if (je(t))
           t._store && (t._store.validated = !0);
         else if (t) {
-          var M = I(t);
+          var M = $(t);
           if (typeof M == "function" && M !== t.entries)
             for (var F = M.call(t), U; !(U = F.next()).done; )
-              Te(U.value) && Be(U.value, a);
+              je(U.value) && Ve(U.value, i);
         }
+      }
+    }
+    function vt(t) {
+      {
+        var i = t.type;
+        if (i == null || typeof i == "string")
+          return;
+        var p;
+        if (typeof i == "function")
+          p = i.propTypes;
+        else if (typeof i == "object" && (i.$$typeof === f || // Note: Memo only checks outer props here.
+        // Inner props are checked in the reconciler.
+        i.$$typeof === x))
+          p = i.propTypes;
+        else
+          return;
+        if (p) {
+          var R = h(i);
+          at(p, t.props, "prop", R, t);
+        } else if (i.PropTypes !== void 0 && !Re) {
+          Re = !0;
+          var M = h(i);
+          m("Component %s declared `PropTypes` instead of `propTypes`. Did you misspell the property assignment?", M || "Unknown");
+        }
+        typeof i.getDefaultProps == "function" && !i.getDefaultProps.isReactClassApproved && m("getDefaultProps is only used on classic React.createClass definitions. Use a static property named `defaultProps` instead.");
       }
     }
     function yt(t) {
       {
-        var a = t.type;
-        if (a == null || typeof a == "string")
-          return;
-        var p;
-        if (typeof a == "function")
-          p = a.propTypes;
-        else if (typeof a == "object" && (a.$$typeof === f || // Note: Memo only checks outer props here.
-        // Inner props are checked in the reconciler.
-        a.$$typeof === b))
-          p = a.propTypes;
-        else
-          return;
-        if (p) {
-          var R = h(a);
-          at(p, t.props, "prop", R, t);
-        } else if (a.PropTypes !== void 0 && !je) {
-          je = !0;
-          var M = h(a);
-          v("Component %s declared `PropTypes` instead of `propTypes`. Did you misspell the property assignment?", M || "Unknown");
-        }
-        typeof a.getDefaultProps == "function" && !a.getDefaultProps.isReactClassApproved && v("getDefaultProps is only used on classic React.createClass definitions. Use a static property named `defaultProps` instead.");
-      }
-    }
-    function wt(t) {
-      {
-        for (var a = Object.keys(t.props), p = 0; p < a.length; p++) {
-          var R = a[p];
+        for (var i = Object.keys(t.props), p = 0; p < i.length; p++) {
+          var R = i[p];
           if (R !== "children" && R !== "key") {
-            ae(t), v("Invalid prop `%s` supplied to `React.Fragment`. React.Fragment can only have `key` and `children` props.", R), ae(null);
+            ie(t), m("Invalid prop `%s` supplied to `React.Fragment`. React.Fragment can only have `key` and `children` props.", R), ie(null);
             break;
           }
         }
-        t.ref !== null && (ae(t), v("Invalid attribute `ref` supplied to `React.Fragment`."), ae(null));
+        t.ref !== null && (ie(t), m("Invalid attribute `ref` supplied to `React.Fragment`."), ie(null));
       }
     }
-    var He = {};
-    function Ye(t, a, p, R, M, F) {
+    var qe = {};
+    function He(t, i, p, R, M, F) {
       {
-        var U = x(t);
+        var U = v(t);
         if (!U) {
           var T = "";
           (t === void 0 || typeof t == "object" && t !== null && Object.keys(t).length === 0) && (T += " You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.");
-          var Z = vt();
+          var Z = xt();
           Z ? T += Z : T += We();
           var H;
-          t === null ? H = "null" : Se(t) ? H = "array" : t !== void 0 && t.$$typeof === e ? (H = "<" + (h(t.type) || "Unknown") + " />", T = " Did you accidentally export a JSX literal instead of a component?") : H = typeof t, v("React.jsx: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s", H, T);
+          t === null ? H = "null" : ke(t) ? H = "array" : t !== void 0 && t.$$typeof === e ? (H = "<" + (h(t.type) || "Unknown") + " />", T = " Did you accidentally export a JSX literal instead of a component?") : H = typeof t, m("React.jsx: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s", H, T);
         }
-        var Y = bt(t, a, p, M, F);
+        var Y = bt(t, i, p, M, F);
         if (Y == null)
           return Y;
         if (U) {
-          var te = a.children;
+          var te = i.children;
           if (te !== void 0)
             if (R)
-              if (Se(te)) {
+              if (ke(te)) {
                 for (var se = 0; se < te.length; se++)
-                  qe(te[se], t);
+                  Be(te[se], t);
                 Object.freeze && Object.freeze(te);
               } else
-                v("React.jsx: Static children should always be an array. You are likely explicitly calling React.jsxs or React.jsxDEV. Use the Babel transform instead.");
+                m("React.jsx: Static children should always be an array. You are likely explicitly calling React.jsxs or React.jsxDEV. Use the Babel transform instead.");
             else
-              qe(te, t);
+              Be(te, t);
         }
-        if (de.call(a, "key")) {
-          var oe = h(t), Q = Object.keys(a).filter(function(jt) {
-            return jt !== "key";
-          }), _e = Q.length > 0 ? "{key: someKey, " + Q.join(": ..., ") + ": ...}" : "{key: someKey}";
-          if (!He[oe + _e]) {
-            var Rt = Q.length > 0 ? "{" + Q.join(": ..., ") + ": ...}" : "{}";
-            v(`A props object containing a "key" prop is being spread into JSX:
+        if (de.call(i, "key")) {
+          var oe = h(t), Q = Object.keys(i).filter(function(Rt) {
+            return Rt !== "key";
+          }), Te = Q.length > 0 ? "{key: someKey, " + Q.join(": ..., ") + ": ...}" : "{key: someKey}";
+          if (!qe[oe + Te]) {
+            var Ct = Q.length > 0 ? "{" + Q.join(": ..., ") + ": ...}" : "{}";
+            m(`A props object containing a "key" prop is being spread into JSX:
   let props = %s;
   <%s {...props} />
 React keys must be passed directly to JSX without using spread:
   let props = %s;
-  <%s key={someKey} {...props} />`, _e, oe, Rt, oe), He[oe + _e] = !0;
+  <%s key={someKey} {...props} />`, Te, oe, Ct, oe), qe[oe + Te] = !0;
           }
         }
-        return t === o ? wt(Y) : yt(Y), Y;
+        return t === o ? yt(Y) : vt(Y), Y;
       }
     }
-    function Et(t, a, p) {
-      return Ye(t, a, p, !0);
+    function wt(t, i, p) {
+      return He(t, i, p, !0);
     }
-    function Ct(t, a, p) {
-      return Ye(t, a, p, !1);
+    function Et(t, i, p) {
+      return He(t, i, p, !1);
     }
-    var kt = Ct, St = Et;
-    pe.Fragment = o, pe.jsx = kt, pe.jsxs = St;
+    var St = Et, kt = wt;
+    pe.Fragment = o, pe.jsx = St, pe.jsxs = kt;
   }()), pe;
 }
-process.env.NODE_ENV === "production" ? Ae.exports = qt() : Ae.exports = Ht();
-var i = Ae.exports;
+process.env.NODE_ENV === "production" ? Ue.exports = Bt() : Ue.exports = qt();
+var a = Ue.exports;
 class re {
   /**
    * Détecte et sauvegarde le magic token depuis l'URL
@@ -716,48 +716,48 @@ class re {
   }
 }
 le(re, "STORAGE_KEY", "inline_editor_token"), le(re, "URL_PARAM", "magic_token");
-const Xe = n.createContext(null), ue = () => {
-  const l = n.useContext(Xe);
-  if (!l)
+const Ge = n.createContext(null), ue = () => {
+  const u = n.useContext(Ge);
+  if (!u)
     throw new Error("useAuth must be used within AuthProvider");
-  return l;
-}, Yt = ({ children: l }) => {
-  const [e, r] = n.useState(!1), [o, c] = n.useState(null), u = "https://api.example.com";
+  return u;
+}, Ht = ({ children: u }) => {
+  const [e, r] = n.useState(!1), [o, l] = n.useState(null), c = "https://api.example.com";
   n.useEffect(() => {
     (async () => {
       console.group("[AuthProvider] Init auth");
       const g = re.detect();
       if (!g) {
-        console.warn("[AuthProvider] No token detected. User is not authenticated."), r(!1), c(null), console.groupEnd();
+        console.warn("[AuthProvider] No token detected. User is not authenticated."), r(!1), l(null), console.groupEnd();
         return;
       }
       if (re.isExpired(g)) {
-        console.warn("[AuthProvider] Token is expired. Clearing..."), re.clear(), r(!1), c(null), console.groupEnd();
+        console.warn("[AuthProvider] Token is expired. Clearing..."), re.clear(), r(!1), l(null), console.groupEnd();
         return;
       }
       try {
         console.info("[AuthProvider] Token is valid. Fetching user info...");
-        const b = await m(g);
-        b ? (r(!0), c(b), console.info("[AuthProvider] User authenticated:", b)) : (r(!1), c(null), console.warn("[AuthProvider] Token valid but user fetch failed."));
-      } catch (b) {
-        r(!1), c(null), console.error("[AuthProvider] Error fetching user:", b);
+        const x = await b(g);
+        x ? (r(!0), l(x), console.info("[AuthProvider] User authenticated:", x)) : (r(!1), l(null), console.warn("[AuthProvider] Token valid but user fetch failed."));
+      } catch (x) {
+        r(!1), l(null), console.error("[AuthProvider] Error fetching user:", x);
       }
       console.groupEnd();
     })();
   }, []);
   const s = () => {
-    re.clear(), r(!1), c(null), console.info("[AuthProvider] User logged out.");
-  }, m = async (d) => {
+    re.clear(), r(!1), l(null), console.info("[AuthProvider] User logged out.");
+  }, b = async (d) => {
     try {
-      const g = await fetch(`${u}/wp-json/wp/v2/users/me`, {
+      const g = await fetch(`${c}/wp-json/wp/v2/users/me`, {
         headers: {
           Authorization: `Bearer ${d}`
         }
       });
       if (!g.ok)
         return console.warn("[AuthProvider] fetchUser: API responded", g.status), null;
-      const b = await g.json();
-      return console.debug("[AuthProvider] fetchUser: API returned", b), b;
+      const x = await g.json();
+      return console.debug("[AuthProvider] fetchUser: API returned", x), x;
     } catch (g) {
       return console.error("[AuthProvider] fetchUser: Error", g), null;
     }
@@ -766,72 +766,85 @@ const Xe = n.createContext(null), ue = () => {
     user: o,
     logout: s
   };
-  return /* @__PURE__ */ i.jsx(Xe.Provider, { value: f, children: l });
-}, Ze = n.createContext(null), xe = () => {
-  const l = n.useContext(Ze);
-  if (!l)
+  return /* @__PURE__ */ a.jsx(Ge.Provider, { value: f, children: u });
+}, Xe = n.createContext(null), me = () => {
+  const u = n.useContext(Xe);
+  if (!u)
     throw new Error("useNotifications must be used within NotificationProvider");
-  return l;
-}, ve = ({
-  type: l,
-  message: e,
-  icon: r
-}) => /* @__PURE__ */ i.jsxs("div", { className: `
-    flex items-center gap-3 p-4 rounded-xl shadow-lg backdrop-blur-md border
-    ${l === "success" ? "bg-emerald-50/90 border-emerald-200 text-emerald-800" : ""}
-    ${l === "error" ? "bg-red-50/90 border-red-200 text-red-800" : ""}
-    ${l === "warning" ? "bg-amber-50/90 border-amber-200 text-amber-800" : ""}
-    ${l === "info" ? "bg-blue-50/90 border-blue-200 text-blue-800" : ""}
-    transition-all duration-300 ease-out
-  `, children: [
-  /* @__PURE__ */ i.jsx(r, { size: 20, className: `
-      ${l === "success" ? "text-emerald-600" : ""}
-      ${l === "error" ? "text-red-600" : ""}
-      ${l === "warning" ? "text-amber-600" : ""}
-      ${l === "info" ? "text-blue-600" : ""}
-    ` }),
-  /* @__PURE__ */ i.jsx("span", { className: "font-medium text-sm", children: e })
-] }), Kt = ({ children: l }) => {
+  return u;
+}, Yt = ({ children: u }) => {
   const f = {
     success: (d, g) => {
-      ne.custom(
-        /* @__PURE__ */ i.jsx(ve, { type: "success", message: d, icon: Ot }),
-        {
-          duration: 4e3,
-          position: "top-right",
-          ...g
-        }
-      );
+      ne.success(d, {
+        duration: 4e3,
+        position: "top-right",
+        style: {
+          background: "rgba(16, 185, 129, 0.1)",
+          backdropFilter: "blur(12px)",
+          border: "1px solid rgba(16, 185, 129, 0.3)",
+          borderRadius: "12px",
+          color: "#065f46",
+          fontWeight: "500",
+          fontSize: "14px",
+          boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+        },
+        icon: /* @__PURE__ */ a.jsx(Dt, { size: 20, className: "text-emerald-600" }),
+        ...g
+      });
     },
     error: (d, g) => {
-      ne.custom(
-        /* @__PURE__ */ i.jsx(ve, { type: "error", message: d, icon: Dt }),
-        {
-          duration: 6e3,
-          position: "top-right",
-          ...g
-        }
-      );
+      ne.error(d, {
+        duration: 6e3,
+        position: "top-right",
+        style: {
+          background: "rgba(239, 68, 68, 0.1)",
+          backdropFilter: "blur(12px)",
+          border: "1px solid rgba(239, 68, 68, 0.3)",
+          borderRadius: "12px",
+          color: "#991b1b",
+          fontWeight: "500",
+          fontSize: "14px",
+          boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+        },
+        icon: /* @__PURE__ */ a.jsx($t, { size: 20, className: "text-red-600" }),
+        ...g
+      });
     },
     warning: (d, g) => {
-      ne.custom(
-        /* @__PURE__ */ i.jsx(ve, { type: "warning", message: d, icon: It }),
-        {
-          duration: 5e3,
-          position: "top-right",
-          ...g
-        }
-      );
+      ne(d, {
+        duration: 5e3,
+        position: "top-right",
+        style: {
+          background: "rgba(245, 158, 11, 0.1)",
+          backdropFilter: "blur(12px)",
+          border: "1px solid rgba(245, 158, 11, 0.3)",
+          borderRadius: "12px",
+          color: "#92400e",
+          fontWeight: "500",
+          fontSize: "14px",
+          boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+        },
+        icon: /* @__PURE__ */ a.jsx(It, { size: 20, className: "text-amber-600" }),
+        ...g
+      });
     },
     info: (d, g) => {
-      ne.custom(
-        /* @__PURE__ */ i.jsx(ve, { type: "info", message: d, icon: Pt }),
-        {
-          duration: 4e3,
-          position: "top-right",
-          ...g
-        }
-      );
+      ne(d, {
+        duration: 4e3,
+        position: "top-right",
+        style: {
+          background: "rgba(59, 130, 246, 0.1)",
+          backdropFilter: "blur(12px)",
+          border: "1px solid rgba(59, 130, 246, 0.3)",
+          borderRadius: "12px",
+          color: "#1e40af",
+          fontWeight: "500",
+          fontSize: "14px",
+          boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+        },
+        icon: /* @__PURE__ */ a.jsx(Pt, { size: 20, className: "text-blue-600" }),
+        ...g
+      });
     },
     loading: (d, g) => ne.loading(d, {
       position: "top-right",
@@ -842,7 +855,8 @@ const Xe = n.createContext(null), ue = () => {
         borderRadius: "12px",
         color: "#374151",
         fontWeight: "500",
-        fontSize: "14px"
+        fontSize: "14px",
+        boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
       },
       ...g
     }),
@@ -857,7 +871,8 @@ const Xe = n.createContext(null), ue = () => {
         border: "1px solid rgba(0, 0, 0, 0.1)",
         borderRadius: "12px",
         fontWeight: "500",
-        fontSize: "14px"
+        fontSize: "14px",
+        boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
       },
       success: {
         style: {
@@ -875,10 +890,10 @@ const Xe = n.createContext(null), ue = () => {
       }
     })
   };
-  return /* @__PURE__ */ i.jsxs(Ze.Provider, { value: f, children: [
-    l,
-    /* @__PURE__ */ i.jsx(
-      $t,
+  return /* @__PURE__ */ a.jsxs(Xe.Provider, { value: f, children: [
+    u,
+    /* @__PURE__ */ a.jsx(
+      At,
       {
         position: "top-right",
         gutter: 12,
@@ -903,18 +918,18 @@ const Xe = n.createContext(null), ue = () => {
     )
   ] });
 };
-function Jt(l, e) {
-  const r = Ut();
-  return At(
+function Kt(u, e) {
+  const r = _t();
+  return Ut(
     (...o) => {
       r.current && clearTimeout(r.current), r.current = window.setTimeout(() => {
-        l(...o);
+        u(...o);
       }, e);
     },
-    [l, e]
+    [u, e]
   );
 }
-class Ue {
+class _e {
   constructor(e) {
     le(this, "baseUrl");
     le(this, "config", {
@@ -947,23 +962,23 @@ class Ue {
    * Exécute une requête avec timeout
    */
   async fetchWithTimeout(e, r) {
-    const o = new AbortController(), c = setTimeout(() => o.abort(), this.config.timeout);
+    const o = new AbortController(), l = setTimeout(() => o.abort(), this.config.timeout);
     try {
-      const u = await fetch(e, {
+      const c = await fetch(e, {
         ...r,
         signal: o.signal
       });
-      return clearTimeout(c), u;
-    } catch (u) {
-      throw clearTimeout(c), u instanceof Error && u.name === "AbortError" ? new Error("Request timeout") : u;
+      return clearTimeout(l), c;
+    } catch (c) {
+      throw clearTimeout(l), c instanceof Error && c.name === "AbortError" ? new Error("Request timeout") : c;
     }
   }
   /**
    * Exécute une requête avec retry automatique
    */
   async fetchWithRetry(e, r = {}, o = this.config.maxRetries) {
-    let c = null;
-    for (let u = 0; u < o; u++)
+    let l = null;
+    for (let c = 0; c < o; c++)
       try {
         const s = await this.fetchWithTimeout(e, {
           ...r,
@@ -976,19 +991,19 @@ class Ue {
           const f = new Error(`HTTP ${s.status}: ${s.statusText}`);
           if (f.status = s.status, s.status >= 400 && s.status < 500)
             throw f;
-          c = f;
+          l = f;
           continue;
         }
         return await s.json();
       } catch (s) {
-        if (c = s, s instanceof SyntaxError || s instanceof Error && "status" in s && s.status >= 400 && s.status < 500)
+        if (l = s, s instanceof SyntaxError || s instanceof Error && "status" in s && s.status >= 400 && s.status < 500)
           throw s;
-        if (u < o - 1) {
-          const m = this.config.retryDelay * Math.pow(2, u);
-          console.log(`[ApiService] Retry attempt ${u + 1}/${o} after ${m}ms`), await new Promise((f) => setTimeout(f, m));
+        if (c < o - 1) {
+          const b = this.config.retryDelay * Math.pow(2, c);
+          console.log(`[ApiService] Retry attempt ${c + 1}/${o} after ${b}ms`), await new Promise((f) => setTimeout(f, b));
         }
       }
-    throw c || new Error("Request failed after all retries");
+    throw l || new Error("Request failed after all retries");
   }
   /**
    * Charge tous les contenus (public ou authentifié selon le token)
@@ -1028,21 +1043,21 @@ class Ue {
       throw new Error("Authentication required for saving content");
     if (!e.context || !e.context_id)
       throw new Error("Context and context_id are required");
-    const c = !e.editable_id && !e.version && r !== void 0, u = {
+    const l = !e.editable_id && !e.version && r !== void 0, c = {
       content: e.content,
       // Always use the user's edited content
       context: e.context,
       context_id: e.context_id,
       content_type: e.contentType || "text"
     };
-    e.version && (u.version = e.version), c && (u.isDefaultContent = !0, u.defaultContent = r), console.log("[ApiService] Request body:", u);
+    e.version && (c.version = e.version), l && (c.isDefaultContent = !0, c.defaultContent = r), console.log("[ApiService] Request body:", c);
     try {
       const s = await this.fetchWithRetry(
         `${this.baseUrl}/wp-json/api/editable-content/save`,
         {
           method: "POST",
           headers: this.getHeaders(!0),
-          body: JSON.stringify(u)
+          body: JSON.stringify(c)
         }
       );
       switch (console.log("[ApiService] Save response:", s), s.status) {
@@ -1127,21 +1142,21 @@ class Ue {
       const o = new URLSearchParams({
         context: e,
         context_id: r
-      }), c = await this.fetchWithRetry(
+      }), l = await this.fetchWithRetry(
         `${this.baseUrl}/wp-json/api/editable-content/get?${o.toString()}`,
         {
           headers: this.getHeaders(!1)
           // Pas d'auth nécessaire pour la lecture
         }
       );
-      return c.exists ? {
-        editable_id: c.editable_id,
-        content: c.content || "",
-        context: c.context,
-        context_id: c.context_id,
-        version: c.version || 0,
-        contentType: c.content_type || "text",
-        lastModified: c.updated_at ? new Date(c.updated_at).getTime() : Date.now()
+      return l.exists ? {
+        editable_id: l.editable_id,
+        content: l.content || "",
+        context: l.context,
+        context_id: l.context_id,
+        version: l.version || 0,
+        contentType: l.content_type || "text",
+        lastModified: l.updated_at ? new Date(l.updated_at).getTime() : Date.now()
       } : null;
     } catch (o) {
       throw console.error("[ApiService] Failed to get content by context:", o), this.handleApiError(o);
@@ -1186,57 +1201,57 @@ class Ue {
     };
   }
 }
-const Qe = n.createContext(null), ye = () => {
-  const l = n.useContext(Qe);
-  if (!l)
+const Ze = n.createContext(null), ve = () => {
+  const u = n.useContext(Ze);
+  if (!u)
     throw new Error("useContent must be used within ContentProvider");
-  return l;
-}, Gt = ({
-  children: l,
+  return u;
+}, Jt = ({
+  children: u,
   apiBaseUrl: e,
   onVersionConflict: r
 }) => {
-  const { isAuthenticated: o } = ue(), { error: c, warning: u, promise: s } = xe(), [m, f] = n.useState(!0), [d, g] = n.useState({}), b = n.useRef(/* @__PURE__ */ new Map()), $ = 5 * 60 * 1e3, S = e || void 0, [P] = n.useState(() => new Ue(S)), W = Jt(async (x, w) => await A(x, w), 500), I = n.useCallback((x, w) => {
-    if (!(x != null && x.trim()) || !(w != null && w.trim()))
+  const { isAuthenticated: o } = ue(), { error: l, warning: c, promise: s } = me(), [b, f] = n.useState(!0), [d, g] = n.useState({}), x = n.useRef(/* @__PURE__ */ new Map()), P = 5 * 60 * 1e3, C = e || void 0, [I] = n.useState(() => new _e(C)), N = Kt(async (v, w) => await A(v, w), 500), $ = n.useCallback((v, w) => {
+    if (!(v != null && v.trim()) || !(w != null && w.trim()))
       throw new Error("Context and contextId are required and cannot be empty");
-    return `${x}#${w}`;
-  }, []), O = n.useCallback((x) => {
-    const w = b.current.get(x);
-    return w && Date.now() - w.timestamp < $ ? w.content : (b.current.delete(x), null);
-  }, []), v = n.useCallback((x, w) => {
-    b.current.set(x, {
+    return `${v}#${w}`;
+  }, []), O = n.useCallback((v) => {
+    const w = x.current.get(v);
+    return w && Date.now() - w.timestamp < P ? w.content : (x.current.delete(v), null);
+  }, []), m = n.useCallback((v, w) => {
+    x.current.set(v, {
       content: w,
       timestamp: Date.now()
     });
-  }, []), N = n.useCallback((x, w, j) => {
-    if (!(x != null && x.trim()) || !(w != null && w.trim()))
+  }, []), W = n.useCallback((v, w, j) => {
+    if (!(v != null && v.trim()) || !(w != null && w.trim()))
       return console.warn("[ContentProvider] getContent called with empty context or contextId"), j;
     try {
-      const h = I(x, w), L = O(h);
+      const h = $(v, w), L = O(h);
       if (L)
         return L.content;
-      const C = d[h];
-      return C ? (v(h, C), C.content) : j;
+      const S = d[h];
+      return S ? (m(h, S), S.content) : j;
     } catch (h) {
       return console.error("[ContentProvider] Error in getContent:", h), j;
     }
-  }, [d, I, O, v]), A = n.useCallback(async (x, w) => {
-    var L, C;
-    if (!((L = x.context) != null && L.trim()) || !((C = x.context_id) != null && C.trim()))
-      return console.error("[ContentProvider] Cannot save: context and context_id are required"), c("Invalid content configuration"), !1;
+  }, [d, $, O, m]), A = n.useCallback(async (v, w) => {
+    var L, S;
+    if (!((L = v.context) != null && L.trim()) || !((S = v.context_id) != null && S.trim()))
+      return console.error("[ContentProvider] Cannot save: context and context_id are required"), l("Invalid content configuration"), !1;
     if (!o)
-      return console.error("[ContentProvider] Cannot save: authentication required"), u("Please log in to save changes"), !1;
-    const j = I(x.context, x.context_id), h = d[j];
+      return console.error("[ContentProvider] Cannot save: authentication required"), c("Please log in to save changes"), !1;
+    const j = $(v.context, v.context_id), h = d[j];
     try {
-      const q = { ...x, lastModified: Date.now() };
-      g((V) => ({ ...V, [j]: q })), v(j, q);
+      const q = { ...v, lastModified: Date.now() };
+      g((V) => ({ ...V, [j]: q })), m(j, q);
       const z = {
-        ...x,
+        ...v,
         ...h && {
           editable_id: h.editable_id,
           version: h.version
         }
-      }, _ = await P.saveContent(
+      }, _ = await I.saveContent(
         z,
         !h && w !== void 0 ? w : void 0
       );
@@ -1244,68 +1259,68 @@ const Qe = n.createContext(null), ye = () => {
         case "success":
         case "no_action":
           const V = _.content;
-          return g((X) => ({ ...X, [j]: V })), v(j, V), !0;
+          return g((X) => ({ ...X, [j]: V })), m(j, V), !0;
         case "no_change":
-          return u("No changes detected"), !0;
+          return c("No changes detected"), !0;
         default:
           throw new Error(`Unexpected status: ${_.status}`);
       }
     } catch (q) {
       if (console.error("[ContentProvider] Save failed:", q), g((z) => {
         const _ = { ...z };
-        return h ? (_[j] = h, v(j, h)) : (delete _[j], b.current.delete(j)), _;
-      }), Ue.isVersionConflictError(q)) {
-        const z = Ue.getConflictInfo(q);
+        return h ? (_[j] = h, m(j, h)) : (delete _[j], x.current.delete(j)), _;
+      }), _e.isVersionConflictError(q)) {
+        const z = _e.getConflictInfo(q);
         if (z && r)
           switch (await r({
             clientVersion: z.client_version,
             serverVersion: z.server_version,
             serverContent: z.server_content,
-            clientContent: x.content
+            clientContent: v.content
           })) {
             case "overwrite":
               const V = {
-                ...x,
+                ...v,
                 version: z.server_version,
                 editable_id: z.editable_id
               };
               return A(V);
             case "keep_server":
               const X = {
-                ...x,
+                ...v,
                 content: z.server_content,
                 version: z.server_version,
                 editable_id: z.editable_id,
                 lastModified: Date.now()
               };
-              return g((k) => ({ ...k, [j]: X })), v(j, X), u("Using server version of content"), !1;
+              return g((k) => ({ ...k, [j]: X })), m(j, X), c("Using server version of content"), !1;
             case "cancel":
             default:
-              return u("Save cancelled"), !1;
+              return c("Save cancelled"), !1;
           }
         else
-          c("Content was modified by another user. Please refresh to get the latest version.");
+          l("Content was modified by another user. Please refresh to get the latest version.");
       }
       return !1;
     }
-  }, [o, I, P, d, r, c, u, v]), J = n.useCallback(async (x, w) => W(x, w), [W]), G = n.useCallback((x) => {
+  }, [o, $, I, d, r, l, c, m]), J = n.useCallback(async (v, w) => N(v, w), [N]), G = n.useCallback((v) => {
     const w = {};
-    for (const j of x)
+    for (const j of v)
       if (j.context && j.context_id) {
-        const h = I(j.context, j.context_id);
+        const h = $(j.context, j.context_id);
         w[h] = j;
       }
     return w;
-  }, [I]), E = n.useCallback(async () => {
+  }, [$]), E = n.useCallback(async () => {
     try {
-      const x = await P.loadAllContents(), w = G(x);
+      const v = await I.loadAllContents(), w = G(v);
       g(w), Object.entries(w).forEach(([j, h]) => {
-        v(j, h);
+        m(j, h);
       }), Object.keys(w).length > 0 && o && console.log(`[ContentProvider] Successfully loaded ${Object.keys(w).length} editable contents`);
-    } catch (x) {
-      throw console.error("[ContentProvider] Failed to load contents:", x), c("Failed to load content. Please refresh the page."), x;
+    } catch (v) {
+      throw console.error("[ContentProvider] Failed to load contents:", v), l("Failed to load content. Please refresh the page."), v;
     }
-  }, [P, G, c, o, v]);
+  }, [I, G, l, o, m]);
   n.useEffect(() => {
     (async () => {
       f(!0);
@@ -1333,77 +1348,77 @@ const Qe = n.createContext(null), ye = () => {
       f(!1);
     }
   }, [E, s]), D = {
-    isLoading: m,
+    isLoading: b,
     contents: d,
-    getContent: N,
+    getContent: W,
     saveContent: J,
     refreshContents: y
   };
-  return /* @__PURE__ */ i.jsx(Qe.Provider, { value: D, children: l });
-}, Xt = () => {
-  const [l, e] = n.useState(!1);
+  return /* @__PURE__ */ a.jsx(Ze.Provider, { value: D, children: u });
+}, Gt = () => {
+  const [u, e] = n.useState(!1);
   return null;
-}, Zt = ({
-  content: l,
+}, Xt = ({
+  content: u,
   onSave: e,
   onCancel: r,
   config: o,
-  className: c = "",
-  style: u = {},
+  className: l = "",
+  style: c = {},
   as: s = "span"
 }) => {
-  const [m, f] = n.useState(!1), [d, g] = n.useState(!1), b = n.useRef(null), $ = n.useRef(l), { success: S, error: P, loading: W, dismiss: I } = xe();
+  const [b, f] = n.useState(!1), [d, g] = n.useState(!1), x = n.useRef(null), P = n.useRef(u), { success: C, error: I, loading: N, dismiss: $ } = me();
   n.useEffect(() => {
-    if (b.current) {
-      b.current.focus();
+    if (x.current) {
+      x.current.focus();
       const E = document.createRange(), y = window.getSelection();
-      E.selectNodeContents(b.current), E.collapse(!1), y == null || y.removeAllRanges(), y == null || y.addRange(E);
+      E.selectNodeContents(x.current), E.collapse(!1), y == null || y.removeAllRanges(), y == null || y.addRange(E);
     }
   }, []);
-  const O = n.useCallback(() => b.current && b.current.innerText || "", []), v = n.useCallback(() => {
+  const O = n.useCallback(() => x.current && x.current.innerText || "", []), m = n.useCallback(() => {
     const E = O();
-    g(E !== $.current);
-  }, [O]), N = n.useCallback((E) => {
+    g(E !== P.current);
+  }, [O]), W = n.useCallback((E) => {
     E.key === "Escape" ? (E.preventDefault(), r()) : ((E.ctrlKey || E.metaKey) && E.key === "Enter" || (E.ctrlKey || E.metaKey) && E.key === "s") && (E.preventDefault(), A()), !o.multiline && E.key === "Enter" && E.preventDefault();
   }, [r, o.multiline]), A = n.useCallback(async () => {
     const E = O();
-    if (m) return;
-    if (E === $.current) {
-      S("No changes to save"), r();
+    if (b) return;
+    if (E === P.current) {
+      C("No changes to save"), r();
       return;
     }
     f(!0);
-    const y = W("Saving changes...");
+    const y = N("Saving changes...");
     try {
       const D = await e(E);
-      I(y), D ? (S("Changes saved successfully"), $.current = E, g(!1)) : P("Failed to save changes");
+      $(y), D ? (C("Changes saved successfully"), P.current = E, g(!1)) : I("Failed to save changes");
     } catch (D) {
-      I(y), P("An error occurred while saving"), console.error("[ModernInlineTextEditor] Save error:", D);
+      $(y), I("An error occurred while saving"), console.error("[ModernInlineTextEditor] Save error:", D);
     } finally {
       f(!1);
     }
-  }, [O, e, m, S, P, W, I, r]), J = n.useCallback((E) => {
+  }, [O, e, b, C, I, N, $, r]), J = n.useCallback((E) => {
     E.preventDefault();
     const y = E.clipboardData.getData("text/plain"), D = o.multiline ? y : y.replace(/\n/g, " ");
-    document.execCommand("insertText", !1, D), v();
-  }, [o.multiline, v]), G = n.useCallback((E) => {
+    document.execCommand("insertText", !1, D), m();
+  }, [o.multiline, m]), G = n.useCallback((E) => {
     const y = E.relatedTarget;
-    y != null && y.closest(".inline-editor-actions-modern") || d && !m && A();
-  }, [d, m, A]);
-  return /* @__PURE__ */ i.jsxs("div", { className: "inline-editor-container-modern", children: [
-    /* @__PURE__ */ i.jsx(
+    y != null && y.closest(".inline-editor-actions-modern") || d && !b && A();
+  }, [d, b, A]);
+  return /* @__PURE__ */ a.jsxs("div", { className: "inline-editor-container-modern", children: [
+    /* @__PURE__ */ a.jsx(
       "div",
       {
-        ref: b,
+        ref: x,
         contentEditable: !0,
         suppressContentEditableWarning: !0,
-        onKeyDown: N,
+        onKeyDown: W,
         onPaste: J,
         onBlur: G,
-        onInput: v,
-        className: `inline-editor-content-modern ${c}`,
+        onInput: m,
+        className: `inline-editor-content-modern ${l}`,
         style: {
-          ...u,
+          ...c,
           outline: "none",
           border: "none",
           background: "transparent",
@@ -1427,10 +1442,10 @@ const Qe = n.createContext(null), ye = () => {
         role: "textbox",
         "aria-label": `Edit ${o.id}`,
         "aria-multiline": o.multiline,
-        children: l
+        children: u
       }
     ),
-    /* @__PURE__ */ i.jsxs(
+    /* @__PURE__ */ a.jsxs(
       "div",
       {
         className: "inline-editor-actions-modern",
@@ -1441,14 +1456,14 @@ const Qe = n.createContext(null), ye = () => {
           display: "flex",
           gap: "0.25rem",
           zIndex: 1e3,
-          opacity: d || m ? 1 : 0.7
+          opacity: d || b ? 1 : 0.7
         },
         children: [
-          /* @__PURE__ */ i.jsx(
+          /* @__PURE__ */ a.jsx(
             "button",
             {
               onClick: A,
-              disabled: m || !d,
+              disabled: b || !d,
               className: "inline-editor-btn-modern save",
               title: `Save changes ${o.multiline ? "(Ctrl+Enter)" : "(Enter)"}`,
               onMouseDown: (E) => E.preventDefault(),
@@ -1459,22 +1474,22 @@ const Qe = n.createContext(null), ye = () => {
                 color: "white",
                 border: "none",
                 borderRadius: "0.375rem",
-                cursor: m || !d ? "not-allowed" : "pointer",
+                cursor: b || !d ? "not-allowed" : "pointer",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 fontSize: "0.75rem",
-                opacity: m || !d ? 0.6 : 1
+                opacity: b || !d ? 0.6 : 1
               },
               "aria-label": "Save changes",
-              children: m ? /* @__PURE__ */ i.jsx(zt, { size: 12, className: "animate-spin" }) : /* @__PURE__ */ i.jsx(Mt, { size: 12 })
+              children: b ? /* @__PURE__ */ a.jsx(Ot, { size: 12, className: "animate-spin" }) : /* @__PURE__ */ a.jsx(zt, { size: 12 })
             }
           ),
-          /* @__PURE__ */ i.jsx(
+          /* @__PURE__ */ a.jsx(
             "button",
             {
               onClick: r,
-              disabled: m,
+              disabled: b,
               className: "inline-editor-btn-modern cancel",
               title: "Cancel (Escape)",
               onMouseDown: (E) => E.preventDefault(),
@@ -1492,69 +1507,69 @@ const Qe = n.createContext(null), ye = () => {
                 fontSize: "0.75rem"
               },
               "aria-label": "Cancel editing",
-              children: /* @__PURE__ */ i.jsx(Lt, { size: 12 })
+              children: /* @__PURE__ */ a.jsx(Mt, { size: 12 })
             }
           )
         ]
       }
     )
   ] });
-}, Qt = n.memo(Zt);
-function er(l) {
+}, Zt = n.memo(Xt);
+function Qt(u) {
   const e = window.location.pathname;
-  if (!l)
+  if (!u)
     return {
       path: e,
       sectionId: 0,
       sectionSelector: "body"
     };
-  const r = tr(l);
+  const r = er(u);
   return {
     path: e,
     sectionId: r.id,
     sectionSelector: r.selector
   };
 }
-function tr(l) {
+function er(u) {
   var o;
-  let e = l.parentElement;
+  let e = u.parentElement;
   for (; e && e.tagName !== "BODY"; ) {
-    if (e.id && Ge(e))
+    if (e.id && Je(e))
       return {
-        id: rr(e.id),
+        id: tr(e.id),
         selector: `#${e.id}`
       };
     if (e.hasAttribute("data-section-id")) {
-      const c = e.getAttribute("data-section-id");
+      const l = e.getAttribute("data-section-id");
       return {
-        id: parseInt(c || "0", 10),
-        selector: e.id ? `#${e.id}` : `[data-section-id="${c}"]`
+        id: parseInt(l || "0", 10),
+        selector: e.id ? `#${e.id}` : `[data-section-id="${l}"]`
       };
     }
-    if (Ge(e)) {
-      const c = Array.from(((o = e.parentElement) == null ? void 0 : o.children) || []).indexOf(e);
+    if (Je(e)) {
+      const l = Array.from(((o = e.parentElement) == null ? void 0 : o.children) || []).indexOf(e);
       return {
-        id: c + 1,
-        selector: `${e.tagName.toLowerCase()}:nth-child(${c + 1})`
+        id: l + 1,
+        selector: `${e.tagName.toLowerCase()}:nth-child(${l + 1})`
       };
     }
     e = e.parentElement;
   }
   return document.querySelector("main") ? { id: 1, selector: "main" } : { id: 0, selector: "body" };
 }
-function Ge(l) {
-  return ["SECTION", "ARTICLE", "MAIN", "HEADER", "FOOTER", "ASIDE"].includes(l.tagName) || l.hasAttribute("data-section") || l.classList.contains("section");
+function Je(u) {
+  return ["SECTION", "ARTICLE", "MAIN", "HEADER", "FOOTER", "ASIDE"].includes(u.tagName) || u.hasAttribute("data-section") || u.classList.contains("section");
 }
-function rr(l) {
+function tr(u) {
   let e = 0;
-  for (let r = 0; r < l.length; r++) {
-    const o = l.charCodeAt(r);
+  for (let r = 0; r < u.length; r++) {
+    const o = u.charCodeAt(r);
     e = (e << 5) - e + o, e = e & e;
   }
   return Math.abs(e);
 }
-function we(l) {
-  const e = er(l);
+function ye(u) {
+  const e = Qt(u);
   return `${e.path}#${e.sectionSelector}`;
 }
 const K = {
@@ -1597,45 +1612,45 @@ const K = {
       easeOut: "cubic-bezier(0, 0, 0.2, 1)"
     }
   }
-}, nr = ({
-  children: l,
+}, rr = ({
+  children: u,
   id: e,
   multiline: r = !0,
   maxLength: o,
-  placeholder: c,
-  className: u = "",
+  placeholder: l,
+  className: c = "",
   as: s = "span",
-  showEditableHighlights: m = !1
+  showEditableHighlights: b = !1
 }) => {
-  const { isAuthenticated: f } = ue(), { getContent: d, saveContent: g, isLoading: b } = ye(), { error: $, promise: S } = xe(), [P, W] = n.useState(!1), [I, O] = n.useState(!1), [v, N] = n.useState(""), [A, J] = n.useState(""), [G, E] = n.useState(""), [y, D] = n.useState(!1), x = n.useRef(null), w = n.useCallback((C) => typeof C == "string" ? C : typeof C == "number" ? C.toString() : C ? n.isValidElement(C) && C.props.children ? w(C.props.children) : Array.isArray(C) ? C.map(w).join("") : "" : "", []);
+  const { isAuthenticated: f } = ue(), { getContent: d, saveContent: g, isLoading: x } = ve(), { error: P, promise: C } = me(), [I, N] = n.useState(!1), [$, O] = n.useState(!1), [m, W] = n.useState(""), [A, J] = n.useState(""), [G, E] = n.useState(""), [y, D] = n.useState(!1), v = n.useRef(null), w = n.useCallback((S) => typeof S == "string" ? S : typeof S == "number" ? S.toString() : S ? n.isValidElement(S) && S.props.children ? w(S.props.children) : Array.isArray(S) ? S.map(w).join("") : "" : "", []);
   n.useEffect(() => {
-    if (b || !x.current) return;
-    const C = w(l).trim();
-    E(C);
-    const q = we(x.current);
-    N(q);
-    const z = d(q, e, C);
+    if (x || !v.current) return;
+    const S = w(u).trim();
+    E(S);
+    const q = ye(v.current);
+    W(q);
+    const z = d(q, e, S);
     J(z), D(!0), console.log("[ModernEditableWrapper] Initialized:", {
       context: q,
       contextId: e,
-      defaultContent: C,
+      defaultContent: S,
       currentContent: z
     });
-  }, [e, l, d, w, b]);
-  const j = n.useCallback((C) => {
-    C.stopPropagation(), f && !P && v && W(!0);
-  }, [f, P, v]), h = n.useCallback(async (C) => {
-    if (!v)
-      return $("Cannot save: invalid configuration"), !1;
+  }, [e, u, d, w, x]);
+  const j = n.useCallback((S) => {
+    S.stopPropagation(), f && !I && m && N(!0);
+  }, [f, I, m]), h = n.useCallback(async (S) => {
+    if (!m)
+      return P("Cannot save: invalid configuration"), !1;
     const q = {
-      content: C,
-      context: v,
+      content: S,
+      context: m,
       context_id: e,
       contentType: "text",
       lastModified: Date.now()
     };
     try {
-      const z = await S(
+      const z = await C(
         g(q, G),
         {
           loading: "Saving changes...",
@@ -1643,18 +1658,18 @@ const K = {
           error: "Failed to save changes"
         }
       );
-      return z && (J(C), W(!1)), z;
+      return z && (J(S), N(!1)), z;
     } catch (z) {
       return console.error("[ModernEditableWrapper] Save error:", z), !1;
     }
-  }, [v, e, g, G, $, S]), L = n.useCallback(() => {
-    W(!1);
+  }, [m, e, g, G, P, C]), L = n.useCallback(() => {
+    N(!1);
   }, []);
-  return b || !y ? n.createElement(
+  return x || !y ? n.createElement(
     s,
     {
-      ref: x,
-      className: `modern-editable-skeleton ${u}`,
+      ref: v,
+      className: `modern-editable-skeleton ${c}`,
       style: {
         background: `linear-gradient(90deg, ${K.colors.neutral[200]} 25%, ${K.colors.neutral[100]} 50%, ${K.colors.neutral[200]} 75%)`,
         backgroundSize: "200% 100%",
@@ -1664,8 +1679,8 @@ const K = {
         minWidth: "4rem"
       }
     }
-  ) : P && f ? /* @__PURE__ */ i.jsx(
-    Qt,
+  ) : I && f ? /* @__PURE__ */ a.jsx(
+    Zt,
     {
       content: A,
       onSave: h,
@@ -1674,14 +1689,14 @@ const K = {
         id: e,
         multiline: r,
         maxLength: o,
-        placeholder: c
+        placeholder: l
       },
-      className: u,
+      className: c,
       as: s,
       preserveStyles: !0
     }
-  ) : /* @__PURE__ */ i.jsxs(
-    ie.div,
+  ) : /* @__PURE__ */ a.jsxs(
+    ae.div,
     {
       style: { position: "relative", display: "inline-block" },
       onHoverStart: () => O(!0),
@@ -1690,11 +1705,11 @@ const K = {
         n.createElement(
           s,
           {
-            ref: x,
-            className: `modern-editable-wrapper ${f ? "is-authenticated" : ""} ${m ? "show-highlights" : ""} ${u}`,
+            ref: v,
+            className: `modern-editable-wrapper ${f ? "is-authenticated" : ""} ${b ? "show-highlights" : ""} ${c}`,
             onClick: j,
-            onKeyDown: f ? (C) => {
-              (C.key === "Enter" || C.key === " ") && (C.preventDefault(), j(C));
+            onKeyDown: f ? (S) => {
+              (S.key === "Enter" || S.key === " ") && (S.preventDefault(), j(S));
             } : void 0,
             style: {
               position: "relative",
@@ -1706,17 +1721,17 @@ const K = {
                 outline: "2px solid transparent",
                 outlineOffset: "1px"
               },
-              ...f && I && {
+              ...f && $ && {
                 outline: `2px solid ${K.colors.primary[100]}`,
                 backgroundColor: `${K.colors.primary[50]}`
               },
-              ...m && f && {
+              ...b && f && {
                 outline: `2px dashed ${K.colors.primary[100]}`,
                 backgroundColor: `${K.colors.primary[50]}`
               }
             },
             title: f ? "Click to edit" : void 0,
-            "data-context": v,
+            "data-context": m,
             "data-context-id": e,
             role: f ? "button" : void 0,
             tabIndex: f ? 0 : void 0,
@@ -1724,8 +1739,8 @@ const K = {
           },
           A
         ),
-        /* @__PURE__ */ i.jsx(Bt, { children: f && I && !P && /* @__PURE__ */ i.jsxs(
-          ie.div,
+        /* @__PURE__ */ a.jsx(Vt, { children: f && $ && !I && /* @__PURE__ */ a.jsxs(
+          ae.div,
           {
             initial: { opacity: 0, scale: 0.8, y: -10 },
             animate: { opacity: 1, scale: 1, y: 0 },
@@ -1748,7 +1763,7 @@ const K = {
             },
             children: [
               "✏️ Click to edit",
-              /* @__PURE__ */ i.jsx(
+              /* @__PURE__ */ a.jsx(
                 "div",
                 {
                   style: {
@@ -1768,55 +1783,55 @@ const K = {
       ]
     }
   );
-}, pr = n.memo(nr), or = ({
-  showEditableHighlights: l,
+}, fr = n.memo(rr), nr = ({
+  showEditableHighlights: u,
   toggleEditableHighlights: e
 }) => {
-  const { isAuthenticated: r, logout: o, user: c } = ue(), { success: u, info: s } = xe();
+  const { isAuthenticated: r, logout: o, user: l } = ue(), { success: c, info: s } = me();
   if (!r)
     return null;
-  const m = () => {
-    o(), u("Successfully logged out");
+  const b = () => {
+    o(), c("Successfully logged out");
   }, f = () => {
-    e(), s(l ? "Edit highlights hidden" : "Edit highlights shown");
+    e(), s(u ? "Edit highlights hidden" : "Edit highlights shown");
   };
-  return /* @__PURE__ */ i.jsxs(
-    ie.div,
+  return /* @__PURE__ */ a.jsxs(
+    ae.div,
     {
       className: "global-editor-toolbar-modern",
       initial: { opacity: 0, y: -20, scale: 0.9 },
       animate: { opacity: 1, y: 0, scale: 1 },
       transition: { duration: 0.3, ease: "easeOut" },
       children: [
-        /* @__PURE__ */ i.jsxs(
-          ie.div,
+        /* @__PURE__ */ a.jsxs(
+          ae.div,
           {
             className: "flex items-center gap-2 px-3 py-2 bg-blue-50 rounded-lg border border-blue-200",
             initial: { opacity: 0, x: 20 },
             animate: { opacity: 1, x: 0 },
             transition: { duration: 0.3, delay: 0.1 },
             children: [
-              /* @__PURE__ */ i.jsx("div", { className: "w-2 h-2 bg-green-500 rounded-full animate-pulse" }),
-              /* @__PURE__ */ i.jsx("span", { className: "text-xs font-medium text-blue-800", children: (c == null ? void 0 : c.name) || "Editor" })
+              /* @__PURE__ */ a.jsx("div", { className: "w-2 h-2 bg-green-500 rounded-full animate-pulse" }),
+              /* @__PURE__ */ a.jsx("span", { className: "text-xs font-medium text-blue-800", children: (l == null ? void 0 : l.name) || "Editor" })
             ]
           }
         ),
-        /* @__PURE__ */ i.jsx(
-          ie.button,
+        /* @__PURE__ */ a.jsx(
+          ae.button,
           {
             onClick: f,
-            className: `global-editor-toolbar-btn-modern ${l ? "active" : ""}`,
-            title: l ? "Hide editable highlights" : "Show editable highlights",
+            className: `global-editor-toolbar-btn-modern ${u ? "active" : ""}`,
+            title: u ? "Hide editable highlights" : "Show editable highlights",
             whileHover: { scale: 1.05 },
             whileTap: { scale: 0.95 },
             initial: { opacity: 0, x: 20 },
             animate: { opacity: 1, x: 0 },
             transition: { duration: 0.3, delay: 0.2 },
-            children: l ? /* @__PURE__ */ i.jsx(Ft, { size: 18 }) : /* @__PURE__ */ i.jsx(Nt, { size: 18 })
+            children: u ? /* @__PURE__ */ a.jsx(Lt, { size: 18 }) : /* @__PURE__ */ a.jsx(Ft, { size: 18 })
           }
         ),
-        /* @__PURE__ */ i.jsx(
-          ie.button,
+        /* @__PURE__ */ a.jsx(
+          ae.button,
           {
             className: "global-editor-toolbar-btn-modern",
             title: "Editor settings",
@@ -1826,13 +1841,13 @@ const K = {
             animate: { opacity: 1, x: 0 },
             transition: { duration: 0.3, delay: 0.3 },
             onClick: () => s("Settings panel coming soon"),
-            children: /* @__PURE__ */ i.jsx(Wt, { size: 18 })
+            children: /* @__PURE__ */ a.jsx(Wt, { size: 18 })
           }
         ),
-        /* @__PURE__ */ i.jsx(
-          ie.button,
+        /* @__PURE__ */ a.jsx(
+          ae.button,
           {
-            onClick: m,
+            onClick: b,
             className: "global-editor-toolbar-btn-modern logout",
             title: "Logout",
             whileHover: { scale: 1.05 },
@@ -1840,7 +1855,7 @@ const K = {
             initial: { opacity: 0, x: 20 },
             animate: { opacity: 1, x: 0 },
             transition: { duration: 0.3, delay: 0.4 },
-            children: /* @__PURE__ */ i.jsx(Vt, { size: 18 })
+            children: /* @__PURE__ */ a.jsx(Nt, { size: 18 })
           }
         )
       ]
@@ -1863,16 +1878,16 @@ class ce {
         success: !1,
         error: o.error
       };
-    const c = re.get();
-    if (!c)
+    const l = re.get();
+    if (!l)
       return {
         success: !1,
         error: "Authentication required"
       };
-    const u = new FormData();
-    u.append("file", e), u.append("title", e.name.replace(/\.[^/.]+$/, "")), u.append("alt", e.name.replace(/\.[^/.]+$/, ""));
+    const c = new FormData();
+    c.append("file", e), c.append("title", e.name.replace(/\.[^/.]+$/, "")), c.append("alt", e.name.replace(/\.[^/.]+$/, ""));
     try {
-      const s = new XMLHttpRequest(), m = new Promise((f, d) => {
+      const s = new XMLHttpRequest(), b = new Promise((f, d) => {
         s.onload = () => {
           if (s.status >= 200 && s.status < 300)
             try {
@@ -1891,7 +1906,7 @@ class ce {
           total: f.total,
           percentage: Math.round(f.loaded / f.total * 100)
         });
-      }), s.open("POST", `${this.baseUrl}/wp-json/wp/v2/media`), s.setRequestHeader("Authorization", `Bearer ${c}`), s.send(u), await m;
+      }), s.open("POST", `${this.baseUrl}/wp-json/wp/v2/media`), s.setRequestHeader("Authorization", `Bearer ${l}`), s.send(c), await b;
     } catch (s) {
       return console.error("[MediaUploadService] Upload error:", s), {
         success: !1,
@@ -1911,17 +1926,17 @@ class ce {
         success: !1,
         error: o.error
       };
-    const c = re.get();
-    if (!c)
+    const l = re.get();
+    if (!l)
       return {
         success: !1,
         error: "Authentication required"
       };
     try {
-      const u = await fetch(`${this.baseUrl}/wp-json/api/media/import-url`, {
+      const c = await fetch(`${this.baseUrl}/wp-json/api/media/import-url`, {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${c}`,
+          Authorization: `Bearer ${l}`,
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
@@ -1931,16 +1946,16 @@ class ce {
           alt: (r == null ? void 0 : r.replace(/\.[^/.]+$/, "")) || "Imported image"
         })
       });
-      if (!u.ok) {
-        const m = await u.text();
-        throw new Error(`Import failed: ${u.status} - ${m}`);
+      if (!c.ok) {
+        const b = await c.text();
+        throw new Error(`Import failed: ${c.status} - ${b}`);
       }
-      const s = await u.json();
+      const s = await c.json();
       return console.log("[MediaUploadService] URL import successful:", s), this.formatResponse(s);
-    } catch (u) {
-      return console.error("[MediaUploadService] URL import error:", u), {
+    } catch (c) {
+      return console.error("[MediaUploadService] URL import error:", c), {
         success: !1,
-        error: u instanceof Error ? u.message : "Import failed"
+        error: c instanceof Error ? c.message : "Import failed"
       };
     }
   }
@@ -2015,8 +2030,8 @@ class ce {
    */
   extractFilenameFromUrl(e) {
     try {
-      const o = new URL(e).pathname, c = o.substring(o.lastIndexOf("/") + 1);
-      return !c || c === "" ? `image-${Date.now()}.jpg` : c.includes(".") ? c : `${c}.jpg`;
+      const o = new URL(e).pathname, l = o.substring(o.lastIndexOf("/") + 1);
+      return !l || l === "" ? `image-${Date.now()}.jpg` : l.includes(".") ? l : `${l}.jpg`;
     } catch {
       return `image-${Date.now()}.jpg`;
     }
@@ -2025,22 +2040,22 @@ class ce {
    * Formate la réponse WordPress en format uniforme
    */
   formatResponse(e) {
-    var c, u, s, m, f, d, g;
+    var l, c, s, b, f, d, g;
     if (!e || !e.id && !e.ID)
       return {
         success: !1,
         error: "Invalid response from server"
       };
-    const r = e.id || e.ID, o = e.source_url || ((c = e.guid) == null ? void 0 : c.rendered) || e.url;
+    const r = e.id || e.ID, o = e.source_url || ((l = e.guid) == null ? void 0 : l.rendered) || e.url;
     return {
       success: !0,
       data: {
         id: r,
         url: o,
         alt: e.alt_text || "",
-        title: ((u = e.title) == null ? void 0 : u.rendered) || e.title || "",
+        title: ((c = e.title) == null ? void 0 : c.rendered) || e.title || "",
         sizes: (s = e.media_details) != null && s.sizes ? {
-          thumbnail: (m = e.media_details.sizes.thumbnail) == null ? void 0 : m.source_url,
+          thumbnail: (b = e.media_details.sizes.thumbnail) == null ? void 0 : b.source_url,
           medium: (f = e.media_details.sizes.medium) == null ? void 0 : f.source_url,
           large: (d = e.media_details.sizes.large) == null ? void 0 : d.source_url,
           full: ((g = e.media_details.sizes.full) == null ? void 0 : g.source_url) || o
@@ -2071,12 +2086,12 @@ class ce {
     }
   }
 }
-const et = ({
-  isOpen: l,
+const Qe = ({
+  isOpen: u,
   onClose: e,
   onImageSelected: r
 }) => {
-  const [o, c] = n.useState("file"), [u, s] = n.useState(!1), [m, f] = n.useState(null), [d, g] = n.useState(""), [b, $] = n.useState(""), [S, P] = n.useState(!1), [W, I] = n.useState(0), [O, v] = n.useState(""), N = n.useRef(null), A = n.useRef(new ce()).current;
+  const [o, l] = n.useState("file"), [c, s] = n.useState(!1), [b, f] = n.useState(null), [d, g] = n.useState(""), [x, P] = n.useState(""), [C, I] = n.useState(!1), [N, $] = n.useState(0), [O, m] = n.useState(""), W = n.useRef(null), A = n.useRef(new ce()).current;
   n.useEffect(() => () => {
     d && !ce.isUrl(d) && ce.revokePreviewUrl(d);
   }, [d]);
@@ -2086,55 +2101,55 @@ const et = ({
     h.preventDefault(), s(!1);
   }, []), E = n.useCallback((h) => {
     h.preventDefault(), s(!1);
-    const C = Array.from(h.dataTransfer.files).find((q) => q.type.startsWith("image/"));
-    C ? y(C) : v("Veuillez déposer une image");
+    const S = Array.from(h.dataTransfer.files).find((q) => q.type.startsWith("image/"));
+    S ? y(S) : m("Veuillez déposer une image");
   }, []), y = n.useCallback((h) => {
-    f(h), v(""), d && !ce.isUrl(d) && ce.revokePreviewUrl(d);
+    f(h), m(""), d && !ce.isUrl(d) && ce.revokePreviewUrl(d);
     const L = ce.createPreviewUrl(h);
     g(L);
   }, [d]), D = n.useCallback(async () => {
-    if (!m) {
-      v("Aucun fichier sélectionné");
+    if (!b) {
+      m("Aucun fichier sélectionné");
       return;
     }
-    P(!0), v(""), I(0);
+    I(!0), m(""), $(0);
     try {
       const h = await A.uploadFile(
-        m,
+        b,
         (L) => {
-          I(L.percentage);
+          $(L.percentage);
         }
       );
-      h.success && h.data ? (r(h.data.url), e()) : v(h.error || "Échec de l'upload");
+      h.success && h.data ? (r(h.data.url), e()) : m(h.error || "Échec de l'upload");
     } catch (h) {
-      v("Erreur lors de l'upload"), console.error("[ImageUploadModal] Upload error:", h);
+      m("Erreur lors de l'upload"), console.error("[ImageUploadModal] Upload error:", h);
     } finally {
-      P(!1), I(0);
+      I(!1), $(0);
     }
-  }, [m, A, r, e]), x = n.useCallback(async () => {
-    if (!b.trim()) {
-      v("Veuillez entrer une URL");
+  }, [b, A, r, e]), v = n.useCallback(async () => {
+    if (!x.trim()) {
+      m("Veuillez entrer une URL");
       return;
     }
-    P(!0), v("");
+    I(!0), m("");
     try {
-      const h = await A.uploadFromUrl(b);
-      h.success && h.data ? (r(h.data.url), e()) : v(h.error || "Échec de l'import");
+      const h = await A.uploadFromUrl(x);
+      h.success && h.data ? (r(h.data.url), e()) : m(h.error || "Échec de l'import");
     } catch (h) {
-      v("Erreur lors de l'import"), console.error("[ImageUploadModal] Import error:", h);
+      m("Erreur lors de l'import"), console.error("[ImageUploadModal] Import error:", h);
     } finally {
-      P(!1);
+      I(!1);
     }
-  }, [b, A, r, e]), w = n.useCallback(() => {
-    if (!b.trim()) {
-      v("Veuillez entrer une URL");
+  }, [x, A, r, e]), w = n.useCallback(() => {
+    if (!x.trim()) {
+      m("Veuillez entrer une URL");
       return;
     }
-    r(b), e();
-  }, [b, r, e]), j = n.useCallback(() => {
-    f(null), g(""), $(""), v(""), c("file"), e();
+    r(x), e();
+  }, [x, r, e]), j = n.useCallback(() => {
+    f(null), g(""), P(""), m(""), l("file"), e();
   }, [e]);
-  return l ? /* @__PURE__ */ i.jsx(
+  return u ? /* @__PURE__ */ a.jsx(
     "div",
     {
       className: "image-upload-modal-overlay",
@@ -2151,7 +2166,7 @@ const et = ({
         justifyContent: "center",
         zIndex: 1e4
       },
-      children: /* @__PURE__ */ i.jsxs(
+      children: /* @__PURE__ */ a.jsxs(
         "div",
         {
           className: "image-upload-modal",
@@ -2167,12 +2182,12 @@ const et = ({
             color: "white"
           },
           children: [
-            /* @__PURE__ */ i.jsx("h2", { style: { margin: "0 0 20px 0", fontSize: "24px" }, children: "Modifier l'image" }),
-            /* @__PURE__ */ i.jsxs("div", { style: { display: "flex", gap: "8px", marginBottom: "24px" }, children: [
-              /* @__PURE__ */ i.jsx(
+            /* @__PURE__ */ a.jsx("h2", { style: { margin: "0 0 20px 0", fontSize: "24px" }, children: "Modifier l'image" }),
+            /* @__PURE__ */ a.jsxs("div", { style: { display: "flex", gap: "8px", marginBottom: "24px" }, children: [
+              /* @__PURE__ */ a.jsx(
                 "button",
                 {
-                  onClick: () => c("file"),
+                  onClick: () => l("file"),
                   style: {
                     flex: 1,
                     padding: "12px",
@@ -2187,10 +2202,10 @@ const et = ({
                   children: "📤 Upload un fichier"
                 }
               ),
-              /* @__PURE__ */ i.jsx(
+              /* @__PURE__ */ a.jsx(
                 "button",
                 {
-                  onClick: () => c("url"),
+                  onClick: () => l("url"),
                   style: {
                     flex: 1,
                     padding: "12px",
@@ -2206,8 +2221,8 @@ const et = ({
                 }
               )
             ] }),
-            o === "file" && /* @__PURE__ */ i.jsxs("div", { children: [
-              /* @__PURE__ */ i.jsx(
+            o === "file" && /* @__PURE__ */ a.jsxs("div", { children: [
+              /* @__PURE__ */ a.jsx(
                 "div",
                 {
                   onDragOver: J,
@@ -2215,19 +2230,19 @@ const et = ({
                   onDrop: E,
                   onClick: () => {
                     var h;
-                    return (h = N.current) == null ? void 0 : h.click();
+                    return (h = W.current) == null ? void 0 : h.click();
                   },
                   style: {
-                    border: `2px dashed ${u ? "#3b82f6" : "#6b7280"}`,
+                    border: `2px dashed ${c ? "#3b82f6" : "#6b7280"}`,
                     borderRadius: "8px",
                     padding: "40px",
                     textAlign: "center",
                     cursor: "pointer",
-                    background: u ? "rgba(59, 130, 246, 0.1)" : "rgba(55, 65, 81, 0.5)",
+                    background: c ? "rgba(59, 130, 246, 0.1)" : "rgba(55, 65, 81, 0.5)",
                     transition: "all 0.2s"
                   },
-                  children: m ? /* @__PURE__ */ i.jsxs("div", { children: [
-                    d && /* @__PURE__ */ i.jsx(
+                  children: b ? /* @__PURE__ */ a.jsxs("div", { children: [
+                    d && /* @__PURE__ */ a.jsx(
                       "img",
                       {
                         src: d,
@@ -2240,61 +2255,61 @@ const et = ({
                         }
                       }
                     ),
-                    /* @__PURE__ */ i.jsx("p", { style: { margin: "8px 0", fontSize: "14px" }, children: m.name }),
-                    /* @__PURE__ */ i.jsxs("p", { style: { margin: "0", fontSize: "12px", color: "#9ca3af" }, children: [
-                      (m.size / 1024 / 1024).toFixed(2),
+                    /* @__PURE__ */ a.jsx("p", { style: { margin: "8px 0", fontSize: "14px" }, children: b.name }),
+                    /* @__PURE__ */ a.jsxs("p", { style: { margin: "0", fontSize: "12px", color: "#9ca3af" }, children: [
+                      (b.size / 1024 / 1024).toFixed(2),
                       " MB"
                     ] })
-                  ] }) : /* @__PURE__ */ i.jsxs(i.Fragment, { children: [
-                    /* @__PURE__ */ i.jsx("p", { style: { margin: "0 0 8px 0", fontSize: "18px" }, children: "📁 Glissez une image ici" }),
-                    /* @__PURE__ */ i.jsx("p", { style: { margin: "0", fontSize: "14px", color: "#9ca3af" }, children: "ou cliquez pour sélectionner" })
+                  ] }) : /* @__PURE__ */ a.jsxs(a.Fragment, { children: [
+                    /* @__PURE__ */ a.jsx("p", { style: { margin: "0 0 8px 0", fontSize: "18px" }, children: "📁 Glissez une image ici" }),
+                    /* @__PURE__ */ a.jsx("p", { style: { margin: "0", fontSize: "14px", color: "#9ca3af" }, children: "ou cliquez pour sélectionner" })
                   ] })
                 }
               ),
-              /* @__PURE__ */ i.jsx(
+              /* @__PURE__ */ a.jsx(
                 "input",
                 {
-                  ref: N,
+                  ref: W,
                   type: "file",
                   accept: "image/*",
                   onChange: (h) => {
-                    var C;
-                    const L = (C = h.target.files) == null ? void 0 : C[0];
+                    var S;
+                    const L = (S = h.target.files) == null ? void 0 : S[0];
                     L && y(L);
                   },
                   style: { display: "none" }
                 }
               ),
-              S && W > 0 && /* @__PURE__ */ i.jsxs("div", { style: { marginTop: "16px" }, children: [
-                /* @__PURE__ */ i.jsx("div", { style: {
+              C && N > 0 && /* @__PURE__ */ a.jsxs("div", { style: { marginTop: "16px" }, children: [
+                /* @__PURE__ */ a.jsx("div", { style: {
                   background: "#374151",
                   borderRadius: "4px",
                   height: "8px",
                   overflow: "hidden"
-                }, children: /* @__PURE__ */ i.jsx("div", { style: {
+                }, children: /* @__PURE__ */ a.jsx("div", { style: {
                   background: "#3b82f6",
                   height: "100%",
-                  width: `${W}%`,
+                  width: `${N}%`,
                   transition: "width 0.3s"
                 } }) }),
-                /* @__PURE__ */ i.jsxs("p", { style: {
+                /* @__PURE__ */ a.jsxs("p", { style: {
                   textAlign: "center",
                   marginTop: "8px",
                   fontSize: "14px",
                   color: "#9ca3af"
                 }, children: [
-                  W,
+                  N,
                   "%"
                 ] })
               ] })
             ] }),
-            o === "url" && /* @__PURE__ */ i.jsxs("div", { children: [
-              /* @__PURE__ */ i.jsx(
+            o === "url" && /* @__PURE__ */ a.jsxs("div", { children: [
+              /* @__PURE__ */ a.jsx(
                 "input",
                 {
                   type: "text",
-                  value: b,
-                  onChange: (h) => $(h.target.value),
+                  value: x,
+                  onChange: (h) => P(h.target.value),
                   placeholder: "https://example.com/image.jpg",
                   style: {
                     width: "100%",
@@ -2307,27 +2322,27 @@ const et = ({
                   }
                 }
               ),
-              /* @__PURE__ */ i.jsxs("div", { style: {
+              /* @__PURE__ */ a.jsxs("div", { style: {
                 marginTop: "12px",
                 padding: "12px",
                 background: "rgba(59, 130, 246, 0.1)",
                 borderRadius: "6px",
                 fontSize: "14px"
               }, children: [
-                /* @__PURE__ */ i.jsx("p", { style: { margin: "0 0 8px 0" }, children: "💡 Deux options disponibles :" }),
-                /* @__PURE__ */ i.jsxs("ul", { style: { margin: "0", paddingLeft: "20px" }, children: [
-                  /* @__PURE__ */ i.jsxs("li", { children: [
-                    /* @__PURE__ */ i.jsx("strong", { children: "Importer dans WordPress" }),
+                /* @__PURE__ */ a.jsx("p", { style: { margin: "0 0 8px 0" }, children: "💡 Deux options disponibles :" }),
+                /* @__PURE__ */ a.jsxs("ul", { style: { margin: "0", paddingLeft: "20px" }, children: [
+                  /* @__PURE__ */ a.jsxs("li", { children: [
+                    /* @__PURE__ */ a.jsx("strong", { children: "Importer dans WordPress" }),
                     " : L'image sera téléchargée et stockée dans votre médiathèque"
                   ] }),
-                  /* @__PURE__ */ i.jsxs("li", { children: [
-                    /* @__PURE__ */ i.jsx("strong", { children: "Utiliser l'URL directement" }),
+                  /* @__PURE__ */ a.jsxs("li", { children: [
+                    /* @__PURE__ */ a.jsx("strong", { children: "Utiliser l'URL directement" }),
                     " : L'image restera hébergée sur le site externe"
                   ] })
                 ] })
               ] })
             ] }),
-            O && /* @__PURE__ */ i.jsxs("div", { style: {
+            O && /* @__PURE__ */ a.jsxs("div", { style: {
               marginTop: "16px",
               padding: "12px",
               background: "rgba(239, 68, 68, 0.1)",
@@ -2339,83 +2354,83 @@ const et = ({
               "⚠️ ",
               O
             ] }),
-            /* @__PURE__ */ i.jsxs("div", { style: {
+            /* @__PURE__ */ a.jsxs("div", { style: {
               display: "flex",
               gap: "12px",
               marginTop: "24px",
               justifyContent: "flex-end"
             }, children: [
-              /* @__PURE__ */ i.jsx(
+              /* @__PURE__ */ a.jsx(
                 "button",
                 {
                   onClick: j,
-                  disabled: S,
+                  disabled: C,
                   style: {
                     padding: "10px 20px",
                     background: "#6b7280",
                     border: "none",
                     borderRadius: "6px",
                     color: "white",
-                    cursor: S ? "not-allowed" : "pointer",
+                    cursor: C ? "not-allowed" : "pointer",
                     fontSize: "16px",
-                    opacity: S ? 0.5 : 1
+                    opacity: C ? 0.5 : 1
                   },
                   children: "Annuler"
                 }
               ),
-              o === "file" && /* @__PURE__ */ i.jsx(
+              o === "file" && /* @__PURE__ */ a.jsx(
                 "button",
                 {
                   onClick: D,
-                  disabled: !m || S,
+                  disabled: !b || C,
                   style: {
                     padding: "10px 20px",
                     background: "#10b981",
                     border: "none",
                     borderRadius: "6px",
                     color: "white",
-                    cursor: !m || S ? "not-allowed" : "pointer",
+                    cursor: !b || C ? "not-allowed" : "pointer",
                     fontSize: "16px",
-                    opacity: !m || S ? 0.5 : 1
+                    opacity: !b || C ? 0.5 : 1
                   },
-                  children: S ? "Upload..." : "Uploader"
+                  children: C ? "Upload..." : "Uploader"
                 }
               ),
-              o === "url" && /* @__PURE__ */ i.jsxs(i.Fragment, { children: [
-                /* @__PURE__ */ i.jsx(
+              o === "url" && /* @__PURE__ */ a.jsxs(a.Fragment, { children: [
+                /* @__PURE__ */ a.jsx(
                   "button",
                   {
                     onClick: w,
-                    disabled: !b.trim() || S,
+                    disabled: !x.trim() || C,
                     style: {
                       padding: "10px 20px",
                       background: "#3b82f6",
                       border: "none",
                       borderRadius: "6px",
                       color: "white",
-                      cursor: !b.trim() || S ? "not-allowed" : "pointer",
+                      cursor: !x.trim() || C ? "not-allowed" : "pointer",
                       fontSize: "16px",
-                      opacity: !b.trim() || S ? 0.5 : 1
+                      opacity: !x.trim() || C ? 0.5 : 1
                     },
                     children: "Utiliser l'URL"
                   }
                 ),
-                /* @__PURE__ */ i.jsx(
+                /* @__PURE__ */ a.jsx(
                   "button",
                   {
-                    onClick: x,
-                    disabled: !b.trim() || S,
+                    onClick: v,
+                    disabled: !x.trim() || C,
                     style: {
                       padding: "10px 20px",
                       background: "#10b981",
                       border: "none",
                       borderRadius: "6px",
                       color: "white",
-                      cursor: !b.trim() || S ? "not-allowed" : "pointer",
+                      cursor: !x.trim() || C ? "not-allowed" : "pointer",
                       fontSize: "16px",
-                      opacity: !b.trim() || S ? 0.5 : 1
+                      opacity: !x.trim() || C ? 0.5 : 1
                     },
-                    children: S ? "Import..." : "Importer dans WP"
+                    children: C ? "Import..." : "Importer dans WP"
                   }
                 )
               ] })
@@ -2425,56 +2440,56 @@ const et = ({
       )
     }
   ) : null;
-}, ir = ({
-  id: l,
+}, or = ({
+  id: u,
   src: e,
   alt: r = "",
   className: o = "",
-  style: c = {},
-  width: u,
+  style: l = {},
+  width: c,
   height: s,
-  loading: m = "lazy",
+  loading: b = "lazy",
   showEditableHighlights: f = !1
 }) => {
-  const { isAuthenticated: d } = ue(), { getContent: g, saveContent: b, isLoading: $ } = ye(), [S, P] = n.useState(""), [W, I] = n.useState(""), [O, v] = n.useState(!1), [N, A] = n.useState(!1), J = n.useRef(null);
+  const { isAuthenticated: d } = ue(), { getContent: g, saveContent: x, isLoading: P } = ve(), [C, I] = n.useState(""), [N, $] = n.useState(""), [O, m] = n.useState(!1), [W, A] = n.useState(!1), J = n.useRef(null);
   n.useEffect(() => {
-    if ($ || !J.current) return;
-    const y = we(J.current);
-    P(y);
-    const D = g(y, l, e);
-    I(D), v(!0), console.log("[ModernEditableImage] Initialized:", {
+    if (P || !J.current) return;
+    const y = ye(J.current);
+    I(y);
+    const D = g(y, u, e);
+    $(D), m(!0), console.log("[ModernEditableImage] Initialized:", {
       context: y,
-      contextId: l,
+      contextId: u,
       defaultSrc: e,
       savedSrc: D
     });
-  }, [l, e, g, $]);
+  }, [u, e, g, P]);
   const G = n.useCallback(() => {
-    d && S && A(!0);
-  }, [d, S]), E = n.useCallback(async (y) => {
-    if (S) {
+    d && C && A(!0);
+  }, [d, C]), E = n.useCallback(async (y) => {
+    if (C) {
       try {
         const D = {
           content: y,
-          context: S,
-          context_id: l,
+          context: C,
+          context_id: u,
           contentType: "text",
           lastModified: Date.now()
         };
-        await b(D, e) ? (I(y), console.log(`[ModernEditableImage] Image source saved for ${l}`)) : console.error(`[ModernEditableImage] Failed to save image source for ${l}`);
+        await x(D, e) ? ($(y), console.log(`[ModernEditableImage] Image source saved for ${u}`)) : console.error(`[ModernEditableImage] Failed to save image source for ${u}`);
       } catch (D) {
         console.error("[ModernEditableImage] Error saving image:", D);
       }
       A(!1);
     }
-  }, [S, l, b, e]);
-  return $ || !O ? /* @__PURE__ */ i.jsx(
+  }, [C, u, x, e]);
+  return P || !O ? /* @__PURE__ */ a.jsx(
     "div",
     {
       className: `editable-image-skeleton ${o}`,
       style: {
-        ...c,
-        width: u || "100%",
+        ...l,
+        width: c || "100%",
         height: s || "200px",
         background: "linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%)",
         backgroundSize: "200% 100%",
@@ -2482,19 +2497,19 @@ const et = ({
         borderRadius: "0.375rem"
       }
     }
-  ) : /* @__PURE__ */ i.jsxs(i.Fragment, { children: [
-    /* @__PURE__ */ i.jsx(
+  ) : /* @__PURE__ */ a.jsxs(a.Fragment, { children: [
+    /* @__PURE__ */ a.jsx(
       "img",
       {
         ref: J,
-        src: W,
+        src: N,
         alt: r,
-        width: u,
+        width: c,
         height: s,
-        loading: m,
+        loading: b,
         className: `editable-image-seamless ${d ? "is-authenticated" : ""} ${f ? "editable-highlight" : ""} ${o}`,
         style: {
-          ...c,
+          ...l,
           cursor: d ? "pointer" : "default",
           transition: "outline-color 150ms ease",
           outline: "2px solid transparent",
@@ -2511,51 +2526,51 @@ const et = ({
         },
         onClick: G,
         title: d ? "Click to change image" : void 0,
-        "data-context": S,
-        "data-context-id": l,
+        "data-context": C,
+        "data-context-id": u,
         role: d ? "button" : void 0,
         tabIndex: d ? 0 : void 0,
-        "aria-label": d ? `Edit image: ${r || l}` : r,
+        "aria-label": d ? `Edit image: ${r || u}` : r,
         onKeyDown: d ? (y) => {
           (y.key === "Enter" || y.key === " ") && (y.preventDefault(), G());
         } : void 0
       }
     ),
-    /* @__PURE__ */ i.jsx(
-      et,
+    /* @__PURE__ */ a.jsx(
+      Qe,
       {
-        isOpen: N,
+        isOpen: W,
         onClose: () => A(!1),
         onImageSelected: E
       }
     )
   ] });
-}, gr = n.memo(ir), ar = ({
-  children: l,
+}, pr = n.memo(or), ar = ({
+  children: u,
   backgroundImage: e,
   id: r,
   className: o = "",
-  style: c = {},
-  as: u = "div",
+  style: l = {},
+  as: c = "div",
   showEditableHighlights: s = !1
 }) => {
-  const { isAuthenticated: m } = ue(), { getContent: f, saveContent: d, isLoading: g } = ye(), [b, $] = n.useState(!1), [S, P] = n.useState(""), [W, I] = n.useState(""), [O, v] = n.useState(""), [N, A] = n.useState(!1), [J, G] = n.useState(!1), [E, y] = n.useState(!1), D = n.useRef(null), x = n.useRef(null), w = n.useCallback((k) => {
+  const { isAuthenticated: b } = ue(), { getContent: f, saveContent: d, isLoading: g } = ve(), [x, P] = n.useState(!1), [C, I] = n.useState(""), [N, $] = n.useState(""), [O, m] = n.useState(""), [W, A] = n.useState(!1), [J, G] = n.useState(!1), [E, y] = n.useState(!1), D = n.useRef(null), v = n.useRef(null), w = n.useCallback((k) => {
     const B = k.match(/url\(['"]?([^'"]+)['"]?\)/);
     return B ? B[1] : k;
   }, []), j = n.useCallback((k) => !k || k === "none" ? "none" : `url('${k}')`, []);
   n.useEffect(() => {
     if (g || !D.current) return;
-    const k = we(D.current);
-    P(k);
+    const k = ye(D.current);
+    I(k);
     const B = w(e), ee = f(k, r, B);
-    I(ee), G(!0), console.log("[EditableBackground] Initialized:", {
+    $(ee), G(!0), console.log("[EditableBackground] Initialized:", {
       context: k,
       contextId: r,
       defaultUrl: B,
       savedUrl: ee
     });
   }, [r, e, f, g, w]);
-  const h = () => /* @__PURE__ */ i.jsx(
+  const h = () => /* @__PURE__ */ a.jsx(
     "button",
     {
       onClick: L,
@@ -2589,17 +2604,17 @@ const et = ({
       children: "🖼️"
     }
   ), L = n.useCallback(() => {
-    m && !b && S && ($(!0), v(W), y(!1), setTimeout(() => {
+    b && !x && C && (P(!0), m(N), y(!1), setTimeout(() => {
       var k, B;
-      (k = x.current) == null || k.focus(), (B = x.current) == null || B.select();
+      (k = v.current) == null || k.focus(), (B = v.current) == null || B.select();
     }, 0));
-  }, [m, b, S, W]), C = n.useCallback((k) => {
-    v(k), y(!1);
+  }, [b, x, C, N]), S = n.useCallback((k) => {
+    m(k), y(!1);
   }, []), q = n.useCallback(async (k) => !k || k === "none" ? !0 : new Promise((B) => {
     const ee = new Image();
     ee.onload = () => B(!0), ee.onerror = () => B(!1), ee.src = k;
   }), []), z = n.useCallback(async () => {
-    if (!S || N) return;
+    if (!C || W) return;
     const k = O.trim() || "none";
     if (k !== "none") {
       try {
@@ -2619,58 +2634,58 @@ const et = ({
     try {
       const B = {
         content: k,
-        context: S,
+        context: C,
         context_id: r,
         contentType: "text",
         lastModified: Date.now()
       }, ee = w(e);
-      await d(B, ee) ? (I(k), $(!1), console.log(`[EditableBackground] Background URL saved for ${r}`)) : console.error(`[EditableBackground] Failed to save background URL for ${r}`);
+      await d(B, ee) ? ($(k), P(!1), console.log(`[EditableBackground] Background URL saved for ${r}`)) : console.error(`[EditableBackground] Failed to save background URL for ${r}`);
     } finally {
       A(!1);
     }
-  }, [S, O, N, r, d, e, w, q]), _ = n.useCallback(() => {
-    v(W), $(!1);
-  }, [W]), V = n.useCallback((k) => {
+  }, [C, O, W, r, d, e, w, q]), _ = n.useCallback(() => {
+    m(N), P(!1);
+  }, [N]), V = n.useCallback((k) => {
     k.key === "Escape" ? (k.preventDefault(), _()) : k.key === "Enter" && (k.preventDefault(), z());
   }, [_, z]), X = {
-    ...c,
-    backgroundImage: j(b ? O : W),
+    ...l,
+    backgroundImage: j(x ? O : N),
     position: "relative",
     transition: "all 0.2s ease"
   };
   return g || !J ? n.createElement(
-    u,
+    c,
     {
       ref: D,
       className: o,
-      style: { ...c, visibility: "hidden" }
+      style: { ...l, visibility: "hidden" }
     },
-    l
+    u
   ) : n.createElement(
-    u,
+    c,
     {
       ref: D,
-      className: `editable-background ${m ? "is-authenticated" : ""} ${s && m ? "editable-highlight" : ""} ${o}`,
+      className: `editable-background ${b ? "is-authenticated" : ""} ${s && b ? "editable-highlight" : ""} ${o}`,
       style: X,
-      "data-context": S,
+      "data-context": C,
       "data-context-id": r,
       onMouseEnter: (k) => {
-        if (m && !b) {
+        if (b && !x) {
           const B = k.currentTarget.querySelector(".editable-background-edit-btn");
           B && (B.style.opacity = "1");
         }
       },
       onMouseLeave: (k) => {
-        if (m && !b && !s) {
+        if (b && !x && !s) {
           const B = k.currentTarget.querySelector(".editable-background-edit-btn");
           B && (B.style.opacity = "0");
         }
       }
     },
-    /* @__PURE__ */ i.jsxs(i.Fragment, { children: [
-      l,
-      m && !b && /* @__PURE__ */ i.jsx(h, {}),
-      b && m && /* @__PURE__ */ i.jsxs(
+    /* @__PURE__ */ a.jsxs(a.Fragment, { children: [
+      u,
+      b && !x && /* @__PURE__ */ a.jsx(h, {}),
+      x && b && /* @__PURE__ */ a.jsxs(
         "div",
         {
           className: "editable-background-editor",
@@ -2688,15 +2703,15 @@ const et = ({
             boxShadow: "0 4px 20px rgba(0, 0, 0, 0.5)"
           },
           children: [
-            /* @__PURE__ */ i.jsx("h4", { style: { margin: "0 0 12px 0", color: "white", fontSize: "16px" }, children: "Modifier l'image de fond" }),
-            /* @__PURE__ */ i.jsxs("div", { style: { display: "flex", gap: "8px" }, children: [
-              /* @__PURE__ */ i.jsx(
+            /* @__PURE__ */ a.jsx("h4", { style: { margin: "0 0 12px 0", color: "white", fontSize: "16px" }, children: "Modifier l'image de fond" }),
+            /* @__PURE__ */ a.jsxs("div", { style: { display: "flex", gap: "8px" }, children: [
+              /* @__PURE__ */ a.jsx(
                 "input",
                 {
-                  ref: x,
+                  ref: v,
                   type: "text",
                   value: O,
-                  onChange: (k) => v(k.target.value),
+                  onChange: (k) => m(k.target.value),
                   onKeyDown: V,
                   placeholder: "URL de l'image ou 'none'",
                   style: {
@@ -2708,14 +2723,14 @@ const et = ({
                     borderRadius: "4px",
                     fontSize: "14px"
                   },
-                  disabled: N
+                  disabled: W
                 }
               ),
-              /* @__PURE__ */ i.jsx(
+              /* @__PURE__ */ a.jsx(
                 "button",
                 {
                   onClick: () => y(!0),
-                  disabled: N,
+                  disabled: W,
                   style: {
                     padding: "8px 16px",
                     background: "#3b82f6",
@@ -2730,30 +2745,30 @@ const et = ({
                   children: "📤"
                 }
               ),
-              /* @__PURE__ */ i.jsx(
+              /* @__PURE__ */ a.jsx(
                 "button",
                 {
                   onClick: z,
-                  disabled: N,
+                  disabled: W,
                   style: {
                     padding: "8px 16px",
                     background: "#10b981",
                     color: "white",
                     border: "none",
                     borderRadius: "4px",
-                    cursor: N ? "not-allowed" : "pointer",
-                    opacity: N ? 0.6 : 1,
+                    cursor: W ? "not-allowed" : "pointer",
+                    opacity: W ? 0.6 : 1,
                     fontSize: "14px",
                     fontWeight: "500"
                   },
-                  children: N ? "Saving..." : "Save"
+                  children: W ? "Saving..." : "Save"
                 }
               ),
-              /* @__PURE__ */ i.jsx(
+              /* @__PURE__ */ a.jsx(
                 "button",
                 {
                   onClick: _,
-                  disabled: N,
+                  disabled: W,
                   style: {
                     padding: "8px 16px",
                     background: "#ef4444",
@@ -2768,35 +2783,35 @@ const et = ({
                 }
               )
             ] }),
-            /* @__PURE__ */ i.jsx("div", { style: { marginTop: "8px", fontSize: "12px", color: "rgba(255, 255, 255, 0.6)" }, children: "Exemples : https://example.com/image.jpg, /images/hero.jpg, none" })
+            /* @__PURE__ */ a.jsx("div", { style: { marginTop: "8px", fontSize: "12px", color: "rgba(255, 255, 255, 0.6)" }, children: "Exemples : https://example.com/image.jpg, /images/hero.jpg, none" })
           ]
         }
       ),
-      /* @__PURE__ */ i.jsx(
-        et,
+      /* @__PURE__ */ a.jsx(
+        Qe,
         {
           isOpen: E,
           onClose: () => y(!1),
-          onImageSelected: C
+          onImageSelected: S
         }
       )
     ] })
   );
-}, hr = n.memo(ar), sr = ({
-  children: l,
+}, gr = n.memo(ar), ir = ({
+  children: u,
   id: e,
   attribute: r,
   defaultValue: o,
-  validator: c,
-  transformer: u,
+  validator: l,
+  transformer: c,
   showEditableHighlights: s = !1,
-  editLabel: m
+  editLabel: b
 }) => {
-  const { isAuthenticated: f } = ue(), { getContent: d, saveContent: g, isLoading: b } = ye(), [$, S] = n.useState(!1), [P, W] = n.useState(""), [I, O] = n.useState(""), [v, N] = n.useState(""), [A, J] = n.useState(!1), [G, E] = n.useState(!1), [y, D] = n.useState(""), x = n.useRef(null), w = n.useRef(null);
+  const { isAuthenticated: f } = ue(), { getContent: d, saveContent: g, isLoading: x } = ve(), [P, C] = n.useState(!1), [I, N] = n.useState(""), [$, O] = n.useState(""), [m, W] = n.useState(""), [A, J] = n.useState(!1), [G, E] = n.useState(!1), [y, D] = n.useState(""), v = n.useRef(null), w = n.useRef(null);
   n.useEffect(() => {
-    if (b || !x.current) return;
-    const _ = we(x.current);
-    W(_);
+    if (x || !v.current) return;
+    const _ = ye(v.current);
+    N(_);
     const V = `${e}-${r}`, X = d(_, V, o);
     O(X), E(!0), console.log("[EditableAttribute] Initialized:", {
       context: _,
@@ -2805,51 +2820,51 @@ const et = ({
       defaultValue: o,
       savedValue: X
     });
-  }, [e, r, o, d, b]);
+  }, [e, r, o, d, x]);
   const j = n.useCallback((_) => {
-    _.preventDefault(), _.stopPropagation(), f && !$ && P && (S(!0), N(I), D(""), setTimeout(() => {
+    _.preventDefault(), _.stopPropagation(), f && !P && I && (C(!0), W($), D(""), setTimeout(() => {
       var V, X;
       (V = w.current) == null || V.focus(), (X = w.current) == null || X.select();
     }, 0));
-  }, [f, $, P, I]), h = n.useCallback((_) => {
-    if (!c) return !0;
-    const V = c(_);
+  }, [f, P, I, $]), h = n.useCallback((_) => {
+    if (!l) return !0;
+    const V = l(_);
     return typeof V == "string" ? (D(V), !1) : (D(""), V);
-  }, [c]), L = n.useCallback(async () => {
-    if (!P || A || !h(v))
+  }, [l]), L = n.useCallback(async () => {
+    if (!I || A || !h(m))
       return;
-    const _ = u ? u(v) : v;
+    const _ = c ? c(m) : m;
     J(!0);
     try {
       const V = `${e}-${r}`, X = {
         content: _,
-        context: P,
+        context: I,
         context_id: V,
         contentType: "text",
         lastModified: Date.now()
       };
-      await g(X, o) ? (O(_), S(!1), console.log(`[EditableAttribute] Attribute ${r} saved for ${e}`)) : console.error(`[EditableAttribute] Failed to save attribute ${r} for ${e}`);
+      await g(X, o) ? (O(_), C(!1), console.log(`[EditableAttribute] Attribute ${r} saved for ${e}`)) : console.error(`[EditableAttribute] Failed to save attribute ${r} for ${e}`);
     } finally {
       J(!1);
     }
-  }, [P, v, A, e, r, g, o, h, u]), C = n.useCallback(() => {
-    N(I), S(!1), D("");
-  }, [I]), q = n.useCallback((_) => {
-    _.key === "Escape" ? (_.preventDefault(), C()) : _.key === "Enter" && (_.preventDefault(), L());
-  }, [C, L]);
-  if (b || !G)
-    return n.cloneElement(l, { ref: x });
-  const z = n.cloneElement(l, {
-    ref: x,
-    [r]: I,
-    className: `${l.props.className || ""} editable-attribute ${f ? "is-authenticated" : ""} ${s ? "editable-highlight" : ""}`.trim(),
-    "data-context": P,
+  }, [I, m, A, e, r, g, o, h, c]), S = n.useCallback(() => {
+    W($), C(!1), D("");
+  }, [$]), q = n.useCallback((_) => {
+    _.key === "Escape" ? (_.preventDefault(), S()) : _.key === "Enter" && (_.preventDefault(), L());
+  }, [S, L]);
+  if (x || !G)
+    return n.cloneElement(u, { ref: v });
+  const z = n.cloneElement(u, {
+    ref: v,
+    [r]: $,
+    className: `${u.props.className || ""} editable-attribute ${f ? "is-authenticated" : ""} ${s ? "editable-highlight" : ""}`.trim(),
+    "data-context": I,
     "data-context-id": `${e}-${r}`,
     "data-editable-attribute": r
   });
-  return /* @__PURE__ */ i.jsxs("div", { style: { position: "relative", display: "inline-block" }, children: [
+  return /* @__PURE__ */ a.jsxs("div", { style: { position: "relative", display: "inline-block" }, children: [
     z,
-    f && !$ && /* @__PURE__ */ i.jsxs(
+    f && !P && /* @__PURE__ */ a.jsxs(
       "span",
       {
         className: "editable-attribute-indicator",
@@ -2857,11 +2872,11 @@ const et = ({
         style: { cursor: "pointer" },
         children: [
           "✏️ ",
-          m || r
+          b || r
         ]
       }
     ),
-    $ && f && /* @__PURE__ */ i.jsxs(
+    P && f && /* @__PURE__ */ a.jsxs(
       "div",
       {
         className: "editable-attribute-editor",
@@ -2878,22 +2893,22 @@ const et = ({
           boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)"
         },
         children: [
-          /* @__PURE__ */ i.jsx("label", { style: {
+          /* @__PURE__ */ a.jsx("label", { style: {
             display: "block",
             marginBottom: "8px",
             color: "white",
             fontSize: "13px",
             fontWeight: "500"
-          }, children: m || `Edit ${r}` }),
-          /* @__PURE__ */ i.jsxs("div", { style: { display: "flex", gap: "8px", marginBottom: y ? "8px" : 0 }, children: [
-            /* @__PURE__ */ i.jsx(
+          }, children: b || `Edit ${r}` }),
+          /* @__PURE__ */ a.jsxs("div", { style: { display: "flex", gap: "8px", marginBottom: y ? "8px" : 0 }, children: [
+            /* @__PURE__ */ a.jsx(
               "input",
               {
                 ref: w,
                 type: "text",
-                value: v,
+                value: m,
                 onChange: (_) => {
-                  N(_.target.value), h(_.target.value);
+                  W(_.target.value), h(_.target.value);
                 },
                 onKeyDown: q,
                 style: {
@@ -2908,7 +2923,7 @@ const et = ({
                 disabled: A
               }
             ),
-            /* @__PURE__ */ i.jsx(
+            /* @__PURE__ */ a.jsx(
               "button",
               {
                 onClick: L,
@@ -2926,10 +2941,10 @@ const et = ({
                 children: "✓"
               }
             ),
-            /* @__PURE__ */ i.jsx(
+            /* @__PURE__ */ a.jsx(
               "button",
               {
-                onClick: C,
+                onClick: S,
                 disabled: A,
                 style: {
                   padding: "6px 12px",
@@ -2944,7 +2959,7 @@ const et = ({
               }
             )
           ] }),
-          y && /* @__PURE__ */ i.jsx("div", { style: {
+          y && /* @__PURE__ */ a.jsx("div", { style: {
             color: "#ef4444",
             fontSize: "12px",
             marginTop: "-4px"
@@ -2953,46 +2968,46 @@ const et = ({
       }
     )
   ] });
-}, mr = n.memo(sr), br = ({
-  children: l,
+}, hr = n.memo(ir), br = ({
+  children: u,
   useModernDesign: e = !0
   // Default to modern design
 }) => {
-  const [r, o] = n.useState(!1), c = () => {
-    o((u) => !u);
+  const [r, o] = n.useState(!1), l = () => {
+    o((c) => !c);
   };
   return n.useEffect(() => {
-    const u = document.body;
-    return r ? u.classList.add("editable-highlight-active") : u.classList.remove("editable-highlight-active"), () => {
-      u.classList.remove("editable-highlight-active");
+    const c = document.body;
+    return r ? c.classList.add("editable-highlight-active") : c.classList.remove("editable-highlight-active"), () => {
+      c.classList.remove("editable-highlight-active");
     };
   }, [r]), n.useEffect(() => {
-    const u = document.body;
-    return e ? u.classList.add("inline-editor-modern") : u.classList.remove("inline-editor-modern"), () => {
-      u.classList.remove("inline-editor-modern");
+    const c = document.body;
+    return e ? c.classList.add("inline-editor-modern") : c.classList.remove("inline-editor-modern"), () => {
+      c.classList.remove("inline-editor-modern");
     };
-  }, [e]), /* @__PURE__ */ i.jsx(tt.Provider, { value: { showEditableHighlights: r }, children: /* @__PURE__ */ i.jsx(Kt, { children: /* @__PURE__ */ i.jsx(Yt, { children: /* @__PURE__ */ i.jsxs(Gt, { children: [
-    l,
-    /* @__PURE__ */ i.jsx(
-      or,
+  }, [e]), /* @__PURE__ */ a.jsx(et.Provider, { value: { showEditableHighlights: r }, children: /* @__PURE__ */ a.jsx(Yt, { children: /* @__PURE__ */ a.jsx(Ht, { children: /* @__PURE__ */ a.jsxs(Jt, { children: [
+    u,
+    /* @__PURE__ */ a.jsx(
+      nr,
       {
         showEditableHighlights: r,
-        toggleEditableHighlights: c
+        toggleEditableHighlights: l
       }
     ),
-    /* @__PURE__ */ i.jsx(Xt, {})
+    /* @__PURE__ */ a.jsx(Gt, {})
   ] }) }) }) });
-}, tt = n.createContext({ showEditableHighlights: !1 }), vr = () => n.useContext(tt).showEditableHighlights;
+}, et = n.createContext({ showEditableHighlights: !1 }), xr = () => n.useContext(et).showEditableHighlights;
 export {
-  mr as EditableAttribute,
-  hr as EditableBackground,
+  hr as EditableAttribute,
+  gr as EditableBackground,
   br as InlineEditor,
-  gr as ModernEditableImage,
-  pr as ModernEditableWrapper,
-  or as ModernEditorToolbar,
+  pr as ModernEditableImage,
+  fr as ModernEditableWrapper,
+  nr as ModernEditorToolbar,
   br as default,
   ue as useAuth,
-  ye as useContent,
-  vr as useEditableHighlights,
-  xe as useNotifications
+  ve as useContent,
+  xr as useEditableHighlights,
+  me as useNotifications
 };
