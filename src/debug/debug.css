@@ -1,0 +1,79 @@
+/* src/inline-editor/debug/debug.css */
+
+.debug-panel {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10000;
+  font-family: monospace;
+  font-size: 12px;
+}
+
+.debug-toggle {
+  background: #1f2937;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background 0.2s ease;
+}
+
+.debug-toggle:hover {
+  background: #374151;
+}
+
+.debug-content {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  margin-bottom: 8px;
+  background: #1f2937;
+  color: white;
+  border-radius: 8px;
+  padding: 16px;
+  min-width: 300px;
+  max-width: 400px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.debug-section {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #374151;
+}
+
+.debug-section:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.debug-section h4 {
+  margin: 0 0 8px 0;
+  color: #fbbf24;
+  font-size: 14px;
+}
+
+.debug-section div {
+  margin: 4px 0;
+  color: #e5e7eb;
+}
+
+.debug-section button {
+  margin-top: 8px;
+  padding: 4px 8px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.debug-section button:hover {
+  background: #2563eb;
+}

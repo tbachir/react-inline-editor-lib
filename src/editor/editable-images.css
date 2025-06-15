@@ -1,0 +1,189 @@
+/* src/inline-editor/editor/editable-images.css */
+
+/* ==================== EDITABLE IMAGE ==================== */
+
+.editable-image {
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.editable-image.is-authenticated {
+  cursor: pointer;
+}
+
+.editable-image.is-authenticated:hover {
+  outline: 2px solid rgba(59, 130, 246, 0.5);
+  outline-offset: 2px;
+}
+
+/* Highlight actif globalement */
+.editable-highlight-active .editable-image.is-authenticated {
+  outline: 2px dashed rgba(59, 130, 246, 0.5);
+  outline-offset: 2px;
+}
+
+.editable-image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.editable-image-preview {
+  position: relative;
+}
+
+.editable-image-form {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.2s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==================== EDITABLE BACKGROUND ==================== */
+
+.editable-background {
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.editable-background.is-authenticated::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+/* Overlay au survol */
+.editable-background.is-authenticated:hover::before {
+  background: rgba(59, 130, 246, 0.1);
+  outline: 2px solid rgba(59, 130, 246, 0.5);
+  outline-offset: -2px;
+}
+
+/* Highlight actif globalement */
+.editable-highlight-active .editable-background.is-authenticated::before {
+  background: rgba(59, 130, 246, 0.05);
+  outline: 2px dashed rgba(59, 130, 246, 0.5);
+  outline-offset: -2px;
+}
+
+.editable-background-edit-btn {
+  backdrop-filter: blur(4px);
+  transition: all 0.2s ease !important;
+}
+
+.editable-background-edit-btn:hover {
+  background: rgba(59, 130, 246, 0.9) !important;
+  transform: scale(1.1);
+}
+
+.editable-background-editor {
+  animation: fadeInScale 0.2s ease-out;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* ==================== ATTRIBUT EDITABLE GÉNÉRIQUE ==================== */
+
+.editable-attribute {
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.editable-attribute.is-authenticated {
+  outline: 1px dashed transparent;
+  outline-offset: 4px;
+}
+
+.editable-attribute.is-authenticated:hover {
+  outline-color: rgba(59, 130, 246, 0.5);
+}
+
+.editable-highlight-active .editable-attribute.is-authenticated {
+  outline-color: rgba(59, 130, 246, 0.3);
+}
+
+.editable-attribute-indicator {
+  position: absolute;
+  top: -20px;
+  right: 0;
+  background: rgba(59, 130, 246, 0.9);
+  color: white;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.editable-attribute:hover .editable-attribute-indicator {
+  opacity: 1;
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+@media (max-width: 768px) {
+  .editable-image-form {
+    bottom: -60px;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .editable-image-form input {
+    width: 100%;
+  }
+  
+  .editable-background-editor {
+    min-width: 250px;
+    padding: 12px;
+  }
+}
+
+/* ==================== DARK MODE SUPPORT ==================== */
+
+@media (prefers-color-scheme: dark) {
+  .editable-image-form,
+  .editable-background-editor {
+    background: rgba(0, 0, 0, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* ==================== PRINT ==================== */
+
+@media print {
+  .editable-background-edit-btn,
+  .editable-background-editor,
+  .editable-image-form,
+  .editable-attribute-indicator {
+    display: none !important;
+  }
+  
+  .editable-image,
+  .editable-background,
+  .editable-attribute {
+    outline: none !important;
+  }
+}

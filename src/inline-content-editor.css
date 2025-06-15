@@ -1,0 +1,373 @@
+/* src/inline-editor/inline-content-editor.css */
+
+/* ==================== INLINE CONTENT EDITOR ==================== */
+
+.inline-content-editor {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid #3b82f6;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  outline: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.inline-content-editor:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  background: rgba(255, 255, 255, 0.98);
+}
+
+.inline-content-editor.has-changes {
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+}
+
+.inline-content-editor.is-saving {
+  opacity: 0.8;
+  pointer-events: none;
+  border-color: #10b981;
+  animation: pulse-save 1.5s infinite;
+}
+
+.inline-content-editor.is-single-line {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 100px;
+}
+
+.inline-content-editor.is-multiline {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  min-height: 60px;
+  max-height: 300px;
+  overflow-y: auto;
+  resize: vertical;
+}
+
+/* ==================== PLACEHOLDER ==================== */
+
+.inline-content-editor:empty::before {
+  content: attr(data-placeholder);
+  color: #9ca3af;
+  font-style: italic;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.inline-content-editor:focus:empty::before {
+  opacity: 0.5;
+}
+
+/* ==================== ANIMATIONS ==================== */
+
+@keyframes pulse-save {
+  0%, 100% {
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+  }
+}
+
+@keyframes glow-edit {
+  0% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+  }
+}
+
+.inline-content-editor:focus {
+  animation: glow-edit 0.6s ease-out;
+}
+
+/* ==================== ENHANCED ACTIONS ==================== */
+
+.inline-editor-actions {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  display: flex;
+  gap: 6px;
+  z-index: 10;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.2s ease;
+}
+
+.inline-editor-container:hover .inline-editor-actions,
+.inline-content-editor:focus + .inline-editor-actions,
+.inline-editor-actions:hover {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.inline-editor-save,
+.inline-editor-cancel {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+}
+
+.inline-editor-save::before,
+.inline-editor-cancel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1));
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.inline-editor-save:hover::before,
+.inline-editor-cancel:hover::before {
+  opacity: 1;
+}
+
+.inline-editor-save {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+}
+
+.inline-editor-save:hover:not(:disabled) {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+.inline-editor-save:disabled {
+  background: linear-gradient(135deg, #d1d5db 0%, #9ca3af 100%);
+  color: #6b7280;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.inline-editor-cancel {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+}
+
+.inline-editor-cancel:hover:not(:disabled) {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+}
+
+.inline-editor-cancel:disabled {
+  background: linear-gradient(135deg, #d1d5db 0%, #9ca3af 100%);
+  color: #6b7280;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ==================== ENHANCED INDICATORS ==================== */
+
+.inline-editor-counter {
+  position: absolute;
+  bottom: -28px;
+  right: 0;
+  font-size: 11px;
+  color: #6b7280;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 4px 8px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  font-weight: 500;
+}
+
+.inline-editor-autosave-indicator {
+  position: absolute;
+  bottom: -28px;
+  left: 0;
+  font-size: 11px;
+  color: #f59e0b;
+  background: rgba(254, 243, 199, 0.9);
+  padding: 4px 8px;
+  border-radius: 12px;
+  border: 1px solid #fde68a;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  font-weight: 500;
+  animation: pulse-autosave 2s infinite;
+}
+
+@keyframes pulse-autosave {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(0.98);
+  }
+}
+
+/* ==================== SELECTION STYLING ==================== */
+
+.inline-content-editor::selection {
+  background: rgba(59, 130, 246, 0.3);
+  color: inherit;
+}
+
+.inline-content-editor::-moz-selection {
+  background: rgba(59, 130, 246, 0.3);
+  color: inherit;
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+@media (max-width: 768px) {
+  .inline-content-editor {
+    padding: 10px 14px;
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+  
+  .inline-editor-actions {
+    top: -14px;
+    right: -14px;
+  }
+  
+  .inline-editor-save,
+  .inline-editor-cancel {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+  
+  .inline-editor-counter,
+  .inline-editor-autosave-indicator {
+    position: static;
+    margin-top: 8px;
+    display: inline-block;
+    margin-right: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .inline-content-editor.is-multiline {
+    min-height: 80px;
+  }
+  
+  .inline-editor-actions {
+    position: static;
+    margin-top: 8px;
+    justify-content: center;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ==================== DARK MODE ==================== */
+
+@media (prefers-color-scheme: dark) {
+  .inline-content-editor {
+    background: rgba(31, 41, 55, 0.95);
+    color: #f9fafb;
+    border-color: #4b5563;
+  }
+  
+  .inline-content-editor:focus {
+    background: rgba(31, 41, 55, 0.98);
+    border-color: #3b82f6;
+  }
+  
+  .inline-content-editor:empty::before {
+    color: #6b7280;
+  }
+  
+  .inline-editor-counter {
+    background: rgba(31, 41, 55, 0.9);
+    color: #d1d5db;
+    border-color: #4b5563;
+  }
+  
+  .inline-editor-autosave-indicator {
+    background: rgba(69, 26, 3, 0.9);
+    color: #fbbf24;
+    border-color: #d97706;
+  }
+}
+
+/* ==================== HIGH CONTRAST ==================== */
+
+@media (prefers-contrast: high) {
+  .inline-content-editor {
+    border-width: 3px;
+  }
+  
+  .inline-editor-save,
+  .inline-editor-cancel {
+    border: 2px solid rgba(255, 255, 255, 0.8);
+  }
+}
+
+/* ==================== REDUCED MOTION ==================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .inline-content-editor,
+  .inline-editor-actions,
+  .inline-editor-save,
+  .inline-editor-cancel {
+    transition: none;
+    animation: none;
+  }
+  
+  .inline-editor-save:hover:not(:disabled),
+  .inline-editor-cancel:hover:not(:disabled) {
+    transform: none;
+  }
+  
+  .inline-editor-autosave-indicator {
+    animation: none;
+  }
+}
+
+/* ==================== PRINT STYLES ==================== */
+
+@media print {
+  .inline-editor-actions,
+  .inline-editor-counter,
+  .inline-editor-autosave-indicator {
+    display: none !important;
+  }
+  
+  .inline-content-editor {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+  }
+}
