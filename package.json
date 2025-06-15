@@ -1,5 +1,5 @@
 {
-  "name": "@cryptonic/inline-editor",
+  "name": "@burner/inline-editor",
   "version": "1.0.0",
   "type": "module",
   "main": "./dist/inline-editor.umd.cjs",
