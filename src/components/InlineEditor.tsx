@@ -1,5 +1,5 @@
 import React, { forwardRef, useImperativeHandle } from 'react';
-import { InlineEditorProps, InlineEditorRef, isValidHTMLElement } from '../types';
+import { InlineEditorProps, InlineEditorRef } from '../types';
 import { useInlineEditor } from '../hooks/useInlineEditor';
 import { DOMUtils } from '../utils/domUtils';
 import { ValidationUtils } from '../utils/validation';
@@ -94,7 +94,7 @@ export const InlineEditor = React.memo(forwardRef<InlineEditorRef, InlineEditorP
 
       try {
         const target = event.target as HTMLElement;
-        if (isValidHTMLElement(target)) {
+        if (DOMUtils.isValidElement(target)) {
           const newValue = target.textContent || '';
           // Sanitize input immediately
           const sanitizedValue = ValidationUtils.sanitizeString(newValue);
