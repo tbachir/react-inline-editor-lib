@@ -21,8 +21,9 @@ interface EditableAttributeProps {
 /**
  * Composant générique pour rendre n'importe quel attribut HTML éditable
  * Exemples: href, title, data-*, style properties, etc.
+ * Memoized to prevent unnecessary re-renders when props haven't changed
  */
-export const EditableAttribute: React.FC<EditableAttributeProps> = ({
+const EditableAttributeComponent: React.FC<EditableAttributeProps> = ({
   children,
   id,
   attribute,
@@ -297,3 +298,6 @@ export const EditableAttribute: React.FC<EditableAttributeProps> = ({
     </div>
   );
 };
+
+// Memoize the component to prevent unnecessary re-renders
+export const EditableAttribute = React.memo(EditableAttributeComponent);

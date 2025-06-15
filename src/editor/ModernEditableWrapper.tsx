@@ -20,8 +20,9 @@ interface ModernEditableWrapperProps {
 /**
  * Optimized editable wrapper with seamless WYSIWYG experience
  * No animations, perfect style preservation, transparent editing
+ * Memoized to prevent unnecessary re-renders when props haven't changed
  */
-export const ModernEditableWrapper: React.FC<ModernEditableWrapperProps> = ({
+const ModernEditableWrapperComponent: React.FC<ModernEditableWrapperProps> = ({
   children,
   id,
   multiline = true,
@@ -226,3 +227,6 @@ export const ModernEditableWrapper: React.FC<ModernEditableWrapperProps> = ({
     displayContent
   );
 };
+
+// Memoize the component to prevent unnecessary re-renders
+export const ModernEditableWrapper = React.memo(ModernEditableWrapperComponent);

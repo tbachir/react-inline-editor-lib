@@ -17,8 +17,9 @@ interface ModernInlineTextEditorProps {
 /**
  * Seamless inline text editor with perfect WYSIWYG rendering
  * No animations, preserves all original styles
+ * Memoized to prevent unnecessary re-renders when props haven't changed
  */
-export const ModernInlineTextEditor: React.FC<ModernInlineTextEditorProps> = ({
+const ModernInlineTextEditorComponent: React.FC<ModernInlineTextEditorProps> = ({
   content,
   onSave,
   onCancel,
@@ -266,3 +267,6 @@ export const ModernInlineTextEditor: React.FC<ModernInlineTextEditorProps> = ({
     </div>
   );
 };
+
+// Memoize the component to prevent unnecessary re-renders
+export const ModernInlineTextEditor = React.memo(ModernInlineTextEditorComponent);

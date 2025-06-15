@@ -1,217 +1,165 @@
+// src/inline-editor/editor/EditableAttribute.tsx
+
 import React from "react";
-import { Upload, Save, X, Loader2, Image as ImageIcon } from 'lucide-react';
+
 import { useAuth } from '../auth';
 import { useContent } from '../content';
-import { useNotifications } from '../notifications';
-import { detectContext, generateContextId } from '../context/EditableContentContext';
-import { ImageUploadModal } from '../components/ImageUploadModal';
+import { generateContextId } from '../context/EditableContentContext';
 import type { EditableContent } from '../types';
 
-interface ModernEditableImageProps {
-  src: string;
+interface EditableAttributeProps {
+  children:  React.ReactElement;
   id: string;
-  alt?: string;
-  className?: string;
-  style?: React.CSSProperties;
-  width?: number | string;
-  height?: number | string;
-  loading?: 'lazy' | 'eager';
-  onError?: () => void;
+  attribute: string;
+  defaultValue: string;
+  validator?: (value: string) => boolean | string;
+  transformer?: (value: string) => string;
   showEditableHighlights?: boolean;
+  editLabel?: string;
 }
 
 /**
- * Seamless editable image component with perfect WYSIWYG rendering
- * No animations, preserves all original styles and layout
+ * Composant générique pour rendre n'importe quel attribut HTML éditable
+ * Exemples: href, title, data-*, style properties, etc.
+ * Memoized to prevent unnecessary re-renders when props haven't changed
  */
-export const ModernEditableImage: React.FC<ModernEditableImageProps> = ({
-  src: defaultSrc,
+const EditableAttributeComponent: React.FC<EditableAttributeProps> = ({
+  children,
   id,
-  alt = '',
-  className = '',
-  style = {},
-  width,
-  height,
-  loading = 'eager',
-  onError,
-  showEditableHighlights = false
+  attribute,
+  defaultValue,
+  validator,
+  transformer,
+  showEditableHighlights = false,
+  editLabel
 }) => {
   const { isAuthenticated } = useAuth();
   const { getContent, saveContent, isLoading } = useContent();
-  const { success, error, promise } = useNotifications();
   
   const [isEditing, setIsEditing] = React.useState(false);
   const [context, setContext] = React.useState<string>('');
-  const [currentSrc, setCurrentSrc] = React.useState<string>(defaultSrc);
-  const [tempSrc, setTempSrc] = React.useState<string>('');
-  const [isPreviewError, setIsPreviewError] = React.useState(false);
+  const [currentValue, setCurrentValue] = React.useState<string>('');
+  const [tempValue, setTempValue] = React.useState<string>('');
   const [isSaving, setIsSaving] = React.useState(false);
   const [isInitialized, setIsInitialized] = React.useState(false);
-  const [showUploadModal, setShowUploadModal] = React.useState(false);
+  const [validationError, setValidationError] = React.useState<string>('');
   
-  const imageRef =  React.useRef<HTMLImageElement>(null);
+  const elementRef =  React.useRef<HTMLElement>(null);
   const inputRef =  React.useRef<HTMLInputElement>(null);
   
-  // Initialize context and URL
+  // Initialiser le contexte et la valeur
   React.useEffect(() => {
-    console.log('[ModernEditableImage] Effect triggered:', { isLoading, defaultSrc, id });
+    if (isLoading) return;
     
-    if (isLoading) {
-      console.log('[ModernEditableImage] Content provider is loading, waiting...');
-      return;
-    }
+    if (!elementRef.current) return;
     
-    // Set current src immediately to avoid loading state
-    setCurrentSrc(defaultSrc);
+    // Générer le contexte avec l'attribut dans l'ID
+    const contextString = generateContextId(elementRef.current);
+    setContext(contextString);
     
-    if (!imageRef.current) {
-      console.log('[ModernEditableImage] No image ref yet, will retry...');
-      return;
-    }
+    // ID unique incluant l'attribut
+    const uniqueId = `${id}-${attribute}`;
     
-    try {
-      // Generate context
-      const contextString = generateContextId(imageRef.current);
-      console.log('[ModernEditableImage] Generated context:', contextString);
-      setContext(contextString);
-      
-      // Get URL from provider
-      const savedSrc = getContent(contextString, id, defaultSrc);
-      console.log('[ModernEditableImage] Content from provider:', savedSrc);
-      
-      setCurrentSrc(savedSrc);
-      setIsInitialized(true);
-      
-      console.log(`[ModernEditableImage] Initialized successfully:`, {
-        context: contextString,
-        contextId: id,
-        defaultSrc,
-        savedSrc
-      });
-    } catch (err) {
-      console.error('[ModernEditableImage] Initialization error:', err);
-      // Fallback to default src
-      setCurrentSrc(defaultSrc);
-      setIsInitialized(true);
-    }
-  }, [id, defaultSrc, getContent, isLoading]);
+    // Récupérer la valeur depuis le provider
+    const savedValue = getContent(contextString, uniqueId, defaultValue);
+    setCurrentValue(savedValue);
+    setIsInitialized(true);
+    
+    console.log(`[EditableAttribute] Initialized:`, {
+      context: contextString,
+      contextId: uniqueId,
+      attribute,
+      defaultValue,
+      savedValue
+    });
+  }, [id, attribute, defaultValue, getContent, isLoading]);
   
   /**
-   * Enter edit mode
+   * Entrer en mode édition
    */
-  const handleEdit =  React.useCallback(() => {
+  const handleEdit =  React.useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
     if (isAuthenticated && !isEditing && context) {
       setIsEditing(true);
-      setTempSrc(currentSrc);
-      setIsPreviewError(false);
-      setShowUploadModal(false);
+      setTempValue(currentValue);
+      setValidationError('');
       
       setTimeout(() => {
         inputRef.current?.focus();
         inputRef.current?.select();
-      }, 100);
+      }, 0);
     }
-  }, [isAuthenticated, isEditing, context, currentSrc]);
+  }, [isAuthenticated, isEditing, context, currentValue]);
   
   /**
-   * Handle input changes
+   * Valider la valeur
    */
-  const handleInputChange =  React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const newSrc = e.target.value;
-    setTempSrc(newSrc);
-    setIsPreviewError(false);
-  }, []);
+  const validateValue =  React.useCallback((value: string): boolean => {
+    if (!validator) return true;
+    
+    const result = validator(value);
+    if (typeof result === 'string') {
+      setValidationError(result);
+      return false;
+    }
+    
+    setValidationError('');
+    return result;
+  }, [validator]);
   
   /**
-   * Handle preview errors
-   */
-  const handlePreviewError =  React.useCallback(() => {
-    setIsPreviewError(true);
-  }, []);
-  
-  /**
-   * Handle image upload
-   */
-  const handleImageUploaded =  React.useCallback((newUrl: string) => {
-    setTempSrc(newUrl);
-    setIsPreviewError(false);
-    setShowUploadModal(false);
-  }, []);
-  
-  /**
-   * Save new URL with consolidated notifications
+   * Sauvegarder la nouvelle valeur
    */
   const handleSave =  React.useCallback(async () => {
     if (!context || isSaving) return;
     
-    // Basic URL validation
-    if (!tempSrc.trim()) {
-      error('Image URL cannot be empty');
+    // Valider
+    if (!validateValue(tempValue)) {
       return;
     }
     
-    // Validate URL format
-    try {
-      new URL(tempSrc, window.location.href);
-    } catch {
-      if (!tempSrc.startsWith('/') && !tempSrc.startsWith('./') && !tempSrc.startsWith('../')) {
-        error('Invalid URL format. Use a complete URL or valid relative path.');
-        return;
-      }
-    }
-    
-    if (isPreviewError) {
-      // Show confirmation for broken images
-      const confirmSave = window.confirm(
-        'The image appears to be broken. Do you want to save this URL anyway?'
-      );
-      if (!confirmSave) return;
-    }
+    // Transformer si nécessaire
+    const valueToSave = transformer ? transformer(tempValue) : tempValue;
     
     setIsSaving(true);
     
     try {
+      const uniqueId = `${id}-${attribute}`;
       const editableContent: EditableContent = {
-        content: tempSrc,
+        content: valueToSave,
         context: context,
-        context_id: id,
+        context_id: uniqueId,
         contentType: 'text',
         lastModified: Date.now()
       };
       
-      // Use promise notification for consolidated feedback
-      const saveSuccess = await promise(
-        saveContent(editableContent, defaultSrc),
-        {
-          loading: 'Saving image...',
-          success: 'Image updated successfully!',
-          error: 'Failed to save image'
-        }
-      );
+      const success = await saveContent(editableContent, defaultValue);
       
-      if (saveSuccess) {
-        setCurrentSrc(tempSrc);
+      if (success) {
+        setCurrentValue(valueToSave);
         setIsEditing(false);
-        console.log(`[ModernEditableImage] Image URL saved for ${id}`);
+        console.log(`[EditableAttribute] Attribute ${attribute} saved for ${id}`);
+      } else {
+        console.error(`[EditableAttribute] Failed to save attribute ${attribute} for ${id}`);
       }
-    } catch (err) {
-      console.error(`[ModernEditableImage] Save error:`, err);
     } finally {
       setIsSaving(false);
     }
-  }, [context, tempSrc, isPreviewError, isSaving, id, saveContent, defaultSrc, error, promise]);
+  }, [context, tempValue, isSaving, id, attribute, saveContent, defaultValue, validateValue, transformer]);
   
   /**
-   * Cancel editing
+   * Annuler l'édition
    */
   const handleCancel =  React.useCallback(() => {
-    setTempSrc(currentSrc);
+    setTempValue(currentValue);
     setIsEditing(false);
-    setIsPreviewError(false);
-  }, [currentSrc]);
+    setValidationError('');
+  }, [currentValue]);
   
   /**
-   * Keyboard shortcuts
+   * Gestionnaire de touches
    */
   const handleKeyDown =  React.useCallback((e: React.KeyboardEvent) => {
     if (e.key === 'Escape') {
@@ -223,194 +171,133 @@ export const ModernEditableImage: React.FC<ModernEditableImageProps> = ({
     }
   }, [handleCancel, handleSave]);
   
-  // Show loading state only if content provider is loading AND we haven't initialized yet
-  if (isLoading && !isInitialized) {
-    console.log('[ModernEditableImage] Showing loading state');
-    return (
-      <div className="inline-flex items-center justify-center p-2 bg-gray-50 rounded">
-        <Loader2 className="w-4 h-4 animate-spin text-gray-400" />
-      </div>
-    );
+  // Ne pas afficher pendant le chargement
+  if (isLoading || !isInitialized) {
+    return React.cloneElement(children, { ref: elementRef });
   }
   
-  // Edit mode with seamless integration
-  if (isEditing && isAuthenticated) {
-    return (
-      <div className="editable-image-container-modern" style={{ position: 'relative', display: 'inline-block' }}>
-        {/* Preview with exact same styling as original */}
-        <div style={{ position: 'relative' }}>
-          <img
-            src={tempSrc || '/placeholder.png'}
-            alt={alt}
-            className={className}
-            style={{
-              ...style,
-              opacity: isPreviewError ? 0.5 : 1,
-              filter: isPreviewError ? 'grayscale(100%)' : 'none'
-            }}
-            width={width}
-            height={height}
-            onError={handlePreviewError}
-          />
+  // Cloner l'élément enfant avec l'attribut modifié
+  const enhancedChild = React.cloneElement(children, {
+    ref: elementRef,
+    [attribute]: currentValue,
+    className: `${children.props.className || ''} editable-attribute ${isAuthenticated ? 'is-authenticated' : ''} ${showEditableHighlights ? 'editable-highlight' : ''}`.trim(),
+    'data-context': context,
+    'data-context-id': `${id}-${attribute}`,
+    'data-editable-attribute': attribute
+  });
+  
+  return (
+    <div style={{ position: 'relative', display: 'inline-block' }}>
+      {enhancedChild}
+      
+      {/* Indicateur d'attribut éditable */}
+      {isAuthenticated && !isEditing && (
+        <span 
+          className="editable-attribute-indicator"
+          onClick={handleEdit}
+          style={{ cursor: 'pointer' }}
+        >
+          ✏️ {editLabel || attribute}
+        </span>
+      )}
+      
+      {/* Mode édition */}
+      {isEditing && isAuthenticated && (
+        <div 
+          className="editable-attribute-editor"
+          style={{
+            position: 'absolute',
+            top: '100%',
+            left: 0,
+            marginTop: '8px',
+            background: 'rgba(0, 0, 0, 0.95)',
+            padding: '12px',
+            borderRadius: '6px',
+            minWidth: '250px',
+            zIndex: 1000,
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
+          }}
+        >
+          <label style={{ 
+            display: 'block', 
+            marginBottom: '8px', 
+            color: 'white',
+            fontSize: '13px',
+            fontWeight: '500'
+          }}>
+            {editLabel || `Edit ${attribute}`}
+          </label>
           
-          {isPreviewError && (
-            <div 
-              className="absolute inset-0 flex items-center justify-center bg-red-50 border border-red-200 rounded"
-              style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+          <div style={{ display: 'flex', gap: '8px', marginBottom: validationError ? '8px' : 0 }}>
+            <input
+              ref={inputRef}
+              type="text"
+              value={tempValue}
+              onChange={(e) => {
+                setTempValue(e.target.value);
+                validateValue(e.target.value);
+              }}
+              onKeyDown={handleKeyDown}
+              style={{
+                flex: 1,
+                padding: '6px 10px',
+                border: `1px solid ${validationError ? '#ef4444' : 'rgba(255, 255, 255, 0.3)'}`,
+                background: 'rgba(255, 255, 255, 0.1)',
+                color: 'white',
+                borderRadius: '4px',
+                fontSize: '13px'
+              }}
+              disabled={isSaving}
+            />
+            
+            <button
+              onClick={handleSave}
+              disabled={isSaving || !!validationError}
+              style={{
+                padding: '6px 12px',
+                background: validationError ? '#6b7280' : '#10b981',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: isSaving || validationError ? 'not-allowed' : 'pointer',
+                opacity: isSaving || validationError ? 0.6 : 1,
+                fontSize: '13px'
+              }}
             >
-              <div className="text-center">
-                <ImageIcon className="w-6 h-6 text-red-400 mx-auto mb-1" />
-                <span className="text-xs text-red-600">
-                  Image failed to load
-                </span>
-              </div>
+              ✓
+            </button>
+            
+            <button
+              onClick={handleCancel}
+              disabled={isSaving}
+              style={{
+                padding: '6px 12px',
+                background: '#ef4444',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer',
+                fontSize: '13px'
+              }}
+            >
+              ✕
+            </button>
+          </div>
+          
+          {validationError && (
+            <div style={{ 
+              color: '#ef4444', 
+              fontSize: '12px',
+              marginTop: '-4px'
+            }}>
+              {validationError}
             </div>
           )}
         </div>
-        
-        {/* Seamless edit form */}
-        <div 
-          className="editable-image-form-modern"
-          style={{
-            position: 'absolute',
-            bottom: '-3rem',
-            left: 0,
-            right: 0,
-            background: 'rgba(255, 255, 255, 0.95)',
-            backdropFilter: 'blur(8px)',
-            padding: '0.5rem',
-            borderRadius: '0.375rem',
-            display: 'flex',
-            gap: '0.25rem',
-            zIndex: 1000,
-            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-            border: '1px solid rgba(0, 0, 0, 0.1)'
-          }}
-        >
-          <input
-            ref={inputRef}
-            type="text"
-            value={tempSrc}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-            placeholder="Enter image URL..."
-            style={{
-              flex: 1,
-              padding: '0.375rem 0.5rem',
-              border: '1px solid rgba(0, 0, 0, 0.1)',
-              background: 'white',
-              color: '#374151',
-              borderRadius: '0.25rem',
-              fontSize: '0.75rem',
-              outline: 'none'
-            }}
-            disabled={isSaving}
-          />
-          
-          <button
-            onClick={() => setShowUploadModal(true)}
-            disabled={isSaving}
-            style={{
-              padding: '0.375rem',
-              background: '#3b82f6',
-              color: 'white',
-              border: 'none',
-              borderRadius: '0.25rem',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-            title="Upload image"
-          >
-            <Upload size={12} />
-          </button>
-          
-          <button
-            onClick={handleSave}
-            disabled={isSaving}
-            style={{
-              padding: '0.375rem',
-              background: '#10b981',
-              color: 'white',
-              border: 'none',
-              borderRadius: '0.25rem',
-              cursor: isSaving ? 'not-allowed' : 'pointer',
-              opacity: isSaving ? 0.6 : 1,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-            title="Save changes"
-          >
-            {isSaving ? (
-              <Loader2 size={12} className="animate-spin" />
-            ) : (
-              <Save size={12} />
-            )}
-          </button>
-          
-          <button
-            onClick={handleCancel}
-            disabled={isSaving}
-            style={{
-              padding: '0.375rem',
-              background: '#ef4444',
-              color: 'white',
-              border: 'none',
-              borderRadius: '0.25rem',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-            title="Cancel"
-          >
-            <X size={12} />
-          </button>
-        </div>
-        
-        {/* Upload modal */}
-        {showUploadModal && (
-          <ImageUploadModal
-            isOpen={showUploadModal}
-            onClose={() => setShowUploadModal(false)}
-            onImageSelected={handleImageUploaded}
-            currentImageUrl={tempSrc}
-          />
-        )}
-      </div>
-    );
-  }
-  
-  // Read mode with minimal visual changes
-  return (
-    <img
-      ref={imageRef}
-      src={currentSrc}
-      alt={alt}
-      className={`editable-image-modern ${isAuthenticated ? 'is-authenticated' : ''} ${showEditableHighlights ? 'editable-highlight' : ''} ${className}`}
-      style={{
-        ...style,
-        cursor: isAuthenticated ? 'pointer' : 'default',
-      }}
-      width={width}
-      height={height}
-      loading={loading}
-      onClick={handleEdit}
-      onError={onError}
-      title={isAuthenticated ? 'Click to edit image' : undefined}
-      data-context={context}
-      data-context-id={id}
-      tabIndex={isAuthenticated ? 0 : undefined}
-      role={isAuthenticated ? 'button' : undefined}
-      aria-label={isAuthenticated ? `Edit image ${id}` : alt}
-      onKeyDown={isAuthenticated ? (e: React.KeyboardEvent) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          handleEdit();
-        }
-      } : undefined}
-    />
+      )}
+    </div>
   );
 };
+
+// Memoize the component to prevent unnecessary re-renders
+export const EditableAttribute = React.memo(EditableAttributeComponent);

@@ -20,8 +20,9 @@ interface EditableBackgroundProps {
 /**
  * Composant wrapper pour rendre les background-image éditables
  * Permet de modifier l'URL du background via l'interface inline
+ * Memoized to prevent unnecessary re-renders when props haven't changed
  */
-export const EditableBackground: React.FC<EditableBackgroundProps> = ({
+const EditableBackgroundComponent: React.FC<EditableBackgroundProps> = ({
   children,
   backgroundImage: defaultBackgroundImage,
   id,
@@ -394,3 +395,6 @@ export const EditableBackground: React.FC<EditableBackgroundProps> = ({
     </>
   );
 };
+
+// Memoize the component to prevent unnecessary re-renders
+export const EditableBackground = React.memo(EditableBackgroundComponent);
