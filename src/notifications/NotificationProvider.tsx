@@ -1,7 +1,7 @@
 import React from "react";
 
 import toast, { Toaster, ToastOptions } from 'react-hot-toast';
-import { CheckCircle, AlertCircle, XCircle, Info, LucideCrop as LucideProps } from 'lucide-react';
+import { CheckCircle, AlertCircle, XCircle, Info } from 'lucide-react';
 
 interface NotificationContextValue {
   success: (message: string, options?: ToastOptions) => void;
@@ -34,76 +34,81 @@ interface NotificationProviderProps {
   children: React.ReactNode;
 }
 
-const CustomToast = ({ 
-  type, 
-  message, 
-  icon: Icon 
-}: { 
-  type: 'success' | 'error' | 'warning' | 'info';
-  message: string;
-  icon: React.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>>;
-}) => (
-  <div className={`
-    flex items-center gap-3 p-4 rounded-xl shadow-lg backdrop-blur-md border
-    ${type === 'success' ? 'bg-emerald-50/90 border-emerald-200 text-emerald-800' : ''}
-    ${type === 'error' ? 'bg-red-50/90 border-red-200 text-red-800' : ''}
-    ${type === 'warning' ? 'bg-amber-50/90 border-amber-200 text-amber-800' : ''}
-    ${type === 'info' ? 'bg-blue-50/90 border-blue-200 text-blue-800' : ''}
-    transition-all duration-300 ease-out
-  `}>
-    <Icon size={20} className={`
-      ${type === 'success' ? 'text-emerald-600' : ''}
-      ${type === 'error' ? 'text-red-600' : ''}
-      ${type === 'warning' ? 'text-amber-600' : ''}
-      ${type === 'info' ? 'text-blue-600' : ''}
-    `} />
-    <span className="font-medium text-sm">{message}</span>
-  </div>
-);
-
 export const NotificationProvider: React.FC<NotificationProviderProps> = ({ children }) => {
   const success = (message: string, options?: ToastOptions) => {
-    toast.custom(
-      <CustomToast type="success" message={message} icon={CheckCircle} />,
-      {
-        duration: 4000,
-        position: 'top-right',
-        ...options,
-      }
-    );
+    toast.success(message, {
+      duration: 4000,
+      position: 'top-right',
+      style: {
+        background: 'rgba(16, 185, 129, 0.1)',
+        backdropFilter: 'blur(12px)',
+        border: '1px solid rgba(16, 185, 129, 0.3)',
+        borderRadius: '12px',
+        color: '#065f46',
+        fontWeight: '500',
+        fontSize: '14px',
+        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+      },
+      icon: <CheckCircle size={20} className="text-emerald-600" />,
+      ...options,
+    });
   };
 
   const error = (message: string, options?: ToastOptions) => {
-    toast.custom(
-      <CustomToast type="error" message={message} icon={XCircle} />,
-      {
-        duration: 6000,
-        position: 'top-right',
-        ...options,
-      }
-    );
+    toast.error(message, {
+      duration: 6000,
+      position: 'top-right',
+      style: {
+        background: 'rgba(239, 68, 68, 0.1)',
+        backdropFilter: 'blur(12px)',
+        border: '1px solid rgba(239, 68, 68, 0.3)',
+        borderRadius: '12px',
+        color: '#991b1b',
+        fontWeight: '500',
+        fontSize: '14px',
+        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+      },
+      icon: <XCircle size={20} className="text-red-600" />,
+      ...options,
+    });
   };
 
   const warning = (message: string, options?: ToastOptions) => {
-    toast.custom(
-      <CustomToast type="warning" message={message} icon={AlertCircle} />,
-      {
-        duration: 5000,
-        position: 'top-right',
-        ...options,
-      }
-    );
+    toast(message, {
+      duration: 5000,
+      position: 'top-right',
+      style: {
+        background: 'rgba(245, 158, 11, 0.1)',
+        backdropFilter: 'blur(12px)',
+        border: '1px solid rgba(245, 158, 11, 0.3)',
+        borderRadius: '12px',
+        color: '#92400e',
+        fontWeight: '500',
+        fontSize: '14px',
+        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+      },
+      icon: <AlertCircle size={20} className="text-amber-600" />,
+      ...options,
+    });
   };
 
   const info = (message: string, options?: ToastOptions) => {
-    toast.custom(
-      <CustomToast type="info" message={message} icon={Info} />,
-      {
-        duration: 4000,
-        position: 'top-right',
-        ...options,
-      }
-    );
+    toast(message, {
+      duration: 4000,
+      position: 'top-right',
+      style: {
+        background: 'rgba(59, 130, 246, 0.1)',
+        backdropFilter: 'blur(12px)',
+        border: '1px solid rgba(59, 130, 246, 0.3)',
+        borderRadius: '12px',
+        color: '#1e40af',
+        fontWeight: '500',
+        fontSize: '14px',
+        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+      },
+      icon: <Info size={20} className="text-blue-600" />,
+      ...options,
+    });
   };
 
   const loading = (message: string, options?: ToastOptions) => {
@@ -117,6 +122,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
         color: '#374151',
         fontWeight: '500',
         fontSize: '14px',
+        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
       },
       ...options,
     });
@@ -147,6 +153,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
         borderRadius: '12px',
         fontWeight: '500',
         fontSize: '14px',
+        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
       },
       success: {
         style: {
