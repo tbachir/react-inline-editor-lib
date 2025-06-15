@@ -1,0 +1,50 @@
+name: Build and Release
+
+on:
+  push:
+    branches: [dev]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout dev branch
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+
+      # Authentification pour dépendances privées via GH_TOKEN
+      - name: Setup GitHub auth for private repo
+        run: |
+          git config --global url."https://${GH_TOKEN}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build package
+        run: npm run build
+
+      - name: Copy files to dist-release
+        run: |
+          rm -rf dist-release
+          mkdir dist-release
+          cp -r dist dist-release/
+          cp package.json dist-release/
+          cp -f README.md dist-release/ 2>/dev/null || true
+          cp -f LICENSE dist-release/ 2>/dev/null || true
+
+      - name: Deploy dist to main branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          publish_branch: main
+          publish_dir: dist-release
+          user_name: GitHub Actions
+          user_email: actions@github.com
+          commit_message: "ci: deploy release [skip ci]"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Cleanup
+        run: rm -rf dist-release

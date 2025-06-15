@@ -1,33 +1,69 @@
 {
-  "name": "@burner/inline-editor",
-  "version": "1.0.0",
-  "type": "module",
-  "main": "./dist/inline-editor.umd.cjs",
-  "module": "./dist/inline-editor.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/inline-editor.js",
-      "require": "./dist/inline-editor.umd.cjs",
-      "types": "./dist/index.d.ts"
+    "name": "editor-online",
+    "version": "2.0.0",
+    "description": "Smart console logger with React UI and dynamic level control",
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
+    "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.js"
+        }
     },
-    "./dist/style.css": "./dist/style.css"
-  },
-  "scripts": {
-    "build": "tsc && vite build"
-  },
-  "peerDependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "framer-motion": "^11.18.2",
-    "react-hot-toast": "^2.4.1",
-    "lucide-react": "^0.344.0"
-  },
-  "devDependencies": {
-    "typescript": "^5.5.3",
-    "vite": "^5.4.2",
-    "@vitejs/plugin-react": "^4.3.1",
-    "@types/react": "^18.3.5",
-    "@types/react-dom": "^18.3.0"
-  }
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ],
+    "scripts": {
+        "build": "tsup",
+        "dev": "tsup --watch",
+        "test": "vitest",
+        "test:watch": "vitest watch",
+        "lint": "eslint src --ext .ts,.tsx",
+        "type-check": "tsc --noEmit",
+        "example": "cd example && vite"
+    },
+    "keywords": [
+        "logger",
+        "console",
+        "debug",
+        "react",
+        "typescript",
+        "development-tools"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/yourusername/smart-logger"
+    },
+    "peerDependencies": {
+        "react": ">=16.8.0",
+        "react-dom": ">=16.8.0"
+    },
+    "peerDependenciesMeta": {
+        "react": {
+            "optional": true
+        },
+        "react-dom": {
+            "optional": true
+        }
+    },
+    "devDependencies": {
+        "@types/react": "^18.0.0",
+        "@types/react-dom": "^18.0.0",
+        "@typescript-eslint/eslint-plugin": "^6.0.0",
+        "@typescript-eslint/parser": "^6.0.0",
+        "eslint": "^8.0.0",
+        "eslint-plugin-react": "^7.0.0",
+        "eslint-plugin-react-hooks": "^4.0.0",
+        "tsup": "^8.0.0",
+        "typescript": "^5.0.0",
+        "vitest": "^1.0.0",
+        "@testing-library/react": "^14.0.0",
+        "@vitest/ui": "^1.0.0"
+    }
 }
