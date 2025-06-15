@@ -1,3 +1,10 @@
+export interface InlineEditorRef {
+  startEditing: () => void;
+  stopEditing: (save?: boolean) => void;
+  getValue: () => string;
+  isEditing: () => boolean;
+}
+
 export interface InlineEditorProps {
   /** The initial text content */
   value: string;

@@ -1,13 +1,6 @@
 import React, { forwardRef, useImperativeHandle } from 'react';
-import { InlineEditorProps } from '../types';
+import { InlineEditorProps, InlineEditorRef } from '../types';
 import { useInlineEditor } from '../hooks/useInlineEditor';
-
-export interface InlineEditorRef {
-  startEditing: () => void;
-  stopEditing: (save?: boolean) => void;
-  getValue: () => string;
-  isEditing: () => boolean;
-}
 
 export const InlineEditor = forwardRef<InlineEditorRef, InlineEditorProps>(
   (props, ref) => {
