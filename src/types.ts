@@ -27,7 +27,7 @@ export interface InlineEditorProps {
   /** Custom inline styles */
   style?: React.CSSProperties;
   /** HTML element type to render */
-  as?: keyof JSX.IntrinsicElements;
+  as?: keyof HTMLElementTagNameMap;
   /** Whether the editor is disabled */
   disabled?: boolean;
   /** Whether the editor is read-only */
