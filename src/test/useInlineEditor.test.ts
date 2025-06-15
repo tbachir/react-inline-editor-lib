@@ -115,7 +115,7 @@ describe('useInlineEditor', () => {
     expect(onEditCancel).toHaveBeenCalledTimes(1);
   });
 
-  it('handles keyboard shortcuts', () => {
+  it('handles default keyboard shortcuts', () => {
     const { result } = renderHook(() => useInlineEditor(defaultOptions));
     
     act(() => {
@@ -129,6 +129,64 @@ describe('useInlineEditor', () => {
     
     act(() => {
       result.current.handleKeyDown(enterEvent as any);
+    });
+    
+    expect(result.current.isEditing).toBe(false);
+  });
+
+  it('handles custom keyboard shortcuts', () => {
+    const { result } = renderHook(() => 
+      useInlineEditor({ 
+        ...defaultOptions, 
+        keyboardShortcuts: { save: ['Tab'], cancel: ['Delete'] }
+      })
+    );
+    
+    act(() => {
+      result.current.startEditing();
+    });
+    
+    const tabEvent = new KeyboardEvent('keydown', { key: 'Tab' });
+    Object.defineProperty(tabEvent, 'preventDefault', {
+      value: jest.fn()
+    });
+    
+    act(() => {
+      result.current.handleKeyDown(tabEvent as any);
+    });
+    
+    expect(result.current.isEditing).toBe(false);
+  });
+
+  it('handles multiline mode with Ctrl+Enter', () => {
+    const { result } = renderHook(() => 
+      useInlineEditor({ ...defaultOptions, multiline: true })
+    );
+    
+    act(() => {
+      result.current.startEditing();
+    });
+    
+    // Regular Enter should not save in multiline mode
+    const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
+    Object.defineProperty(enterEvent, 'preventDefault', {
+      value: jest.fn()
+    });
+    
+    act(() => {
+      result.current.handleKeyDown(enterEvent as any);
+    });
+    
+    expect(result.current.isEditing).toBe(true);
+    
+    // Ctrl+Enter should save
+    const ctrlEnterEvent = new KeyboardEvent('keydown', { key: 'Enter', ctrlKey: true });
+    Object.defineProperty(ctrlEnterEvent, 'preventDefault', {
+      value: jest.fn()
+    });
+    
+    act(() => {
+      result.current.handleKeyDown(ctrlEnterEvent as any);
     });
     
     expect(result.current.isEditing).toBe(false);
@@ -148,5 +206,47 @@ describe('useInlineEditor', () => {
     });
     
     expect(result.current.validationError).toBe('Maximum 5 characters allowed');
+  });
+
+  it('handles blur events correctly', () => {
+    const { result } = renderHook(() => useInlineEditor(defaultOptions));
+    
+    act(() => {
+      result.current.startEditing();
+    });
+    
+    // Create a mock blur event without action button target
+    const blurEvent = {
+      relatedTarget: document.createElement('div')
+    } as React.FocusEvent<HTMLElement>;
+    
+    act(() => {
+      result.current.handleBlur(blurEvent);
+    });
+    
+    // Should trigger auto-save after timeout
+    expect(result.current.isEditing).toBe(true); // Still editing immediately
+  });
+
+  it('does not auto-save on blur when focus moves to action button', () => {
+    const { result } = renderHook(() => useInlineEditor(defaultOptions));
+    
+    act(() => {
+      result.current.startEditing();
+    });
+    
+    // Create a mock blur event with action button target
+    const actionButton = document.createElement('button');
+    actionButton.classList.add('inline-editor-save');
+    
+    const blurEvent = {
+      relatedTarget: actionButton
+    } as React.FocusEvent<HTMLElement>;
+    
+    act(() => {
+      result.current.handleBlur(blurEvent);
+    });
+    
+    expect(result.current.isEditing).toBe(true);
   });
 });

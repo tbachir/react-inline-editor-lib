@@ -69,6 +69,10 @@ export interface UseInlineEditorOptions {
   autoSaveDelay?: number;
   multiline?: boolean;
   maxLength?: number;
+  keyboardShortcuts?: {
+    save?: string[];
+    cancel?: string[];
+  };
 }
 
 export interface UseInlineEditorReturn {
@@ -80,6 +84,6 @@ export interface UseInlineEditorReturn {
   stopEditing: (save?: boolean) => void;
   updateValue: (value: string) => void;
   handleKeyDown: (event: React.KeyboardEvent) => void;
-  handleBlur: () => void;
+  handleBlur: (event: React.FocusEvent<HTMLElement>) => void;
   editorRef: React.RefObject<HTMLElement>;
 }

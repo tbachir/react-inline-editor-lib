@@ -1,6 +1,11 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { UseInlineEditorOptions, UseInlineEditorReturn } from '../types';
 
+/**
+ * Custom hook for managing inline editor state and behavior
+ * @param options Configuration options for the inline editor
+ * @returns Object containing editor state and handlers
+ */
 export function useInlineEditor(options: UseInlineEditorOptions): UseInlineEditorReturn {
   const {
     value,
@@ -11,7 +16,11 @@ export function useInlineEditor(options: UseInlineEditorOptions): UseInlineEdito
     validate,
     autoSaveDelay = 0,
     multiline = false,
-    maxLength
+    maxLength,
+    keyboardShortcuts = {
+      save: ['Enter'],
+      cancel: ['Escape']
+    }
   } = options;
 
   const [isEditing, setIsEditing] = useState(false);
@@ -52,6 +61,11 @@ export function useInlineEditor(options: UseInlineEditorOptions): UseInlineEdito
     };
   }, [hasChanges, isEditing, autoSaveDelay, validationError]);
 
+  /**
+   * Validates the given value against maxLength and custom validation function.
+   * @param val The string value to validate.
+   * @returns A string error message if validation fails, otherwise null.
+   */
   const validateValue = useCallback((val: string): string | null => {
     if (maxLength && val.length > maxLength) {
       return `Maximum ${maxLength} characters allowed`;
@@ -64,6 +78,9 @@ export function useInlineEditor(options: UseInlineEditorOptions): UseInlineEdito
     return null;
   }, [validate, maxLength]);
 
+  /**
+   * Starts the editing mode and focuses the editor element.
+   */
   const startEditing = useCallback(() => {
     if (isEditing) return;
     
@@ -89,6 +106,10 @@ export function useInlineEditor(options: UseInlineEditorOptions): UseInlineEdito
     }, 0);
   }, [isEditing, currentValue, onEditStart]);
 
+  /**
+   * Stops the editing mode and optionally saves changes.
+   * @param save Whether to save the changes or revert to original value.
+   */
   const stopEditing = useCallback((save = false) => {
     if (!isEditing) return;
 
@@ -109,6 +130,10 @@ export function useInlineEditor(options: UseInlineEditorOptions): UseInlineEdito
     setValidationError(null);
   }, [isEditing, hasChanges, validationError, currentValue, onChange, onEditComplete, onEditCancel]);
 
+  /**
+   * Updates the current value and validates it.
+   * @param newValue The new value to set.
+   */
   const updateValue = useCallback((newValue: string) => {
     setCurrentValue(newValue);
     setHasChanges(newValue !== originalValueRef.current);
@@ -117,37 +142,63 @@ export function useInlineEditor(options: UseInlineEditorOptions): UseInlineEdito
     setValidationError(error);
   }, [validateValue]);
 
+  /**
+   * Handles keyboard events with support for custom shortcuts.
+   * @param event The keyboard event.
+   */
   const handleKeyDown = useCallback((event: React.KeyboardEvent) => {
     if (!isEditing) return;
 
-    // Handle Enter key
-    if (event.key === 'Enter') {
-      if (!multiline || (event.ctrlKey || event.metaKey)) {
+    const isCtrlOrCmd = event.ctrlKey || event.metaKey;
+    const key = event.key;
+
+    // Check for save shortcuts
+    if (keyboardShortcuts.save?.includes(key)) {
+      if (!multiline || (isCtrlOrCmd && key === 'Enter')) {
+        event.preventDefault();
+        stopEditing(true);
+      } else if (!multiline && key === 'Enter') {
         event.preventDefault();
         stopEditing(true);
       }
     }
-    
-    // Handle Escape key
-    if (event.key === 'Escape') {
+
+    // Check for cancel shortcuts
+    if (keyboardShortcuts.cancel?.includes(key)) {
       event.preventDefault();
       stopEditing(false);
     }
 
-    // Handle Ctrl+S / Cmd+S
-    if ((event.ctrlKey || event.metaKey) && event.key === 's') {
+    // Universal save shortcut (Ctrl+S / Cmd+S)
+    if (isCtrlOrCmd && key === 's') {
       event.preventDefault();
       stopEditing(true);
     }
-  }, [isEditing, multiline, stopEditing]);
+  }, [isEditing, multiline, stopEditing, keyboardShortcuts]);
 
-  const handleBlur = useCallback(() => {
-    // Small delay to allow for button clicks
-    setTimeout(() => {
-      if (isEditing) {
-        stopEditing(true);
-      }
-    }, 150);
+  /**
+   * Handles blur events with improved logic to avoid conflicts with action buttons.
+   * @param event The focus event containing information about the related target.
+   */
+  const handleBlur = useCallback((event: React.FocusEvent<HTMLElement>) => {
+    if (!isEditing) return;
+
+    const relatedTarget = event.relatedTarget as HTMLElement | null;
+    
+    // Check if the focus moved to one of our action buttons
+    const isActionButton = relatedTarget?.classList.contains('inline-editor-save') ||
+                          relatedTarget?.classList.contains('inline-editor-cancel') ||
+                          relatedTarget?.closest('.inline-editor-actions');
+
+    // Only auto-save if focus didn't move to an action button
+    if (!isActionButton) {
+      // Small delay to ensure any pending click events are processed
+      setTimeout(() => {
+        if (isEditing) {
+          stopEditing(true);
+        }
+      }, 50);
+    }
   }, [isEditing, stopEditing]);
 
   return {

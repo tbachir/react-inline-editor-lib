@@ -34,6 +34,17 @@ describe('InlineEditor', () => {
     expect(editor).toHaveClass('inline-editor--editing');
   });
 
+  it('does not enter edit mode when readOnly is true', async () => {
+    const user = userEvent.setup();
+    render(<InlineEditor {...defaultProps} readOnly />);
+    
+    const editor = screen.getByText('Test content');
+    await user.click(editor);
+    
+    expect(editor).not.toHaveAttribute('contenteditable');
+    expect(editor).toHaveClass('inline-editor--readonly');
+  });
+
   it('calls onEditStart when editing begins', async () => {
     const onEditStart = jest.fn();
     const user = userEvent.setup();
@@ -77,6 +88,26 @@ describe('InlineEditor', () => {
     expect(onChange).not.toHaveBeenCalled();
     expect(onEditCancel).toHaveBeenCalledTimes(1);
     expect(editor).toHaveTextContent('Initial');
+  });
+
+  it('supports custom keyboard shortcuts', async () => {
+    const onChange = jest.fn();
+    const user = userEvent.setup();
+    
+    render(
+      <InlineEditor 
+        value="Initial" 
+        onChange={onChange} 
+        keyboardShortcuts={{ save: ['Tab'], cancel: ['Delete'] }}
+      />
+    );
+    
+    const editor = screen.getByText('Initial');
+    await user.click(editor);
+    await user.type(editor, ' updated');
+    await user.keyboard('{Tab}');
+    
+    expect(onChange).toHaveBeenCalledWith('Initial updated');
   });
 
   it('shows validation error', async () => {
@@ -145,6 +176,27 @@ describe('InlineEditor', () => {
     expect(onChange).toHaveBeenCalled();
   });
 
+  it('handles paste events correctly for single-line mode', async () => {
+    const onChange = jest.fn();
+    const user = userEvent.setup();
+    
+    render(<InlineEditor value="" onChange={onChange} multiline={false} />);
+    
+    const editor = screen.getByText('Click to edit...');
+    await user.click(editor);
+    
+    // Simulate paste with newlines
+    const pasteEvent = new ClipboardEvent('paste', {
+      clipboardData: new DataTransfer()
+    });
+    pasteEvent.clipboardData?.setData('text/plain', 'Line 1\nLine 2\nLine 3');
+    
+    fireEvent(editor, pasteEvent);
+    
+    // Should strip newlines in single-line mode
+    expect(editor.textContent).toBe('Line 1 Line 2 Line 3');
+  });
+
   it('auto-saves after delay', async () => {
     const onChange = jest.fn();
     const user = userEvent.setup();
@@ -160,6 +212,23 @@ describe('InlineEditor', () => {
     }, { timeout: 200 });
   });
 
+  it('does not auto-save when there are validation errors', async () => {
+    const onChange = jest.fn();
+    const validate = (value: string) => value.length < 3 ? 'Too short' : null;
+    const user = userEvent.setup();
+    
+    render(<InlineEditor value="Hi" onChange={onChange} validate={validate} autoSaveDelay={100} />);
+    
+    const editor = screen.getByText('Hi');
+    await user.click(editor);
+    await user.type(editor, 'x'); // Still too short
+    
+    // Wait longer than auto-save delay
+    await new Promise(resolve => setTimeout(resolve, 150));
+    
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
   it('exposes methods via ref', () => {
     const ref = React.createRef<any>();
     render(<InlineEditor {...defaultProps} ref={ref} />);
@@ -168,5 +237,37 @@ describe('InlineEditor', () => {
     expect(ref.current).toHaveProperty('stopEditing');
     expect(ref.current).toHaveProperty('getValue');
     expect(ref.current).toHaveProperty('isEditing');
+  });
+
+  it('shows edit indicator when not editing and not disabled', () => {
+    render(<InlineEditor {...defaultProps} showEditIndicator />);
+    expect(screen.getByText('✏️')).toBeInTheDocument();
+  });
+
+  it('shows custom edit indicator', () => {
+    render(<InlineEditor {...defaultProps} editIndicator="📝" />);
+    expect(screen.getByText('📝')).toBeInTheDocument();
+  });
+
+  it('does not show edit indicator when disabled', () => {
+    render(<InlineEditor {...defaultProps} disabled showEditIndicator />);
+    expect(screen.queryByText('✏️')).not.toBeInTheDocument();
+  });
+
+  it('prevents blur when clicking action buttons', async () => {
+    const onChange = jest.fn();
+    const user = userEvent.setup();
+    
+    render(<InlineEditor value="Initial" onChange={onChange} />);
+    
+    const editor = screen.getByText('Initial');
+    await user.click(editor);
+    await user.type(editor, ' updated');
+    
+    // Click save button
+    const saveButton = screen.getByLabelText('Save changes');
+    await user.click(saveButton);
+    
+    expect(onChange).toHaveBeenCalledWith('Initial updated');
   });
 });

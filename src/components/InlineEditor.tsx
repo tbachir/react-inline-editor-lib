@@ -2,7 +2,12 @@ import React, { forwardRef, useImperativeHandle } from 'react';
 import { InlineEditorProps, InlineEditorRef } from '../types';
 import { useInlineEditor } from '../hooks/useInlineEditor';
 
-export const InlineEditor = forwardRef<InlineEditorRef, InlineEditorProps>(
+/**
+ * A flexible and accessible React component for in-place text editing.
+ * Supports single-line and multi-line editing, validation, auto-save,
+ * and customizable styling.
+ */
+export const InlineEditor = React.memo(forwardRef<InlineEditorRef, InlineEditorProps>(
   (props, ref) => {
     const {
       value,
@@ -50,7 +55,8 @@ export const InlineEditor = forwardRef<InlineEditorRef, InlineEditorProps>(
       validate,
       autoSaveDelay,
       multiline,
-      maxLength
+      maxLength,
+      keyboardShortcuts
     });
 
     // Expose methods via ref
@@ -77,12 +83,15 @@ export const InlineEditor = forwardRef<InlineEditorRef, InlineEditorProps>(
       event.preventDefault();
       const text = event.clipboardData.getData('text/plain');
       
+      // For multiline editors, preserve line breaks; for single-line, strip them
+      const processedText = multiline ? text : text.replace(/\n/g, ' ');
+      
       // Insert plain text only
       const selection = window.getSelection();
       if (selection && selection.rangeCount > 0) {
         const range = selection.getRangeAt(0);
         range.deleteContents();
-        range.insertNode(document.createTextNode(text));
+        range.insertNode(document.createTextNode(processedText));
         range.collapse(false);
         selection.removeAllRanges();
         selection.addRange(range);
@@ -163,6 +172,7 @@ export const InlineEditor = forwardRef<InlineEditorRef, InlineEditorProps>(
               onClick={() => stopEditing(true)}
               disabled={!!validationError}
               aria-label="Save changes"
+              onMouseDown={(e) => e.preventDefault()} // Prevent blur when clicking
             >
               ✓
             </button>
@@ -171,6 +181,7 @@ export const InlineEditor = forwardRef<InlineEditorRef, InlineEditorProps>(
               className="inline-editor-cancel"
               onClick={() => stopEditing(false)}
               aria-label="Cancel editing"
+              onMouseDown={(e) => e.preventDefault()} // Prevent blur when clicking
             >
               ✕
             </button>
@@ -179,6 +190,6 @@ export const InlineEditor = forwardRef<InlineEditorRef, InlineEditorProps>(
       </div>
     );
   }
-);
+));
 
 InlineEditor.displayName = 'InlineEditor';

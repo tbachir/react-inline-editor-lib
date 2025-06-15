@@ -69,6 +69,27 @@ function App() {
 | `editIndicator` | `React.ReactNode` | `'✏️'` | Custom edit indicator |
 | `ariaLabel` | `string` | - | ARIA label |
 | `ariaDescription` | `string` | - | ARIA description |
+| `keyboardShortcuts` | `object` | `{save: ['Enter'], cancel: ['Escape']}` | Custom keyboard shortcuts |
+
+### Keyboard Shortcuts
+
+The `keyboardShortcuts` prop allows you to customize which keys trigger save and cancel actions:
+
+```tsx
+<InlineEditor
+  value={text}
+  onChange={setText}
+  keyboardShortcuts={{
+    save: ['Enter', 'Tab'],        // Multiple keys can trigger save
+    cancel: ['Escape', 'Delete']   // Multiple keys can trigger cancel
+  }}
+/>
+```
+
+**Default shortcuts:**
+- **Save**: `Enter` (or `Ctrl+Enter` in multiline mode)
+- **Cancel**: `Escape`
+- **Universal Save**: `Ctrl+S` / `Cmd+S` (always available)
 
 ### useInlineEditor Hook
 
@@ -92,7 +113,11 @@ function CustomEditor() {
   } = useInlineEditor({
     value: 'Initial value',
     onChange: (value) => console.log(value),
-    validate: (value) => value.length < 3 ? 'Too short' : null
+    validate: (value) => value.length < 3 ? 'Too short' : null,
+    keyboardShortcuts: {
+      save: ['Enter', 'Tab'],
+      cancel: ['Escape']
+    }
   });
 
   // Your custom implementation
@@ -161,6 +186,26 @@ function MultilineEditor() {
 }
 ```
 
+### Custom Keyboard Shortcuts
+
+```tsx
+function CustomShortcutsEditor() {
+  const [text, setText] = useState('');
+  
+  return (
+    <InlineEditor
+      value={text}
+      onChange={setText}
+      keyboardShortcuts={{
+        save: ['Enter', 'Tab'],
+        cancel: ['Escape', 'Delete']
+      }}
+      placeholder="Try Tab to save, Delete to cancel..."
+    />
+  );
+}
+```
+
 ### Custom Styling
 
 ```tsx
@@ -175,7 +220,7 @@ function StyledEditor() {
       style={{
         fontSize: '1.5rem',
         fontWeight: 'bold',
-        color: '#333'
+        color: '#2563eb'
       }}
     />
   );
@@ -256,7 +301,7 @@ The component uses these CSS classes that you can customize:
 
 The component is built with accessibility in mind:
 
-- **Keyboard Navigation**: Full keyboard support with Enter/Escape shortcuts
+- **Keyboard Navigation**: Full keyboard support with customizable shortcuts
 - **Screen Readers**: Proper ARIA labels and live regions
 - **Focus Management**: Logical focus flow and visible focus indicators
 - **High Contrast**: Supports high contrast mode
@@ -268,6 +313,7 @@ The component is built with accessibility in mind:
 - **Escape**: Cancel editing
 - **Ctrl+S / Cmd+S**: Save changes
 - **Tab**: Navigate between elements
+- **Custom shortcuts**: Configurable via `keyboardShortcuts` prop
 
 ## Browser Support
 
