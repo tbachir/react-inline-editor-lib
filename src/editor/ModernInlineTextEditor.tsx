@@ -26,7 +26,7 @@ const ModernInlineTextEditorComponent: React.FC<ModernInlineTextEditorProps> = (
   config,
   className = '',
   style = {},
-  as: Component = 'span',
+  as: _Component = 'span',
 }) => {
   const [isSaving, setIsSaving] = React.useState(false);
   const [hasChanges, setHasChanges] = React.useState(false);

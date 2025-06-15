@@ -117,7 +117,7 @@ export function useAccessibility(options: AccessibilityOptions = {}) {
   /**
    * Check if element meets WCAG contrast requirements
    */
-  const checkContrast = (element: HTMLElement): { ratio: number; passes: boolean } => {
+  const checkContrast = (): { ratio: number; passes: boolean } => {
     // Simplified contrast calculation (in real implementation, use a proper library)
     const ratio = 4.5; // Placeholder
     const passes = ratio >= 4.5; // WCAG AA standard

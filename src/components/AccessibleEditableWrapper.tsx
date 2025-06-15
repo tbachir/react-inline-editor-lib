@@ -30,7 +30,6 @@ export const AccessibleEditableWrapper: React.FC<AccessibleEditableWrapperProps>
 }) => {
   const { announce, manageFocus, createKeyboardHandler } = useAccessibility();
   const [isEditing, setIsEditing] = React.useState(false);
-  const [hasChanges, setHasChanges] = React.useState(false);
   const wrapperRef = React.useRef<HTMLDivElement>(null);
 
   // Enhanced keyboard navigation
@@ -89,7 +88,6 @@ export const AccessibleEditableWrapper: React.FC<AccessibleEditableWrapperProps>
       {/* Screen reader only instructions */}
       <div className="sr-only" aria-live="polite">
         {isEditing && 'Currently editing. Press Escape to cancel or save your changes.'}
-        {hasChanges && !isEditing && 'Content has unsaved changes.'}
       </div>
     </div>
   );
