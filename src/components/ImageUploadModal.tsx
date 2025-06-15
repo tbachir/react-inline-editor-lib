@@ -8,7 +8,6 @@ interface ImageUploadModalProps {
   isOpen: boolean;
   onClose: () => void;
   onImageSelected: (url: string) => void;
-  currentImageUrl?: string;
 }
 
 type UploadMode = 'file' | 'url';
@@ -19,8 +18,7 @@ type UploadMode = 'file' | 'url';
 export const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
   isOpen,
   onClose,
-  onImageSelected,
-  currentImageUrl
+  onImageSelected
 }) => {
   const [mode, setMode] = React.useState<UploadMode>('file');
   const [isDragging, setIsDragging] = React.useState(false);

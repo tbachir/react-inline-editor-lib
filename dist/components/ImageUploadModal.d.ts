@@ -3,7 +3,6 @@ interface ImageUploadModalProps {
     isOpen: boolean;
     onClose: () => void;
     onImageSelected: (url: string) => void;
-    currentImageUrl?: string;
 }
 /**
  * Modal pour uploader des images ou importer depuis une URL

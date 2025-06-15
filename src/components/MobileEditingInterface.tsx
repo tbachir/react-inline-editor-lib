@@ -129,7 +129,7 @@ export const MobileEditingInterface: React.FC<MobileEditingInterfaceProps> = ({
                 marginTop: designTokens.spacing.sm,
                 padding: designTokens.spacing.sm,
                 background: designTokens.colors.primary[50],
-                border: `1px solid ${designTokens.colors.primary[200]}`,
+                border: `1px solid ${designTokens.colors.primary[100]}`,
                 borderRadius: designTokens.borderRadius.md,
                 textAlign: 'center',
                 fontSize: designTokens.typography.fontSize.sm[0],

@@ -9,7 +9,7 @@ interface AccessibilityOptions {
 export declare function useAccessibility(options?: AccessibilityOptions): {
     announce: (message: string, priority?: "polite" | "assertive") => void;
     manageFocus: (element: HTMLElement | null, options?: FocusOptions) => void;
-    createKeyboardHandler: (handlers: Record<string, () => void>) => (event: KeyboardEvent) => void;
+    createKeyboardHandler: (handlers: Record<string, () => void>) => (event: React.KeyboardEvent) => void;
     checkContrast: (element: HTMLElement) => {
         ratio: number;
         passes: boolean;

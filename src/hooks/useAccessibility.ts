@@ -103,7 +103,7 @@ export function useAccessibility(options: AccessibilityOptions = {}) {
   const createKeyboardHandler = (handlers: Record<string, () => void>) => {
     if (!keyboardNavigation) return () => {};
 
-    return (event: KeyboardEvent) => {
+    return (event: React.KeyboardEvent) => {
       const key = event.key;
       const handler = handlers[key];
       
@@ -140,7 +140,7 @@ export function useAccessibility(options: AccessibilityOptions = {}) {
 
 /**
  * Simplified contrast ratio calculation
- * In production, use a proper color contrast library
+ * In production, use a proper library like 'color-contrast' for accurate calculations
  */
 function calculateContrastRatio(color1: string, color2: string): number {
   // This is a simplified implementation

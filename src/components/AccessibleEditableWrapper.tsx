@@ -28,10 +28,10 @@ export const AccessibleEditableWrapper: React.FC<AccessibleEditableWrapperProps>
   role = 'textbox',
   ...props
 }) => {
-  const { announce, manageFocus, createKeyboardHandler, isScreenReaderActive } = useAccessibility();
+  const { announce, manageFocus, createKeyboardHandler } = useAccessibility();
   const [isEditing, setIsEditing] = React.useState(false);
   const [hasChanges, setHasChanges] = React.useState(false);
-  const wrapperRef = React.useRef<HTMLElement>(null);
+  const wrapperRef = React.useRef<HTMLDivElement>(null);
 
   // Enhanced keyboard navigation
   const handleKeyDown = React.useCallback(
@@ -114,7 +114,6 @@ export const AccessibleEditableWrapper: React.FC<AccessibleEditableWrapperProps>
       <ModernEditableWrapper
         {...props}
         id={id}
-        ref={wrapperRef}
       >
         {children}
       </ModernEditableWrapper>
@@ -124,23 +123,6 @@ export const AccessibleEditableWrapper: React.FC<AccessibleEditableWrapperProps>
         {isEditing && 'Currently editing. Press Escape to cancel or save your changes.'}
         {hasChanges && !isEditing && 'Content has unsaved changes.'}
       </div>
-      
-      {/* Enhanced focus indicator for high contrast mode */}
-      <style jsx>{`
-        @media (prefers-contrast: high) {
-          div[role="${role}"]:focus {
-            outline: 4px solid currentColor;
-            outline-offset: 2px;
-          }
-        }
-        
-        @media (prefers-reduced-motion: reduce) {
-          div[role="${role}"] * {
-            transition: none !important;
-            animation: none !important;
-          }
-        }
-      `}</style>
     </div>
   );
 };
