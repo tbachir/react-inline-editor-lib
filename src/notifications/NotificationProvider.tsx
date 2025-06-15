@@ -1,7 +1,7 @@
 import React from "react";
 
 import toast, { Toaster, ToastOptions } from 'react-hot-toast';
-import { CheckCircle, AlertCircle, XCircle, Info, LucideProps } from 'lucide-react';
+import { CheckCircle, AlertCircle, XCircle, Info, LucideCrop as LucideProps } from 'lucide-react';
 
 interface NotificationContextValue {
   success: (message: string, options?: ToastOptions) => void;
