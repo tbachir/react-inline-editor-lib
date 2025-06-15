@@ -1,11 +1,11 @@
-# @cryptonic/inline-editor
+# @burner/inline-editor
 
 Un éditeur de contenu inline moderne et transparent pour React, conçu pour s'intégrer parfaitement dans n'importe quel site web existant.
 
 ## 🚀 Installation
 
 ```bash
-npm install @cryptonic/inline-editor
+npm install @burner/inline-editor
 ```
 
 ### Dépendances requises (peer dependencies)
@@ -22,8 +22,8 @@ Wrappez votre application avec le provider `InlineEditor` :
 
 ```tsx
 import React from 'react';
-import { InlineEditor } from '@cryptonic/inline-editor';
-import '@cryptonic/inline-editor/dist/style.css';
+import { InlineEditor } from '@burner/inline-editor';
+import '@burner/inline-editor/dist/style.css';
 
 function App() {
   return (
@@ -59,7 +59,7 @@ VITE_MIN_LOADER_DURATION=500
 ### Éditeur de texte inline
 
 ```tsx
-import { ModernEditableWrapper } from '@cryptonic/inline-editor';
+import { ModernEditableWrapper } from '@burner/inline-editor';
 
 function MyComponent() {
   return (
@@ -90,7 +90,7 @@ function MyComponent() {
 ### Éditeur d'images
 
 ```tsx
-import { ModernEditableImage } from '@cryptonic/inline-editor';
+import { ModernEditableImage } from '@burner/inline-editor';
 
 function Hero() {
   return (
@@ -111,7 +111,7 @@ function Hero() {
 ### Éditeur d'arrière-plan
 
 ```tsx
-import { EditableBackground } from '@cryptonic/inline-editor';
+import { EditableBackground } from '@burner/inline-editor';
 
 function Section() {
   return (
@@ -135,7 +135,7 @@ function Section() {
 ### Éditeur d'attributs
 
 ```tsx
-import { EditableAttribute } from '@cryptonic/inline-editor';
+import { EditableAttribute } from '@burner/inline-editor';
 
 function Navigation() {
   return (
@@ -189,7 +189,7 @@ function Navigation() {
 ### useAuth
 
 ```tsx
-import { useAuth } from '@cryptonic/inline-editor';
+import { useAuth } from '@burner/inline-editor';
 
 function MyComponent() {
   const { isAuthenticated, user, logout } = useAuth();
@@ -209,7 +209,7 @@ function MyComponent() {
 ### useContent
 
 ```tsx
-import { useContent } from '@cryptonic/inline-editor';
+import { useContent } from '@burner/inline-editor';
 
 function MyComponent() {
   const { isLoading, contents, refreshContents } = useContent();
@@ -232,7 +232,7 @@ function MyComponent() {
 ### useNotifications
 
 ```tsx
-import { useNotifications } from '@cryptonic/inline-editor';
+import { useNotifications } from '@burner/inline-editor';
 
 function MyComponent() {
   const { success, error, promise } = useNotifications();
@@ -308,8 +308,8 @@ npm run build
 ### Utilisation dans votre projet
 
 ```tsx
-import { InlineEditor, ModernEditableWrapper } from '@cryptonic/inline-editor';
-import '@cryptonic/inline-editor/dist/style.css';
+import { InlineEditor, ModernEditableWrapper } from '@burner/inline-editor';
+import '@burner/inline-editor/dist/style.css';
 
 function App() {
   return (
